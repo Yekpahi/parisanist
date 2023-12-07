@@ -1,0 +1,77 @@
+{% extends '../main.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href=" {% static 'css/home/home.css' %}" />
+<section class="main-slider-container">
+  <div class="main-slider-slider">
+    {% for product in products %}
+    <div class="main-slider-slide">
+      <img src="{{product.product_cover_image.url}}" alt="sample image" />
+      <ul>
+        <li class="main-slider-product-title">{{ product.title }}</li>
+        <li class="main-slider-product-price">{{ product.price }}€</li>
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Start Middle elements-->
+<section class="home-middle-contents">
+  <h1 class="new-arrival">New arrivals</h1>
+  <div class="middle-images-shopping">
+    <div class="middle-images-shopping-item">
+      <img src="{% static 'desktop/MQ1.jpeg' %}" alt="Responsive image" />
+      <div class="all-infos">
+        <ul>
+          <li>Robe asymétrique</li>
+          <li>60 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
+    </div>
+    <div class="middle-images-shopping-item">
+      <img src="{% static 'desktop/MQ4.jpg' %}" alt="Responsive image" />
+      <div class="all-infos">
+        <ul>
+          <li>Top drapée</li>
+          <li>180 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
+    </div>
+    <div class="middle-images-shopping-item">
+      <img src="{% static 'desktop/MQ2.jpg' %}" alt="Responsive image" />
+      <div class="all-infos">
+        <ul>
+          <li>Pantalon de costume</li>
+          <li>160 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
+    </div>
+    <div class="middle-images-shopping-item">
+      <img src="{% static 'desktop/MQ3.jpeg' %}" alt="Responsive image" />
+      <div class="all-infos">
+        <ul>
+          <li>Chemise asymétrique</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
+    </div>
+  </div>
+  <div></div>
+</section>
+<script>
+  // MouseOver
+  var button = document.getElementById("all-info-id");
+
+  button.addEventListener("mouseover", function () {
+    button.style.opacity = 1;
+  });
+
+  button.addEventListener("mouesout", function () {
+    button.style.opacity = 0;
+  });
+</script>
+
+{% endblock %}
