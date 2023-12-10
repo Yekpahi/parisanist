@@ -1,0 +1,23 @@
+.footer {
+    height: 300px;
+    width: 100vw;
+    background-color: black;
+    position: relative;
+}
+
+.footer ul{
+    position: absolute;
+    left: 90%;
+    bottom: 100px;
+   list-style: none;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   
+}
+
+
+.footer ul li{
+    margin-bottom:20px ;
+   color: aliceblue;
+ } 

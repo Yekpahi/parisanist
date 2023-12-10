@@ -1,10 +1,12 @@
-{% extends '../main.html' %} {% load static %} {% block content %}
+{% extends '../main.html' %} 
+{% load static %} 
+{% block content %}
 <link rel="stylesheet" href=" {% static 'css/home/home.css' %}" />
-<section class="main-slider-container">
-  <div class="main-slider-slider">
+<section  class="main-slider-container">
+  <div class="main-slider">
     {% for product in products %}
     <div class="main-slider-slide">
-      <img src="{{product.product_cover_image.url}}" alt="sample image" />
+     <img src="{{product.product_cover_image.url}}" alt="sample image" /> 
       <ul>
         <li class="main-slider-product-title">{{ product.title }}</li>
         <li class="main-slider-product-price">{{ product.price }}€</li>
@@ -12,7 +14,7 @@
     </div>
     {% endfor %}
   </div>
-</section>
+</a>
 
 <!-- Start Middle elements-->
 <section class="home-middle-contents">
@@ -60,6 +62,11 @@
     </div>
   </div>
   <div></div>
+</section>
+
+<section class="home-slogan">
+  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum in cupiditate quos quidem illo, itaque corporis dolorem beatae ad voluptate necessitatibus exercitationem fugit reiciendis harum qui, 
+    neque repudiandae, consequatur aliquid.</p>
 </section>
 <script>
   // MouseOver

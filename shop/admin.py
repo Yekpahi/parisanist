@@ -7,7 +7,8 @@ class PhotoAdmin(admin.StackedInline):
 
 class ProductAdmin(admin.ModelAdmin):
     inlines = [PhotoAdmin]
-
+    list_display = ('title', 'price', 'discountprice', 'stock', 'is_active', 'updated')
+    
     class Meta:
         model = Product
 

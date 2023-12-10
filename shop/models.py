@@ -39,6 +39,7 @@ class Product(models.Model):
     title = models.CharField(max_length=500)
     slug = models.SlugField(null=True, blank=True)
     price = models.FloatField()
+    stock =models.IntegerField(default = True)
     category= models.ManyToManyField(SubCategory)
     discountprice = models.FloatField(blank=True, null=True)
     description = models.TextField(null= True, blank=True)

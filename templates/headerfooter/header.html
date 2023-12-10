@@ -3,32 +3,74 @@
 <link rel="stylesheet" href=" {% static 'css/header/header.css' %}" />
 
 <div class="header_main">
-    <div class="header_left_elements">
-        <ul>
-            <li>Shop</li>
-            <li class="sitename">About</li> 
-          
+  <nav>
+    <ul class="mainMenu">
+      <li>
+        <a href="#">Shop</a>
+        <ul class="subMenu">
+          <li>
+            <a href="#">Men</a>
+            <ul class="SuperSubMenu">
+              <li><a href="#">Hats Rod</a></li>
+              <li><a href="#">Jeans Spice</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Women</a>
+            <ul class="SuperSubMenu">
+              <li><a href="#">Dresses Nile</a></li>
+              <li><a href="#">Emerse Yp</a></li>
+            </ul>
+          </li>
         </ul>
-    </div>
-    <div class="header_center_elements">
-       
-       <ul>
-        <li class ="header_logo">
-            <img src="{% static 'desktop/logo-parisianist.png' %}" class="img-fluid" alt="Responsive image">
-            </li>
-      
-       </ul>
-    </div>
-    <div class="header_right_elements">
-        <ul>
-            <li class="header_search">
-                <input type="text" placeholder="Search">
-                <img src="{% static 'desktop/search.png' %}" class="img-fluid" alt="Responsive image">
-            </li>
-            <li class="customericon customer_account"><img src="{% static 'desktop/user.png' %}" class="img-fluid" alt="Responsive image"></li>
-            <li class="customericon customer_favorites"><img src="{% static 'desktop/favoritedislike.png' %}" class="img-fluid" alt="Responsive image"></li>
-            <li class="customericon customer_cart"><img src="{% static 'desktop/cart.png' %}" class="img-fluid" alt="Responsive image"></li>
-        </ul>
-    </div>
-   
+      </li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+  <div class="header_center_elements">
+    <ul>
+      <li class="header_logo">
+        <img
+          src="{% static 'desktop/logo-parisianist.png' %}"
+          class="img-fluid"
+          alt="Responsive image"
+        />
+      </li>
+    </ul>
+  </div>
+  <div class="header_right_elements">
+    <ul>
+      <li class="header_search">
+        <input type="text" placeholder="Search" />
+        <img
+          src="{% static 'desktop/search.png' %}"
+          class="img-fluid"
+          alt="Responsive image"
+        />
+      </li>
+      <li class="customericon customer_account">
+        <img
+          src="{% static 'desktop/user.png' %}"
+          class="img-fluid"
+          alt="Responsive image"
+        />
+      </li>
+      <li class="customericon customer_favorites">
+        <img
+          src="{% static 'desktop/favoritedislike.png' %}"
+          class="img-fluid"
+          alt="Responsive image"
+        />
+      </li>
+      <li class="customericon customer_cart">
+        <img
+          src="{% static 'desktop/cart.png' %}"
+          class="img-fluid"
+          alt="Responsive image"
+        />
+      </li>
+    </ul>
+  </div>
 </div>
+
+<script></script>
