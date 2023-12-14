@@ -1,38 +1,245 @@
-{% extends '../main.html' %} 
-{% load static %} 
-{% block content %}
+{% extends '../main.html' %} {% load static %} {% block content %}
 <link rel="stylesheet" href=" {% static 'css/store/store.css' %}" />
+<section class="list-cat-filter-sortby-section">
+  <ul class="list-cat-filter-sortby">
+    <li class="category-part">
+      <ul>
+        <li>Home</li>
+        <li>|</li>
+        <li>Men</li>
+      </ul>
+    </li>
+    <li class="filter-sortby-part">
+      <div class="filter-sortby-container">
+        <span>
+          <div class="filters">
+            <label for="">Filter</label>
+            <span class="arroUp"></span>
+          </div>
+
+          <ul class="list-of-contents">
+            <li></li>
+            <li></li>
+          </ul>
+        </span>
+        <!---
+           <span>
+          <label for="sortby">Sort by</label>
+          <div class="arroUp"> <div></div></div>
+          <ul class="list-of-contents">
+            <li></li>
+            <li></li>
+          </ul>
+          ---->
+        </span>
+      </div>
+    </li>
+  </ul>
+</section>
 <section class="store-middle-contents">
-<div class="gallery">
+  <div class="gallery">
+    <!--- Start of One Item container -->
+    <div class="item">
 
-    <div class="gallery-item">
-        <img class="gallery-image" src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=500&h=500&fit=crop" alt="person writing in a notebook beside by an iPad, laptop, printed photos, spectacles, and a cup of coffee on a saucer">
+      <img class="product-img" src="{% static 'desktop/MQ4.jpg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
     </div>
+    <!--- End of One Item container -->
 
-    <div class="gallery-item">
-        <img class="gallery-image" src="https://images.unsplash.com/photo-1515260268569-9271009adfdb?w=500&h=500&fit=crop" alt="sunset behind San Francisco city skyline">
+    <!--- Start of One Item container -->
+    <div class="item">
+
+      <img class="product-img" src="{% static 'desktop/MQ3.jpeg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
     </div>
+    <!--- End of One Item container -->
 
-    <div class="gallery-item">
-        <img class="gallery-image" src="https://images.unsplash.com/photo-1506045412240-22980140a405?w=500&h=500&fit=crop" alt="people holding umbrellas on a busy street at night lit by street lights and illuminated signs in Tokyo, Japan">
+    <!--- Start of One Item container -->
+    <div class="item">
+
+      <img class="product-img" src="{% static 'desktop/MQ1.jpeg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
     </div>
+    <!--- End of One Item container -->
 
-    <div class="gallery-item">
-        <img class="gallery-image" src="https://images.unsplash.com/photo-1514041181368-bca62cceffcd?w=500&h=500&fit=crop" alt="car interior from central back seat position showing driver and blurred view through windscreen of a busy road at night">
+    <!--- Start of One Item container -->
+    <div class="item">
+      <img class="product-img" src="{% static 'desktop/MQ14.jpg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
     </div>
+    <!--- End of One Item container -->
 
-    <div class="gallery-item">
-        <img class="gallery-image" src="https://images.unsplash.com/photo-1445810694374-0a94739e4a03?w=500&h=500&fit=crop" alt="back view of woman wearing a backpack and beanie waiting to cross the road on a busy street at night in New York City, USA">
+     <!--- Start of One Item container -->
+     <div class="item">
+
+      <img class="product-img" src="{% static 'desktop/MQ4.jpg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
     </div>
+    <!--- End of One Item container -->
 
-    <div class="gallery-item">
-        <img class="gallery-image" src="https://images.unsplash.com/photo-1486334803289-1623f249dd1e?w=500&h=500&fit=crop" alt="man wearing a black jacket, white shirt, blue jeans, and brown boots, playing a white electric guitar while sitting on an amp">
+    <!--- Start of One Item container -->
+    <div class="item">
+
+      <img class="product-img" src="{% static 'desktop/MQ3.jpeg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
     </div>
+    <!--- End of One Item container -->
 
-</div>
+    <!--- Start of One Item container -->
+    <div class="item">
+
+      <img class="product-img" src="{% static 'desktop/MQ1.jpeg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
+    </div>
+    <!--- End of One Item container -->
+
+    <!--- Start of One Item container -->
+    <div class="item">
+      <img class="product-img" src="{% static 'desktop/MQ14.jpg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
+    </div>
+    <!--- End of One Item container -->
+
+     <!--- Start of One Item container -->
+     <div class="item">
+
+      <img class="product-img" src="{% static 'desktop/MQ4.jpg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
+    </div>
+    <!--- End of One Item container -->
+
+    <!--- Start of One Item container -->
+    <div class="item">
+
+      <img class="product-img" src="{% static 'desktop/MQ3.jpeg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
+    </div>
+    <!--- End of One Item container -->
+
+    <!--- Start of One Item container -->
+    <div class="item">
+
+      <img class="product-img" src="{% static 'desktop/MQ1.jpeg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
+    </div>
+    <!--- End of One Item container -->
+
+    <!--- Start of One Item container -->
+    <div class="item">
+      <img class="product-img" src="{% static 'desktop/MQ14.jpg' %}" alt="" />
+      <div class="product-name-price-heartimage">
+        <ul>
+          <li>Nom du produit</li>
+          <li>100 Eu</li>
+        </ul>
+        <img src="{% static 'desktop/favoritedislike.png' %}" alt="" />
+      </div>
+    </div>
+    <!--- End of One Item container -->
+  </div>
 </section>
 
 <script>
+  const customSelect = document.querySelector(".custom-select");
+  const selectBtn = document.querySelector(".select-button");
+
+  const selectedValue = document.querySelector(".selected-value");
+  const optionsList = document.querySelectorAll(".select-dropdown li");
+
+  // add click event to select button
+  selectBtn.addEventListener("click", () => {
+    // add/remove active class on the container element
+    customSelect.classList.toggle("active");
+    // update the aria-expanded attribute based on the current state
+    selectBtn.setAttribute(
+      "aria-expanded",
+      selectBtn.getAttribute("aria-expanded") === "true" ? "false" : "true"
+    );
+  });
+
+  optionsList.forEach((option) => {
+    function handler(e) {
+      // Click Events
+      if (e.type === "click" && e.clientX !== 0 && e.clientY !== 0) {
+        selectedValue.textContent = this.children[1].textContent;
+        customSelect.classList.remove("active");
+      }
+      // Key Events
+      if (e.key === "Enter") {
+        selectedValue.textContent = this.textContent;
+        customSelect.classList.remove("active");
+      }
+    }
+
+    option.addEventListener("keyup", handler);
+    option.addEventListener("click", handler);
+  });
 </script>
 
 {% endblock %}

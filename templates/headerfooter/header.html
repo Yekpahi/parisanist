@@ -6,7 +6,7 @@
   <nav>
     <ul class="mainMenu">
       <li>
-        <a href="#">Shop</a>
+        <a href="{% url 'store'%}">Shop</a>
         <ul class="subMenu">
           <li>
             <a href="#">Men</a>
@@ -24,17 +24,18 @@
           </li>
         </ul>
       </li>
-      <li><a href="#">About</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
     </ul>
   </nav>
   <div class="header_center_elements">
     <ul>
       <li class="header_logo">
-        <img
+        <a href="{% url 'home' %}"> <img
           src="{% static 'desktop/logo-parisianist.png' %}"
           class="img-fluid"
           alt="Responsive image"
         />
+      </a>
       </li>
     </ul>
   </div>

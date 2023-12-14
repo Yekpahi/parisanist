@@ -12,3 +12,6 @@ def storepage(request):
     products = Product.objects.all()
     context = {'products': products}
     return render(request, "store/store.html", context)
+
+def about(request):
+    return render(request, "base/about.html")
