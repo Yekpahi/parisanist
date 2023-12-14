@@ -1,5 +1,11 @@
 {% extends '../main.html' %} {% load static %} {% block content %}
 <link rel="stylesheet" href=" {% static 'css/store/store.css' %}" />
+
+<!--- Start Collection slogan -->
+<section class="collectionclass">
+  <p>Collection 2023 - 2024</p>
+</section>
+<!--- End Collection slogan -->
 <section class="list-cat-filter-sortby-section">
   <ul class="list-cat-filter-sortby">
     <li class="category-part">
@@ -11,27 +17,49 @@
     </li>
     <li class="filter-sortby-part">
       <div class="filter-sortby-container">
-        <span>
-          <div class="filters">
-            <label for="">Filter</label>
-            <span class="arroUp"></span>
+        <div class="dropdown">
+          <a class="dropbtn">Filters</a>
+          <div class="dropdown-content">
+            <label class="rad-label">
+              <input type="radio" class="rad-input" name="rad">
+              <div class="rad-design"></div>
+              <div class="rad-text">XS</div>
+            </label>
+          
+            <label class="rad-label">
+              <input type="radio" class="rad-input" name="rad">
+              <div class="rad-design"></div>
+              <div class="rad-text">M</div>
+            </label>
+          
+            <label class="rad-label">
+              <input type="radio" class="rad-input" name="rad">
+              <div class="rad-design"></div>
+              <div class="rad-text">XL</div>
+            </label>
+          
+            <label class="rad-label">
+              <input type="radio" class="rad-input" name="rad">
+              <div class="rad-design"></div>
+              <div class="rad-text">XXL</div>
+            </label>
           </div>
-
-          <ul class="list-of-contents">
-            <li></li>
-            <li></li>
-          </ul>
-        </span>
-        <!---
-           <span>
-          <label for="sortby">Sort by</label>
-          <div class="arroUp"> <div></div></div>
-          <ul class="list-of-contents">
-            <li></li>
-            <li></li>
-          </ul>
-          ---->
-        </span>
+      </div>
+      <div class="dropdown">
+        <a class="dropbtn">Sort by</a>
+        <div class="dropdown-content sortby">
+          <label class="rad-label">
+            <input type="radio" class="rad-input" name="rad">
+            <div class="rad-design"></div>
+            <div class="rad-text">Ascending price</div>
+          </label>
+          <label class="rad-label">
+            <input type="radio" class="rad-input" name="rad">
+            <div class="rad-design"></div>
+            <div class="rad-text">Descending price</div>
+          </label>
+        </div>
+    </div>
       </div>
     </li>
   </ul>
