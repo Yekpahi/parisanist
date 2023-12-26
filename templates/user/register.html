@@ -1,0 +1,21 @@
+{% extends '../main.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href=" {% static 'assets/css/user/user.css' %}" />
+ <!-- Bootstrap CSS -->
+ <!--Font awesome icons -->
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+<div class="form_wrapper">
+  {% include 'partials/alert.html' %}
+<form action="" method="post">
+  {% csrf_token %}
+{{form}}
+  <input type="submit" label="Valider">
+  {{ form.email.errors }}
+  {{ form.non_field_errors }}
+</form>
+<p class="text-center mt-4"><span>Have an account ?</span><a href="">Log in</a></p>
+</div>
+
+<script src="{% static 'assets/js/alert.js' %}"></script>
+{% endblock content %}
+

@@ -15,32 +15,41 @@ class Size(models.Model):
 
     def __str__(self):
         return self.size
-
-###class Color(models.Model):
-class Main_Category(models.Model) :
-    name = models.CharField(max_length = 150)
-
-    def __str__(self) :
-        return self.name
-class Category(models.Model):
-    main_category = models.ForeignKey(Main_Category, on_delete=models.CASCADE)    
-    name= models.CharField(max_length=150)
+# class SubCategory(models.Model):
+#     name = models.CharField(max_length=150)
+#     categories = models.ManyToManyField(Category) 
+#     def __str__(self):
+#         return self.name
+# class Category(models.Model):
+#     main_category = models.ForeignKey(SubCategory, on_delete=models.CASCADE)    
+#     name= models.CharField(max_length=150)
  
+#     def __str__(self):
+#         return self.name + "--" + self.main_category.name
+
+class Category(models.Model):
+    name= models.CharField(max_length=100)
+    
+    @staticmethod
+    def get_all_categories():
+        return Category.objects.all()
+    
     def __str__(self):
-        return self.name + "--" + self.main_category.name
+        return self.name
 
 class SubCategory(models.Model):
-    name = models.CharField(max_length=150)
-    categories = models.ManyToManyField(Category) 
+    name = models.TextField(max_length=100)
+    categories = models.ManyToManyField(Category)
+    
     def __str__(self):
-        return self.name
-
+         return self.name + "--" + self.categories.name
+     
 class Product(models.Model): 
     title = models.CharField(max_length=500)
     slug = models.SlugField(null=True, blank=True)
     price = models.FloatField()
     stock =models.IntegerField(default = True)
-    category= models.ManyToManyField(SubCategory)
+    category= models.ManyToManyField(Category)
     discountprice = models.FloatField(blank=True, null=True)
     description = models.TextField(null= True, blank=True)
     product_cover_image = models.ImageField(upload_to='static/cover/')

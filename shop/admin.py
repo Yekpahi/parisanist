@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Category, Photo, Product, ProductVariant, Size, SubCategory, Main_Category, Color
+from .models import Category, Photo, Product, ProductVariant, Size, SubCategory, Color
 class PhotoAdmin(admin.StackedInline):
     model = Photo
 
@@ -17,6 +17,5 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(ProductVariant)
 admin.site.register(Size)
 admin.site.register(Color)
-admin.site.register(Main_Category)
 admin.site.register(Category)
 admin.site.register(SubCategory)

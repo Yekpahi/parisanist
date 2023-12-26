@@ -1,8 +1,9 @@
 {% load static %}
 
-<link rel="stylesheet" href=" {% static 'css/header/header.css' %}" />
+<link rel="stylesheet" href=" {% static 'assets/css/header/header.css' %}" />
 
 <div class="header_main">
+  <!-- Start Menu of shop-->
   <nav>
     <ul class="mainMenu">
       <li>
@@ -24,48 +25,63 @@
           </li>
         </ul>
       </li>
+
       <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'admin:index' %}">Admin</a></li>
     </ul>
   </nav>
-  <div class="header_center_elements">
+  <!-- Start Menu of shop-->
+  {% comment %} <div class="header_center_elements">
     <ul>
       <li class="header_logo">
-        <a href="{% url 'home' %}"> <img
-          src="{% static 'desktop/logo-parisianist.png' %}"
-          class="img-fluid"
-          alt="Responsive image"
-        />
-      </a>
+        <a href="{% url 'home' %}">
+          <img
+            src="{% static 'assets/imgs/logo-parisianist.png' %}"
+            class="img-fluid"
+            alt="Responsive image"
+          />
+        </a>
       </li>
     </ul>
-  </div>
+  </div> {% endcomment %}
   <div class="header_right_elements">
     <ul>
       <li class="header_search">
         <input type="text" placeholder="Search" />
         <img
-          src="{% static 'desktop/search.png' %}"
+          src="{% static 'assets/imgs/search.png' %}"
           class="img-fluid"
           alt="Responsive image"
         />
       </li>
       <li class="customericon customer_account">
+        {% if user.id is None %}
         <img
-          src="{% static 'desktop/user.png' %}"
-          class="img-fluid"
-          alt="Responsive image"
-        />
+        src="{% static 'assets/imgs/user.png' %}"
+        class="img-fluid"
+        alt="Responsive image"
+      />
+        <a href="{% url 'login' %}" class="nav-item nav-link">Sign in</a>
+        <a href="{% url 'register' %}" class="nav-item nav-link">Register</a>
+        {% else %}
+        <div class="widget-header">
+          <small class="title text-muted">Welcome {{user.first_name}}</small>
+          <a href="#">Profile <span class="dark-transp"> | </span></a>
+          <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        
+        {% endif %}
       </li>
       <li class="customericon customer_favorites">
         <img
-          src="{% static 'desktop/favoritedislike.png' %}"
+          src="{% static 'assets/imgs/favoritedislike.png' %}"
           class="img-fluid"
           alt="Responsive image"
         />
       </li>
       <li class="customericon customer_cart">
         <img
-          src="{% static 'desktop/cart.png' %}"
+          src="{% static 'assets/imgs/cart.png' %}"
           class="img-fluid"
           alt="Responsive image"
         />
@@ -74,4 +90,98 @@
   </div>
 </div>
 
-<script></script>
+<script>
+  const menu = document.querySelector(".menu");
+  const menuInner = menu.querySelector(".menu__inner");
+  const menuArrow = menu.querySelector(".menu__arrow");
+  const menuTitle = menu.querySelector(".menu__title");
+  const burger = document.querySelector(".burger");
+  const overlay = document.querySelector(".overlay");
+
+  // Navbar Menu Toggle Function
+  function toggleMenu() {
+    menu.classList.toggle("is-active");
+    overlay.classList.toggle("is-active");
+  }
+
+  // Show Mobile Submenu Function
+  function showSubMenu(children) {
+    subMenu = children.querySelector(".submenu");
+    subMenu.classList.add("is-active");
+    subMenu.style.animation = "slideLeft 0.35s ease forwards";
+    const menuTitle =
+      children.querySelector("i").parentNode.childNodes[0].textContent;
+    menu.querySelector(".menu__title").textContent = menuTitle;
+    menu.querySelector(".menu__header").classList.add("is-active");
+  }
+
+  // Hide Mobile Submenu Function
+  function hideSubMenu() {
+    subMenu.style.animation = "slideRight 0.35s ease forwards";
+    setTimeout(() => {
+      subMenu.classList.remove("is-active");
+    }, 300);
+
+    menu.querySelector(".menu__title").textContent = "";
+    menu.querySelector(".menu__header").classList.remove("is-active");
+  }
+
+  // Toggle Mobile Submenu Function
+  function toggleSubMenu(e) {
+    if (!menu.classList.contains("is-active")) {
+      return;
+    }
+    if (e.target.closest(".menu__dropdown")) {
+      const children = e.target.closest(".menu__dropdown");
+      showSubMenu(children);
+    }
+  }
+
+  // Fixed Navbar Menu on Window Resize
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768) {
+      if (menu.classList.contains("is-active")) {
+        toggleMenu();
+      }
+    }
+  });
+
+  // Dark and Light Mode with localStorage
+  (function () {
+    let darkMode = localStorage.getItem("darkMode");
+    const darkSwitch = document.getElementById("switch");
+
+    // Enable and Disable Darkmode
+    const enableDarkMode = () => {
+      document.body.classList.add("darkmode");
+      localStorage.setItem("darkMode", "enabled");
+    };
+
+    const disableDarkMode = () => {
+      document.body.classList.remove("darkmode");
+      localStorage.setItem("darkMode", null);
+    };
+
+    // User Already Enable Darkmode
+    if (darkMode === "enabled") {
+      enableDarkMode();
+    }
+
+    // User Clicks the Darkmode Toggle
+    darkSwitch.addEventListener("click", () => {
+      darkMode = localStorage.getItem("darkMode");
+      if (darkMode !== "enabled") {
+        enableDarkMode();
+      } else {
+        disableDarkMode();
+      }
+    });
+  })();
+
+  // Initialize All Event Listeners
+  burger.addEventListener("click", toggleMenu);
+  overlay.addEventListener("click", toggleMenu);
+  menuArrow.addEventListener("click", hideSubMenu);
+  menuTitle.addEventListener("click", hideSubMenu);
+  menuInner.addEventListener("click", toggleSubMenu);
+</script>

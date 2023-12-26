@@ -32,14 +32,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # custom app
     'shop.apps.ShopConfig',
-    'base.apps.BaseConfig'
+    'base.apps.BaseConfig',
+    'userauths.apps.UserauthsConfig'
 ]
 
 MIDDLEWARE = [
@@ -80,13 +83,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'parisianistDB',
-        'USER': 'kouassi',  
-        'PASSWORD': 'kouassiAz1654?',  
-        'HOST': '127.0.0.1',  
-        'PORT': '3306',  
-        'OPTIONS': {  
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"  
-        }  
+        'USER': 'kouassi',
+        'PASSWORD': 'kouassiAz1654?',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
@@ -126,11 +129,43 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
-]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+JAZZMIN_SETTINGS = {
+    'site_header': 'parisianist Admin',
+    'site_brand': 'Parisianist',
+    'site_logo': 'assets/imgs/logo-parisianist.png',
+    'copyright': 'www.parisianist.com'
+}
+
+AUTH_USER_MODEL = 'userauths.Account'
+
+# User redirection
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'login'
+
+# User profile
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'princeyekpahi@gmail.com'
+EMAIL_HOST_PASSWORD = 'peba fydn ukbb hlay'
+EMAIL_PORT = 587
+
+#cookie
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
+
+#Django message
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+    50: "critical",
+}
