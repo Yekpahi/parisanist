@@ -152,13 +152,17 @@ AUTH_USER_MODEL = 'userauths.Account'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = 'login'
 
-# User profile
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_USE_TLS = True
+
+# Emailing settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_FROM = 'kouassi@gmail.com'
 EMAIL_HOST_USER = 'princeyekpahi@gmail.com'
-EMAIL_HOST_PASSWORD = 'peba fydn ukbb hlay'
+EMAIL_HOST_PASSWORD = 'pebafydnukbbhlay'
 EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+PASSWORD_RESET_TIMEOUT = 14400
+
 
 #cookie
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30

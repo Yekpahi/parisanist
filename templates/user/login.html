@@ -5,7 +5,16 @@
 
 
 {% block content %}
+
+{% if request.GET.command == 'verification' %}
+<div class="container mx-auto alert-info" role="alert" style="max-width: 1024px; margin-top:100px;">
+Thank you for registered with us. We have sent you a verification email to your email address [{{request.GET.email}}]
+  <br><br>
+  Already verified ? <a href="{% url 'login' %}">Login</a>
+</div>
+{% else %}
 <div class="container">
+  {% include 'partials/alert.html' %}
     <div class="row">
       <div class="Absolute-Center is-Responsive">
         <div id="logo-container"></div>
@@ -29,11 +38,12 @@
               <button type="submit" class="btn btn-def btn-block">Login</button>
             </div>
             <div class="form-group text-center">
-              <a href="#">Forgot Password</a>&nbsp;|&nbsp;<a href="#">Support</a>
+              <a href="{% url 'forgotPassword' %}">Forgot Password</a>&nbsp;|&nbsp;<a href="#">Support</a>
             </div>
           </form>        
         </div>  
       </div>    
     </div>
   </div>
+  {% endif%}
 {% endblock content %}

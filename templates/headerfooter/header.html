@@ -56,17 +56,20 @@
       </li>
       <li class="customericon customer_account">
         {% if user.id is None %}
-        <img
-        src="{% static 'assets/imgs/user.png' %}"
-        class="img-fluid"
-        alt="Responsive image"
-      />
-        <a href="{% url 'login' %}" class="nav-item nav-link">Sign in</a>
-        <a href="{% url 'register' %}" class="nav-item nav-link">Register</a>
+        <div class="widget-header">
+          <img
+          src="{% static 'assets/imgs/user.png' %}"
+          class="img-fluid"
+          alt="Responsive image"
+        />
+          <a href="{% url 'login' %}" class="nav-item nav-link">Sign in</a>
+          <a href="{% url 'register' %}" class="nav-item nav-link">Register</a>
+        </div>
+       
         {% else %}
         <div class="widget-header">
           <small class="title text-muted">Welcome {{user.first_name}}</small>
-          <a href="#">Profile <span class="dark-transp"> | </span></a>
+          <a href="{% url 'dashboard' %}">Profile <span class="dark-transp"> | </span></a>
           <a href="{% url 'logout' %}">Logout</a>
         </div>
         

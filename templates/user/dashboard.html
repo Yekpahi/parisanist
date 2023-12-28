@@ -1,0 +1,121 @@
+{% extends '../main.html' %} {% load static %} 
+{% block content %}
+<link rel="stylesheet" href=" {% static 'assets/css/user/dashboard.css' %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+<div class="container">
+    <div class="row profile">
+        {% include 'partials/alert.html' %}
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<!-- <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt=""> -->
+                   
+                    
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						<span class="hidden-xs">Jason Davis</span>
+					</div>
+					<div class="profile-usertitle-job">Developer
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR MENU -->
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li class="active">
+							<a href="#">
+							<i class="glyphicon glyphicon-home"></i>
+							<span class="hidden-xs">Personal<span> </a>
+						</li>
+						<li>
+							<a href="https://codepen.io/jasondavis/pen/xRerWB?editors=1000" >
+							<i class="glyphicon glyphicon-user"></i>
+							<span class="hidden-xs">Overview<span> </a>
+						</li>
+						<li>
+							<a href="#">
+							<i class="glyphicon glyphicon-ok"></i>
+							<span class="hidden-xs">Orders <span></a>
+						</li>
+						<li>
+							<a href="#">
+							<i class="glyphicon glyphicon-flag"></i>
+							<span class="hidden-xs">My Wishlist <span></a>
+						</li>
+                            <li>
+							<a href="#">
+							<i class="glyphicon glyphicon-shopping-cart"></i>
+							<span class="hidden-xs">Shopping Bag<span> </a>
+                            
+						</li>
+                        
+					</ul>
+				</div>
+				<!-- END MENU -->
+              
+     <div class="portlet light bordered">
+                                                <!-- STAT -->
+                                                <div class="row list-separated profile-stat">
+                                                    <div class="col-md-4 col-sm-4 col-xs-6">
+                                                        <div class="uppercase profile-stat-title"> 37 </div>
+                                                        <div class="uppercase profile-stat-text"> Projects </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-6">
+                                                        <div class="uppercase profile-stat-title"> 51 </div>
+                                                        <div class="uppercase profile-stat-text"> Tasks </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4 col-xs-6">
+                                                        <div class="uppercase profile-stat-title"> 61 </div>
+                                                        <div class="uppercase profile-stat-text"> Uploads </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END STAT -->
+                                                <div>
+                                                    <h4 class="profile-desc-title">About Jason Davis</h4>
+                                                    <span class="profile-desc-text"> Lorem ipsum dolor sit amet diam nonummy nibh dolore. </span>
+                                                    <div class="margin-top-20 profile-desc-link">
+                                                        <i class="fa fa-globe"></i>
+                                                        <a href="https://www.apollowebstudio.com">apollowebstudio.com</a>
+                                                    </div>
+                                                    <div class="margin-top-20 profile-desc-link">
+                                                        <i class="fa fa-twitter"></i>
+                                                        <a href="https://www.twitter.com/jasondavisfl/">@jasondavisfl</a>
+                                                    </div>
+                                                    <div class="margin-top-20 profile-desc-link">
+                                                        <i class="fa fa-facebook"></i>
+                                                        <a href="https://www.facebook.com/">JasonDavisFL</a>
+ </div></div></div>                                               
+                                              
+                                              
+              
+			</div>
+		</div>
+		<div class="col-md-9 order-content">
+          
+		<div class="form_main col-md-4 col-sm-5 col-xs-7">
+                <h4 class="heading"><strong>Personal </strong> Contact <span></span></h4>
+                <div class="form">
+                <form action="" method="" id="contactFrm" name="contactFrm">
+                    <input type="text" required="" placeholder="Name" value="" name="name" class="txt">
+                    <input type="text" required="" placeholder="Email" value="" name="email" class="txt">
+                    <input type="password" required="" placeholder="Change Pwd" value="" name="password" class="txt"><br>
+                    <button type="button" class="btn btn-default">Update</button>
+                </form>
+            </div>
+            </div>
+            
+	</div>
+		
+		
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% endblock content %}

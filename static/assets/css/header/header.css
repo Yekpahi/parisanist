@@ -110,3 +110,8 @@ li:hover>a{
 .subMenu li:hover>.SuperSubMenu{
   display: block;
 }
+
+.widget-header {
+  display: flex;
+  background-color: red;
+}
