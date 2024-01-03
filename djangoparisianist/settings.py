@@ -35,12 +35,14 @@ INSTALLED_APPS = [
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
+    'mptt',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # custom app
-    'shop.apps.ShopConfig',
+    'store.apps.StoreConfig',
+    'category.apps.CategoryConfig',
     'base.apps.BaseConfig',
     'userauths.apps.UserauthsConfig'
 ]
