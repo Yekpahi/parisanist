@@ -33,22 +33,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_slug
-     
-# class Product(models.Model): 
-#     product_name = models.CharField(max_length=500)
-#     product_slug = models.SlugField(null=True, blank=True)
-#     product_price = models.FloatField()
-#     product_stock =models.IntegerField(default = True)
-#     product_category = TreeForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
-#     product_discountprice = models.FloatField(blank=True, null=True)
-#     product_description = models.TextField(null= True, blank=True)
-#     product_cover_image = models.ImageField(upload_to='static/cover/')
-#     is_active = models.BooleanField(default=False)
-#     created = models.DateTimeField(auto_now_add=True)    
-#     updated = models.DateTimeField(auto_now_add=True)
-
-#     def __str__(self):
-#         return self.product_slug
           
 class Photo(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='photos')
@@ -57,6 +41,7 @@ class Photo(models.Model):
 
     def __str__(self):
         return str(self.photo_name) ### on met str(...) pour convertir en string
+
 # class ProductVariant(models.Model):
 #     product = models.ForeignKey(Product,on_delete=models.CASCADE)
 #     size = models.ForeignKey(Size, on_delete=models.CASCADE)

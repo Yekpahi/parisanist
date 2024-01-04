@@ -7,22 +7,20 @@
   <nav>
     <ul class="mainMenu">
       <li>
-        <a href="{% url 'store'%}">Shop</a>
+        <span href="">Shop</span>
         <ul class="subMenu">
+          <li><a href="{% url 'store'%}">All</a></li>
+          {% for category in catlinks %}
           <li>
-            <a href="#">Men</a>
+            <a href="#">{{ category.category_name }} </a>
+
             <ul class="SuperSubMenu">
-              <li><a href="#">Hats Rod</a></li>
-              <li><a href="#">Jeans Spice</a></li>
+              {% for subcategory in category.subcategory_set.all %}
+              <li><a href="#">{{subcategory.subcategory_name}}</a></li>
+              {% endfor %}
             </ul>
           </li>
-          <li>
-            <a href="#">Women</a>
-            <ul class="SuperSubMenu">
-              <li><a href="#">Dresses Nile</a></li>
-              <li><a href="#">Emerse Yp</a></li>
-            </ul>
-          </li>
+          {% endfor %}
         </ul>
       </li>
 
@@ -31,7 +29,8 @@
     </ul>
   </nav>
   <!-- Start Menu of shop-->
-  {% comment %} <div class="header_center_elements">
+  {% comment %}
+  <div class="header_center_elements">
     <ul>
       <li class="header_logo">
         <a href="{% url 'home' %}">
@@ -43,7 +42,8 @@
         </a>
       </li>
     </ul>
-  </div> {% endcomment %}
+  </div>
+  {% endcomment %}
   <div class="header_right_elements">
     <ul>
       <li class="header_search">
@@ -58,21 +58,23 @@
         {% if user.id is None %}
         <div class="widget-header">
           <img
-          src="{% static 'assets/imgs/user.png' %}"
-          class="img-fluid"
-          alt="Responsive image"
-        />
+            src="{% static 'assets/imgs/user.png' %}"
+            class="img-fluid"
+            alt="Responsive image"
+          />
           <a href="{% url 'login' %}" class="nav-item nav-link">Sign in</a>
           <a href="{% url 'register' %}" class="nav-item nav-link">Register</a>
         </div>
-       
+
         {% else %}
         <div class="widget-header">
           <small class="title text-muted">Welcome {{user.first_name}}</small>
-          <a href="{% url 'dashboard' %}">Profile <span class="dark-transp"> | </span></a>
+          <a href="{% url 'dashboard' %}"
+            >Profile <span class="dark-transp"> | </span></a
+          >
           <a href="{% url 'logout' %}">Logout</a>
         </div>
-        
+
         {% endif %}
       </li>
       <li class="customericon customer_favorites">
