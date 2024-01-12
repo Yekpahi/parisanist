@@ -1,86 +1,20 @@
 * {
+  box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
-.main-slider-container {
-  margin-top: 20px;
-  margin-bottom: 60px;
-}
-.main-slider {
-  position: relative;
-  width: 100vw;
-  height: 1000px;
-  overflow: hidden;
-  border-radius: 10px;
+
+body {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.main-slider .main-slider-slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  clip-path: circle(150% at 0 50%);
-}
-
-.main-slider .main-slider-slide img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.main-slider .main-slider-slide ul {
-  width: 100%;
-  height: 100%;
-  transform: translateY(-920px);
-  position: absolute;
-  top: 920px;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  opacity: 0;
-  transition: 0.5;
-}
-.main-slider .main-slider-slide ul:hover {
-  opacity: 0.8;
-}
-
-.main-slider .main-slider-slide ul .main-slider-product-title {
-  margin-left: 25px;
-  transform: translateY(940px);
-}
-
-.main-slider .main-slider-slide ul .main-slider-product-price {
-  margin-right: 25px;
-  transform: translateY(940px);
-}
-
-.main-slider-navigation {
-  background-color: aqua;
-  z-index: 1;
-  height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.main-slider:hover .main-slider-navigation {
-  opacity: 1;
-}
-.main-slider-prev-btn,
-.main-slider-next-btn {
-  z-index: 999;
-  font-size: 2em;
-  color: #222;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  cursor: pointer;
-}
 
 /* Middle elements */
 
-.home-middle-contents {
+/* .home-middle-contents {
   position: relative;
   margin-top: 20px;
 }
@@ -118,7 +52,10 @@
   opacity: 0;
   transition: 0.3s;
 }
-.home-middle-contents .middle-images-shopping .middle-images-shopping-item .all-infos:hover{
+.home-middle-contents
+  .middle-images-shopping
+  .middle-images-shopping-item
+  .all-infos:hover {
   opacity: 0.6;
 }
 .home-middle-contents
@@ -150,18 +87,77 @@
   .middle-images-shopping-item
   .all-infos:hover {
   opacity: 1;
+} */
+
+/* Home Slider */
+
+lorem-ipsum {
+  padding: 1em;
+  margin: 1em;
 }
 
-/* Home Slogan */
-
-.home-slogan {
-  margin: 50px 0 50px 0;
+/** carousel **/
+.simple-carousel {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto 0 auto;
+  border-radius: 4px;
+  height:900px; /* Carousel Heigth [now is full screen]*/
 }
 
-
-.home-slogan p{
- text-align: center;
+.simple-carousel ul {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
+.simple-carousel ul li.slide {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  background: #ccc;
+  text-align: center;
+  line-height: 300px;
+  background-size: cover;
+  background-position: center;
+}
 
+.simple-carousel ul li.slide.active {
+  opacity: 1;
+}
 
+.simple-carousel a.control_prev,
+a.control_next {
+  position: absolute;
+  top: 40%;
+  z-index: 999;
+  display: block;
+  padding: 5em 2em;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.simple-carousel a.control_prev:hover,
+a.control_next:hover {
+  opacity: 1;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.simple-carousel a.control_prev {
+  left: 0;
+  border-radius: 0 2px 2px 0;
+}
+
+.simple-carousel a.control_next {
+  right: 0;
+  border-radius: 2px 0 0 2px;
+}

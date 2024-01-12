@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'store.apps.StoreConfig',
     'category.apps.CategoryConfig',
     'base.apps.BaseConfig',
-    'userauths.apps.UserauthsConfig'
+    'userauths.apps.UserauthsConfig',
+    'carts.apps.CartsConfig'
 ]
 
 MIDDLEWARE = [
@@ -70,7 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'category.context_processors.menu_links',
+                'category.context_processors.catmenu_links',
             ],
         },
     },
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'djangoparisianist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'parisianistDB',
+        'NAME': 'parisianistdba',
         'USER': 'kouassi',
         'PASSWORD': 'kouassiAz1654?',
         'HOST': '127.0.0.1',
@@ -142,6 +143,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#Custom admin panel
 JAZZMIN_SETTINGS = {
     'site_header': 'parisianist Admin',
     'site_brand': 'Parisianist',
@@ -149,6 +151,7 @@ JAZZMIN_SETTINGS = {
     'copyright': 'www.parisianist.com'
 }
 
+#Custom user model
 AUTH_USER_MODEL = 'userauths.Account'
 
 # User redirection

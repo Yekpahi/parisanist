@@ -1,23 +1,31 @@
-{% extends '../main.html' %} 
-{% load static %} 
-{% block content %}
+{% extends '../main.html' %} {% load static %} {% block content %}
 <link rel="stylesheet" href=" {% static 'assets/css/home/home.css' %}" />
-<section  class="main-slider-container">
-  <div class="main-slider">
-    {% for product in products %}
-    <div class="main-slider-slide">
-     <img src="{{product.product_cover_image.url}}" alt="sample image" /> 
-      <ul>
-        <li class="main-slider-product-title">{{ product.title }}</li>
-        <li class="main-slider-product-price">{{ product.price }}€</li>
-      </ul>
-    </div>
-    {% endfor %}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"
+/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+  <!-- Swiper -->
+  <div class="simple-carousel">
+    <a href="#" class="control_next"><i class="fa fa-chevron-right"></i></a>
+    <a href="#" class="control_prev"><i class="fa fa-chevron-left"></i></a>
+    <ul>
+      {% for product in products %}
+         {% if product.is_active_active_on_home_carousel == True %}
+      <li class="slide" style="background-image: url('{{product.product_cover_image.url}}');"></li>
+         {% endif %}
+      {% endfor %}
+    </ul>
   </div>
-</a>
+
+
+
+
+
 
 <!-- Start Middle elements-->
-<section class="home-middle-contents">
+<!-- <section class="home-middle-contents">
   <h1 class="new-arrival">New arrivals</h1>
   <div class="middle-images-shopping">
     <div class="middle-images-shopping-item">
@@ -67,8 +75,9 @@
 <section class="home-slogan">
   <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum in cupiditate quos quidem illo, itaque corporis dolorem beatae ad voluptate necessitatibus exercitationem fugit reiciendis harum qui, 
     neque repudiandae, consequatur aliquid.</p>
-</section>
-<script>
+</section> -->
+
+<!-- <script>
   // MouseOver
   var button = document.getElementById("all-info-id");
 
@@ -79,6 +88,65 @@
   button.addEventListener("mouesout", function () {
     button.style.opacity = 0;
   });
+</script> -->
+<!-- Swiper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+$(document).ready(function () {
+  simpleCarousel($(".simple-carousel"), 5000);
+});
+
+function simpleCarousel(carousel, intervalTime = 5000) {
+  var slideCount = $(carousel).find("ul li.slide").length;
+  var activeSlide = 0;
+
+  function showSlide() {
+    $(carousel)
+      .find("ul li.slide")
+      .each(function (index) {
+        if (index == activeSlide) {
+          $(this).fadeIn();
+        } else {
+          $(this).fadeOut();
+        }
+      });
+  }
+
+  setInterval(function () {
+    moveRight();
+  }, intervalTime);
+
+  function moveLeft() {
+    activeSlide -= 1;
+    if (activeSlide < 0) {
+      activeSlide = slideCount - 1;
+    }
+    showSlide();
+  }
+
+  function moveRight() {
+    activeSlide += 1;
+    if (activeSlide >= slideCount) {
+      activeSlide = 0;
+    }
+    showSlide();
+  }
+
+  $(carousel)
+    .find("a.control_prev")
+    .click(function () {
+      moveLeft();
+    });
+
+  $(carousel)
+    .find("a.control_next")
+    .click(function () {
+      moveRight();
+    });
+}
+
 </script>
 
 {% endblock %}

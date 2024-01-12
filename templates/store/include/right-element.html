@@ -1,0 +1,68 @@
+{% load static %}
+
+<div class="right-elements">
+    <h1 class="product-name">{{single_product.product_name }}</h1>
+    <!-- Colors part -->
+    <div class="color-choice">
+      <span class="choice">Black</span>
+      <ul class="color-list">
+        <li>
+          <div id="colorId" class="circle white"></div>
+        </li>
+        <li>
+          <div id="colorId" class="circle black"></div>
+        </li>
+        <li>
+          <div id="colorId" class="circle yellow"></div>
+        </li>
+        <li>
+          <div id="colorId" class="circle green"></div>
+        </li>
+      </ul>
+    </div>
+    <!-- Start Size part -->
+    <div class="size-choice">
+      <span class="choice">Size</span>
+      <ul class="size-list">
+        <li>XS</li>
+        <li>M</li>
+        <li>XL</li>
+        <li>XXL</li>
+      </ul>
+    </div>
+    <!-- End Size part -->
+    <!-- Start add button -->
+    {% if single_product.product_stock <= 0 %} 
+    <div class="add-element">
+        <p class="add">This product is not available</p>
+      </div>
+    {% else %}
+    <ul class="add-element">
+        <li class="cartimage"><img src="{% static 'assets/imgs/addcart.png' %}" alt=""></li>
+        <li class="add"><a href="{% url 'add_cart' single_product.id %}">Add</a></li>
+        <li class="product_price">{{single_product.product_price }} Eur</li>
+      </ul>
+    {% endif %}
+ 
+    <!-- End add button -->
+    <ul class="details-cleaning">
+      <li>
+        <details>
+          <summary>Details</summary>
+          <p>
+            {{single_product.product_description }}
+          </p>
+        </details>
+      </li>
+      <li>
+        <details>
+          <summary>Cleaning</summary>
+          <p>
+            Requires a computer running an operating system. The computer must have some
+            memory and ideally some kind of long-term storage. An input device as well
+            as some form of output device is recommended.
+          </p>
+        </details>
+      </li>
+    </ul>
+  </div>

@@ -74,11 +74,10 @@
     <!--- Start of One Item container -->
     {% for product in products %}
     <div class="item">
-
       <img class="product-img" src="{{ product.product_cover_image.url }}" alt="{{ product.product_name }}" />
       <div class="product-name-price-heartimage">
         <ul>
-          <li>{{product.product_name}}</li>
+          <li> <a href="{{ product.get_url}}">{{product.product_name}}</a> </li>
           <li>{{product.product_price}}</li>
         </ul>
         <img src="{% static 'assets/imgs/favoritedislike.png' %}" alt="" />

@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404, render
-from category.models import Category, SubCategory
-
-from store.models import Product
+from category.models import Category
+from store.models import Photo, Product
 
 # Create your views here.
 
@@ -27,25 +26,71 @@ from store.models import Product
 #     return render(request, "store/store.html", context)
 
 
-def store_page(request, category_slug=None, subcategory_slug=None):
-    subcategories = None
-    categories = None
-    products = None
+# def store_page(request, subcategory_slug=None, category_slug=None):
+#     subcategories = None
+#     products = None
+#     if subcategory_slug != None :
+#         subcategories = get_object_or_404(SubCategory, subcategory_slug=subcategory_slug)
+#         products = Product.objects.filter(product_subcategory=subcategories,  is_active=True)
+#         product_count = products.count()
+#     else:
+#         products = Product.objects.all().filter(is_active=True)
+#         product_count = products.count()
+#     context = {
+#         'products': products,
+#         'subcategories': subcategories,
+#         'product_count': product_count
+#     }
+#     return render(request, "store/store.html", context)
 
-    if subcategory_slug != None and category_slug != None:
-        subcategories = get_object_or_404(
-            SubCategory, subcategory_slug=subcategory_slug)
-        categories = get_object_or_404(Category, category_slug=category_slug)
-        products = Product.objects.filter(
-            product_subcategory=subcategories, product_category=categories, is_active=True)
+# def store_cat(request, category_slug=None):
+#     categories = None
+#     products = None
+#     if category_slug != None :
+#         categories = get_object_or_404(Category, category_slug=category_slug)
+#         products = Product.objects.filter(product_category=categories,  is_active=True)
+#         product_count = products.count()
+#     else:
+#         products = Product.objects.all().filter(is_active=True)
+#         product_count = products.count()
+#     context = {
+#         'products': products,
+#         'categories': categories,
+#         'product_count': product_count
+#     }
+#     return render(request, "store/store.html", context)
+
+def product_list(request, category_slug=None, sub_categories=None):
+    category = None
+    categories = Category.objects.all()
+    products = Product.objects.filter(is_active=True).order_by('-created')
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        sub_categories = category.get_descendants(include_self=True)
+        products = products.filter(category__in=sub_categories)
         product_count = products.count()
-    else:
-        products = Product.objects.all().filter(is_active=True)
+        
+    else :
+        products = Product.objects.filter(is_active=True).order_by('-created')
         product_count = products.count()
+
+    return render(request,
+                  'store/store.html',
+                  {'category': category,
+                   'categories': categories,
+                   'products': products,
+                   'product_count' : product_count
+                   })
+
+def product_detail(request, category_slug, product_slug):
+    try:
+        single_product = Product.objects.get(category__slug=category_slug, product_slug=product_slug)
+        images = Photo.objects.filter(product=single_product)
+    except Exception as e:
+        raise 
+    
     context = {
-        'products': products,
-        'subcategories': subcategories,
-        'categories': categories,
-        'product_count': product_count
+    'single_product' : single_product,
+    'images':images
     }
-    return render(request, "store/store.html", context)
+    return render(request, 'store/product_detail.html', context)

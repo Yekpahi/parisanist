@@ -3,9 +3,8 @@ from store import views
 
 
 urlpatterns = [
-    path('', views.store_page, name='store'),
-    # path(r'^(?P<category_slug>[\w-]+)$', views.category),  
-    path('<category_slug>/<subcategory_slug>', views.store_page, name='products_by_subcategory'), 
-    #path('<str:category_slug>/', views.store_page, name='products_by_subcategory')
-    #path('<slug:category_slug>/', views.store_page, name="products_by_category"),
+    path('', views.product_list, name='store'),
+    # path(r'^categories/$', views.product_list, name = "products_by_category"), 
+    path('<slug:category_slug>/', views.product_list, name='products_by_category'), 
+    path('<slug:category_slug>/<slug:product_slug>', views.product_detail, name="product_detail"),
 ]

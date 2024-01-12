@@ -1,0 +1,54 @@
+{% extends '../main.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href=" {% static 'assets/css/product-details/product-details.css' %}" />
+
+<section class="product-details-container">
+  <aside class="carousel">
+    <button class="btn" id="prev">&#10096;</button>
+    <button class="btn" id="next">&#10097;</button>
+    <ul>
+      {% for img in images %} {% if img.photo_name %}
+      <li class="slide active">
+        <img class="img-responsive" src="{{ img.photo_name.url }}" height="px" width="px" class="pr-5 mr-5" />
+      </li>
+      {% endif %} {% endfor %}
+    </ul>
+  </aside>
+  <!-- Start Right informations -->
+  <aside class="right-informations">
+     {% include './include/right-element.html' %}
+  </aside>
+  <!-- End Right informations -->
+</section>
+
+<script>
+  const buttons = document.querySelectorAll(".btn");
+  const slides = document.querySelectorAll(".slide");
+
+  // Tableau d'image : [0, 1, 2]
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const calcNextSlide = e.target.id === "next" ? 1 : -1;
+      const slideActive = document.querySelector(".active");
+
+      newIndex = calcNextSlide + [...slides].indexOf(slideActive);
+
+      if (newIndex < 0) newIndex = [...slides].length - 1;
+      if (newIndex >= [...slides].length) newIndex = 0;
+      slides[newIndex].classList.add("active");
+
+      slideActive.classList.remove("active");
+    });
+  });
+</script>
+
+<script>
+  let button = document.getElementById("#colorId");
+  function once() {
+    console.log("Done.");
+    button.removeEventListener("click", once);
+  }
+  button.addEventListener("click", once);
+
+</script>
+{% endblock %}

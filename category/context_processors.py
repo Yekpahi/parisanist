@@ -1,8 +1,8 @@
 
-from category.models import Category, SubCategory
+from category.models import Category
 
 
-def menu_links(request):
+def catmenu_links(request, category_slug=None):
     return {
-        'catlinks': Category.objects.order_by("id").all(),
+        'catlinks': Category.objects.all()
     }
