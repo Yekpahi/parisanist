@@ -438,3 +438,21 @@ body{
     position: relative;
     right: 45%;
 } */
+
+.cart_count {
+    height: 20px;
+    width:20px;
+    border-radius: 50px;
+    background-color: red;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    transform: translateY(-60px);
+    transform: translateX(10px);
+}
+
+.cart_count span{
+color:white;
+text-align: center;
+font-size: 0.8rem;
+}

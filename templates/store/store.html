@@ -9,11 +9,30 @@
 <section class="list-cat-filter-sortby-section">
   <ul class="list-cat-filter-sortby">
     <li class="category-part">
+      
+      {% if category %}
       <ul>
-        <li>Home</li>
+        <li><a href="{% url 'home' %}">Home</a></li>
         <li>|</li>
-        <li>Men</li>
+        <li><a href="{% url 'store' %}">All</a></li>
+        <li>|</li>
+        <li>{{category.name}}</li>
       </ul>
+      {% else %}
+      <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li>|</li>
+        <li>All</li>
+
+        {% for cat in categories %}
+        <li>|</li>
+        <li><a href="{% url 'products_by_category' cat.slug %}">{{cat.name}}</a></li>
+        {% endfor %}
+          
+      </ul>
+      {% endif %}
+        
+    
     </li>
     <li class="filter-sortby-part">
       <div class="filter-sortby-container">
@@ -72,6 +91,7 @@
   </div>
   <div class="gallery">
     <!--- Start of One Item container -->
+
     {% for product in products %}
     <div class="item">
       <img class="product-img" src="{{ product.product_cover_image.url }}" alt="{{ product.product_name }}" />

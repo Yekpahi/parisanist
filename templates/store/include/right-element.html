@@ -37,11 +37,23 @@
         <p class="add">This product is not available</p>
       </div>
     {% else %}
+    
+    {% if in_cart %}
     <ul class="add-element">
+      <li class="cartimage"><img src="{% static 'assets/imgs/addcart.png' %}" alt=""></li>
+      <li class="add">Already the cart</li>
+      <li class="product_price">{{single_product.product_price }} Eur</li>
+      <li class="product_price"><a href="{% url 'cart' %}">See in your cart</a></li>
+    </ul>
+      {% else %}
+      <ul class="add-element">
         <li class="cartimage"><img src="{% static 'assets/imgs/addcart.png' %}" alt=""></li>
         <li class="add"><a href="{% url 'add_cart' single_product.id %}">Add</a></li>
         <li class="product_price">{{single_product.product_price }} Eur</li>
       </ul>
+    {% endif %}
+      
+   
     {% endif %}
  
     <!-- End add button -->

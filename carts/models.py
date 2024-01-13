@@ -17,7 +17,8 @@ class CartItem(models.Model):
     is_active = models.BooleanField(default=True)
     
     def sub_total(self):
-        return (self.product.product_price - (self.product.product_price*20/100)) * self.quantity
+        self.su_total = round((self.product.product_price - (self.product.product_price*20/100)) * self.quantity, 2)
+        return self.su_total
     
     def __str__(self):
         return self.product.product_name

@@ -2,6 +2,7 @@
 {% load static %} 
 {% block content %}
 <link rel="stylesheet" href=" {% static 'assets/css/cart/cart.css' %}" />
+
     <div class="cart-main">
       <section class="cart-header">
         <ul>
@@ -32,77 +33,81 @@
         <h1>SHOPPING CART</h1>
       </div>
 
-      <section class="cart-contents">
-        <!--- Start Contents header-->
-        <div class="contents-header">
-          <ul>
-            <li>Price</li>
-            <li>Quantity</li>
-            <li>Subtotal</li>
-          </ul>
-        </div>
-        <!--- End Contents header-->
+{% if not cart_items %}
+<h1>Your shopping cart is empty</h1>
+<button><a href = "{% url 'store' %}">Continue Your shopping</a></button>
+{% else %}
+<section class="cart-contents">
+  <!--- Start Contents header-->
+  <div class="contents-header">
+    <ul>
+      <li>Price</li>
+      <li>Quantity</li>
+      <li>Subtotal</li>
+    </ul>
+  </div>
+  <!--- End Contents header-->
 
-        <!--- Start One Content-->
-        
-        {% for cart_item in cart_items  %}
-          
-       
-          
-        <div class="all-cart-contents">
-          <ul class="article-price-qty">
-            <li class="article-name">{{cart_item.product.product_name}}</li>
-            <li class="article-price">{{cart_item.product.price_without_tax}} Eu</li>
-            <li class="article-qty">
-              <ul>
-                <li><a href="{% url 'remove_cart' cart_item.product_id %}"> - </a></li>
-                <li> {{cart_item.quantity}}</li>
-                <li><a href="{% url 'add_cart' cart_item.product_id %}"> + </a></li>
-              </ul>
-              <!-- <span><a href="{% url 'remove_cart' cart_item.product_id %}"> - </a></span>
-              <span>{{cart_item.quantity}}</span>
-              <span><a href="{% url 'add_cart' cart_item.product_id %}">+</a></span> -->
-            </li>
-            <li class="article-subtotal">{{cart_item.sub_total}} Eu</li>
-          </ul>
-          <div class="content-img-container">
-            <img src="{{cart_item.product.product_cover_image.url}}" alt="" />
-          </div>
-
-          <ul class="article-filter">
-            <li>Color : Blue</li>
-            <li>Size : XS</li>
-          </ul>
-
-          <div class="trash">
-            <a href="{% url 'remove_cart_item' cart_item.product_id %}"><img src="{% static 'assets/imgs/trash.png' %}" alt="" /></a>
-          </div>
-        </div>
-        {% endfor %}
-   <!--- End One Content-->
-        <div class="total-account">
-          <ul>
-            <li>Total</li>
-            <li>{{grand_total}}Eu</li>
-          </ul>
-        </div>
-     
-      </section>
-      <!--- End Contents -->
-      <!--- Start Resume -->
-      <section class="cart-resume">
+  <!--- Start One Content-->
+  
+  {% for cart_item in cart_items  %}
+  <div class="all-cart-contents">
+    <ul class="article-price-qty">
+      <li class="article-name">{{cart_item.product.product_name}}</li>
+      <li class="article-price">{{cart_item.product.price_without_tax}} Eu</li>
+      <li class="article-qty">
         <ul>
-          <li class="summary"><h1>Summary</h1></li>
-          <li class="resume">
-            <p class="first-content">Standard delivery</p>
-            <p>00.0 Eu</p>
-          </li>
-          <li class="resume">
-            <p class="first-content">Total order amount</p>
-            <p>{{grand_total}} Eur</p>
-          </li>
-          <li class="proceed-payment"><p>Proceed to payment</p></li>
+          <li><a href="{% url 'remove_cart' cart_item.product_id %}"> - </a></li>
+          <li> {{cart_item.quantity}}</li>
+          <li><a href="{% url 'add_cart' cart_item.product_id %}"> + </a></li>
         </ul>
-      </section>
+        <!-- <span><a href="{% url 'remove_cart' cart_item.product_id %}"> - </a></span>
+        <span>{{cart_item.quantity}}</span>
+        <span><a href="{% url 'add_cart' cart_item.product_id %}">+</a></span> -->
+      </li>
+      <li class="article-subtotal">{{cart_item.sub_total}} Eu</li>
+    </ul>
+    <div class="content-img-container">
+      <img src="{{cart_item.product.product_cover_image.url}}" alt="" />
+    </div>
+
+    <ul class="article-filter">
+      <li>Color : Blue</li>
+      <li>Size : XS</li>
+    </ul>
+
+    <div class="trash">
+      <a href="{% url 'remove_cart_item' cart_item.product_id %}"><img src="{% static 'assets/imgs/trash.png' %}" alt="" /></a>
+    </div>
+  </div>
+  {% endfor %}
+<!--- End One Content-->
+  <div class="total-account">
+    <ul>
+      <li>Total</li>
+      <li>{{grand_total}}Eu</li>
+    </ul>
+  </div>
+
+</section>
+<!--- End Contents -->
+<!--- Start Resume -->
+<section class="cart-resume">
+  <ul>
+    <li class="summary"><h1>Summary</h1></li>
+    <li class="resume">
+      <p class="first-content">Standard delivery</p>
+      <p>00.0 Eu</p>
+    </li>
+    <li class="resume">
+      <p class="first-content">Total order amount</p>
+      <p>{{grand_total}} Eur</p>
+    </li>
+    <li class="proceed-payment"><p>Proceed to payment</p></li>
+  </ul>
+</section>
+{% endif %}
+  
+   
       <!--- End Resume -->
       {% endblock content %}

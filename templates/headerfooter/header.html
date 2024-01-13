@@ -59,7 +59,9 @@
                 <a href="#"><i class="fas fa-user"></i></a>
 				<a href="#"><i class="fas fa-search"></i></a>
 				<a href="#"><i class="fas fa-heart"></i></a>
-                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                <a href="{% url 'cart' %}">
+                    <i class="fas fa-shopping-cart"><div class="cart_count"><span>{{cart_count}}</span></div></i>
+                </a>
                 <!--MOBILE MENU-->
                 <div class="mobile-menu-trigger">
                     <span></span>
