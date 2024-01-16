@@ -182,3 +182,7 @@ top:50%
 .details-cleaning > li{
     margin-right: 20px;
 }
+
+.add > button {
+    border: none;
+}

@@ -3,66 +3,11 @@ from carts.models import CartItem
 from carts.views import _cart_id
 from category.models import Category
 from store.models import Photo, Product
-
-# Create your views here.
-
-# def store_page(request, category_slug = None, ):
-#     category = None
-#     categories = Category.objects.all()
-#     products = Product.objects.filter(is_active=True).order_by('-created')
-
-#     if category_slug != None :
-#         category = get_object_or_404(Category, subcategory_slug=category_slug)
-#         sub_categories = category.get_descendants(include_self=True)
-#         products = products.filter(product_category=sub_categories)
-#         product_count = products.count()
-#     else:
-#         products = Product.objects.all().filter(is_active = True)
-#         product_count = products.count()
-#     context = {
-#         'category': category,
-#         'products': products,
-#         'categories': categories,
-#         'product_count' : product_count
-#         }
-#     return render(request, "store/store.html", context)
+from django.db.models import Q
+from django.core.paginator import EmptyPage, Paginator, Paginator
 
 
-# def store_page(request, subcategory_slug=None, category_slug=None):
-#     subcategories = None
-#     products = None
-#     if subcategory_slug != None :
-#         subcategories = get_object_or_404(SubCategory, subcategory_slug=subcategory_slug)
-#         products = Product.objects.filter(product_subcategory=subcategories,  is_active=True)
-#         product_count = products.count()
-#     else:
-#         products = Product.objects.all().filter(is_active=True)
-#         product_count = products.count()
-#     context = {
-#         'products': products,
-#         'subcategories': subcategories,
-#         'product_count': product_count
-#     }
-#     return render(request, "store/store.html", context)
-
-# def store_cat(request, category_slug=None):
-#     categories = None
-#     products = None
-#     if category_slug != None :
-#         categories = get_object_or_404(Category, category_slug=category_slug)
-#         products = Product.objects.filter(product_category=categories,  is_active=True)
-#         product_count = products.count()
-#     else:
-#         products = Product.objects.all().filter(is_active=True)
-#         product_count = products.count()
-#     context = {
-#         'products': products,
-#         'categories': categories,
-#         'product_count': product_count
-#     }
-#     return render(request, "store/store.html", context)
-
-def product_list(request, category_slug=None, sub_categories=None, product_slug=None):
+def product_list(request, category_slug=None, product_slug=None):
     category = None
     categories = Category.objects.all()
     products = Product.objects.filter(is_active=True).order_by('-created')
@@ -71,19 +16,36 @@ def product_list(request, category_slug=None, sub_categories=None, product_slug=
         category = get_object_or_404(Category, slug=category_slug)
         sub_categories = category.get_descendants(include_self=True)
         products = products.filter(category__in=sub_categories)
+        paginator = Paginator(products, 2)
+        page = request.GET.get('page')
+        paged_products = paginator.get_page(page)
         product_count = products.count()
         
     else :
         products = Product.objects.filter(is_active=True).order_by('-created')
+        paginator = Paginator(products, 4)
+        page = request.GET.get('page')
+        paged_products = paginator.get_page(page)
         product_count = products.count()
 
     return render(request,
                   'store/store.html',
                   {'category': category,
                    'categories': categories,
-                   'products': products,
+                   'products': paged_products,
                    'product_count' : product_count
                    })
+def search(request):
+    if 'keyword' in request.GET:
+        keyword = request.GET['keyword']
+        if keyword:
+            products = Product.objects.order_by('-created').filter(Q(product_description__icontains=keyword) | Q(product_name__icontains=keyword))
+            product_count = products.count()
+    context = {
+        'products': products,
+        'product_count': product_count
+    }
+    return render(request,  'store/store.html', context)
 
 def product_detail(request, category_slug, product_slug):
     try:
@@ -95,10 +57,10 @@ def product_detail(request, category_slug, product_slug):
 
     except Exception as e:
         raise 
-    
     context = {
     'single_product' : single_product,
     'images':images,
     'in_cart' : in_cart
     }
     return render(request, 'store/product_detail.html', context)
+

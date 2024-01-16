@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from django.contrib.messages import constants as messages
 import os
 from pathlib import Path
 
@@ -87,7 +88,7 @@ WSGI_APPLICATION = 'djangoparisianist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'parisianistdba',
+        'NAME': 'parisianistdb',
         'USER': 'kouassi',
         'PASSWORD': 'kouassiAz1654?',
         'HOST': '127.0.0.1',
@@ -144,7 +145,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Custom admin panel
+# Custom admin panel
 JAZZMIN_SETTINGS = {
     'site_header': 'parisianist Admin',
     'site_brand': 'Parisianist',
@@ -152,7 +153,7 @@ JAZZMIN_SETTINGS = {
     'copyright': 'www.parisianist.com'
 }
 
-#Custom user model
+# Custom user model
 AUTH_USER_MODEL = 'userauths.Account'
 
 # User redirection
@@ -171,11 +172,10 @@ EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT = 14400
 
 
-#cookie
+# cookie
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 
-#Django message
-from django.contrib.messages import constants as messages
+# Django message
 MESSAGE_TAGS = {
     messages.ERROR: "danger",
     50: "critical",

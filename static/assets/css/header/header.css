@@ -456,3 +456,14 @@ color:white;
 text-align: center;
 font-size: 0.8rem;
 }
+
+/* Search Bar*/
+.search-container {
+    position: relative;
+}
+
+.search-container > input {
+    background-color: rgba(255, 255, 255, 0.793);
+    border-radius: 30px;
+    padding: 10px 25px 10px 10px;
+}

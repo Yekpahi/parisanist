@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Photo, Product
+from .models import Photo, Product, Variation
 class PhotoAdmin(admin.StackedInline):
     model = Photo
     list_display = ['product_name', 'product_slug']
@@ -17,4 +17,14 @@ class ProductAdmin(admin.ModelAdmin):
     
     class Meta:
         model = Product
+
+class VariationAdmin(admin.ModelAdmin):
+    list_display = ('product', 'variation_category', 'variation_value', 'is_available')
+    list_editable = ('is_available',)
+    list_filter = ('product', 'variation_category', 'variation_value')
+    
+    class Meta:
+        model : Variation
+        
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Variation, VariationAdmin)

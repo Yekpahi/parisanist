@@ -53,11 +53,17 @@
 			</div>
 
             <div class="header-item item-left">
-				<div class="logo"><a href="#">Brand.</a></div>
+				<div class="logo"><a href="#">parisianist.</a></div>
 			</div>
+            
+          
 			<div class="header-item item-right">
+                <form class="search-container" action="{% url 'search' %}" method="GET">
+                    <input type="text" placeholder="Search" name="keyword">
+                    <button type="submit"><i class="fas fa-search"></i></button>
+                </form>
                 <a href="#"><i class="fas fa-user"></i></a>
-				<a href="#"><i class="fas fa-search"></i></a>
+			
 				<a href="#"><i class="fas fa-heart"></i></a>
                 <a href="{% url 'cart' %}">
                     <i class="fas fa-shopping-cart"><div class="cart_count"><span>{{cart_count}}</span></div></i>

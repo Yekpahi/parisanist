@@ -2,12 +2,20 @@ from django.contrib import admin
 from category.models import Category
 from mptt.admin import DraggableMPTTAdmin
 
-class CategoryAdmin(DraggableMPTTAdmin):
-    pass
 
-admin.site.register(Category, CategoryAdmin )
-
-
+admin.site.register(
+    Category,
+    DraggableMPTTAdmin,
+    list_display=(
+        'parent',
+        'name',
+        # ...more fields if you feel like it...
+    ),
+    list_display_links=(
+        'name',
+    ),
+    prepopulated_fields = {'slug': ('name',),}
+)
 
 
 
@@ -20,8 +28,8 @@ admin.site.register(Category, CategoryAdmin )
 #     prepopulated_fields = {"subcategory_slug": ("subcategory_name",), }
 #     list_display = ['subcategory_name', 'subcategory_slug']
 
-    # def categories(self, obj):
-    #     return "  - ".join([c.category_name for c in obj.category.all()])
+# def categories(self, obj):
+#     return "  - ".join([c.category_name for c in obj.category.all()])
 
 
 # admin.site.register(SubCategory, SubCategoryAdmin)
