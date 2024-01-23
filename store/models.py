@@ -21,8 +21,8 @@ class Product(models.Model):
     def get_url(self):
         return reverse('product_detail', args=[self.category.slug, self.product_slug])
 
-    def price_without_tax(self):
-        return str(self.product_price - self.product_price*20/100)
+    def price_with_tax(self):
+        return str(self.product_price + self.product_price*20/100)
 
     def __str__(self):
         return self.product_slug
@@ -39,7 +39,7 @@ class Product(models.Model):
 class Photo(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='photos')
-    photo_name = models.ImageField(upload_to='stactic/photos/')
+    photo_name = models.ImageField(upload_to='stactic/photos/', verbose_name=("image"))
     photo_slug = models.SlugField(null=True, blank=True)
 
     def __str__(self):

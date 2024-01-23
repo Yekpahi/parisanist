@@ -1,39 +1,55 @@
 {% extends '../main.html' %} {% load static %} {% block content %}
-<link rel="stylesheet" href=" {% static 'assets/css/product-details/product-details.css' %}" />
+<link
+  rel="stylesheet"
+  href=" {% static 'assets/css/product-details/product-details.css' %}"
+/>
 
 <section class="product-details-container">
   <aside class="carousel">
-    <div id="carousel-example-1z" class="carousel slide carousel-fade" data-ride="carousel">
-      <!--Indicators-->
-      <!--/.Indicators-->
-      <!--Slides-->
+    <div
+      id="carousel-example-1z"
+      class="carousel slide carousel-fade"
+      data-ride="carousel"
+    >
+      <!--Start Slides-->
       <div class="carousel-inner" role="listbox">
-      {% for img in images %}
-      {% if img.photo_name %}
-        <div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}">
-          <img class="d-block w-100" src="{{img.photo_name.url}}"
-            alt="First slide">
+        {% for img in images %} 
+        {% if img.photo_name %}
+        <div
+          class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %}"
+        >
+          <img
+            class="d-block w-100"
+            src="{{img.photo_name.url}}"
+            alt="First slide"
+          />
         </div>
-        {% endif %}
-        {% endfor %}
-        <!--/First slide-->
-      <!--/.Slides-->
-      <!--Controls-->
-      <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-      <!--/.Controls-->
+        {% endif %} {% endfor %}
+        <a
+          class="carousel-control-prev"
+          href="#carousel-example-1z"
+          role="button"
+          data-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a
+          class="carousel-control-next"
+          href="#carousel-example-1z"
+          role="button"
+          data-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+             <!--End Slides-->
+      </div>
     </div>
-  </div>
   </aside>
   <!-- Start Right informations -->
   <aside class="right-informations">
-     {% include './include/right-element.html' %}
+    {% include './include/right-element.html' %}
   </aside>
   <!-- End Right informations -->
 </section>
@@ -67,6 +83,5 @@
     button.removeEventListener("click", once);
   }
   button.addEventListener("click", once);
-
 </script>
 {% endblock %}

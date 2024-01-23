@@ -31,11 +31,12 @@
         <li>|</li>
         <li>All</li>
 
-        {% for cat in categories %}
+        <!-- Start Print only the parents-->
+        {% for cat in parents %}
         <li>|</li>
         <li><a href="{% url 'products_by_category' cat.slug %}">{{cat.name}}</a></li>
         {% endfor %}
-          
+        <!-- End Print only the parents-->   
       </ul>
       {% endif %}
         
@@ -110,8 +111,16 @@
 
 {% if products %}
 {% for product in products %}
+
 <div class="item">
-  <img class="product-img" src="{{ product.product_cover_image.url }}" alt="{{ product.product_name }}" />
+     <!--- All image for each product -->
+
+ <!---{% for image in product.photos.all %}
+<img class="product-img" src="{{ image.photo_name.url }}" alt="{{ product.product_name }}" />
+{% endfor %} -->
+<img class="product-img" src="{{ product.product_cover_image.url }}" alt="{{ product.product_name }}" />
+
+  <!--- End All image for each product -->
   <div class="product-name-price-heartimage">
     <ul>
       <li> <a href="{{ product.get_url}}">{{product.product_name}}</a> </li>
@@ -120,6 +129,7 @@
     <img src="{% static 'assets/imgs/favoritedislike.png' %}" alt="" />
   </div>
 </div>
+
 {% endfor %}
 
   {% else %}

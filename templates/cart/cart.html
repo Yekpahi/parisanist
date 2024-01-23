@@ -1,113 +1,119 @@
-{% extends '../main.html' %} 
-{% load static %} 
+{% extends '../main.html' %} {% load static %}
+
 {% block content %}
-<link rel="stylesheet" href=" {% static 'assets/css/cart/cart.css' %}" />
 
-    <div class="cart-main">
-      <section class="cart-header">
-        <ul>
-          <li class="logo-text"><h1>parisianist</h1></li>
-          <li class="cart-step">
-            <ul>
-              <li>
-                <div class="circle circleCart"><span>1</span></div>
-                <span>CART</span>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <div class="circle circleDelivery"><span>2</span></div>
-                <span>DELIVERY</span>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <div class="circle circlePayment"><span>3</span></div>
-                <span>BILLING AND PAYMENT</span>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </section>
-      <div class="shopping-cart">
-        <h1>SHOPPING CART</h1>
-      </div>
+<section class="section-content padding-y bg">
+    <div class="container">
 
-{% if not cart_items %}
-<h1>Your shopping cart is empty</h1>
-<button><a href = "{% url 'store' %}">Continue Your shopping</a></button>
-{% else %}
-<section class="cart-contents">
-  <!--- Start Contents header-->
-  <div class="contents-header">
-    <ul>
-      <li>Price</li>
-      <li>Quantity</li>
-      <li>Subtotal</li>
-    </ul>
-  </div>
-  <!--- End Contents header-->
+        <!-- ============================ COMPONENT 1 ================================= -->
+        {% if not cart_items %}
+            <h2 class="text-center"> Your shopping cart is Empty </h2>
+            <br>
+            <div class="text-center">
+                <a href="{% url 'store' %}" class="btn btn-primary">Continue shopping</a>
+            </div>
+        {% else %}
+        <div class="row">
+            <aside class="col-lg-9">
+                <div class="card">
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+                        <tr class="small text-uppercase">
+                            <th scope="col">Product</th>
+                            <th scope="col" width="120">Quantity</th>
+                            <th scope="col" width="120">Price</th>
+                            <th scope="col" class="text-right" width="200"> </th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-  <!--- Start One Content-->
-  
-  {% for cart_item in cart_items  %}
-  <div class="all-cart-contents">
-    <ul class="article-price-qty">
-      <li class="article-name">{{cart_item.product.product_name}}</li>
-      <li class="article-price">{{cart_item.product.price_without_tax}} Eu</li>
-      <li class="article-qty">
-        <ul>
-          <li><a href="{% url 'remove_cart' cart_item.product_id %}"> - </a></li>
-          <li> {{cart_item.quantity}}</li>
-          <li><a href="{% url 'add_cart' cart_item.product_id %}"> + </a></li>
-        </ul>
-        <!-- <span><a href="{% url 'remove_cart' cart_item.product_id %}"> - </a></span>
-        <span>{{cart_item.quantity}}</span>
-        <span><a href="{% url 'add_cart' cart_item.product_id %}">+</a></span> -->
-      </li>
-      <li class="article-subtotal">{{cart_item.sub_total}} Eu</li>
-    </ul>
-    <div class="content-img-container">
-      <img src="{{cart_item.product.product_cover_image.url}}" alt="" />
-    </div>
+                        {% for cart_item in cart_items %}
+                            <tr>
+                                <td>
+                                    <figure class="itemside align-items-center">
+                                        <div class="aside">
+                                            <img src="{{ cart_item.product.images.url }}" class="img-sm">
+                                        </div>
+                                        <figcaption class="info">
+                                            <a href="{{ cart_item.product.get_url }}" class="title text-dark">
+                                                {{cart_item.product.product_name}}</a>
+                                            <p class="text-muted small">
+                                                {% if cart_item.variations.all %}
+                                                    {% for item in cart_item.variations.all %}
+                                                        {{ item.variation_category | capfirst }} :
+                                                        {{ item.variation_value | capfirst}}<br>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </p>
+                                        </figcaption>
+                                    </figure>
+                                </td>
+                                <td>
+                                    <!-- col.// -->
+                                    <div class="col">
+                                        <div class="input-group input-spinner">
+                                            <div class="input-group-prepend">
+                                                <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}"
+                                                   class="btn btn-light"
+                                                   type="button" id="button-plus">
+                                                    <i class="fa fa-minus"></i> </a>
+                                            </div>
+                                            <input type="text" class="form-control"  value="{{ cart_item.quantity }}">
+                                            <div class="input-group-append">
+                                                <form action="{% url 'add_cart' cart_item.product.id %}" method="POST">
+                                                    {% csrf_token %}
+                                                    {% for item in cart_item.variations.all %}
+                                                        <input type="hidden" name="{{ item.variation_category | lower }}"
+                                                        value="{{ item.variation_value | capfirst }}">
+                                                    {% endfor %}
+                                                    <button class="btn btn-light" type="submit" id="button-minus">
+                                                            <i class="fa fa-plus"></i></button>
+                                                </form>
+                                            </div>
+                                        </div> <!-- input-group.// -->
+                                    </div> <!-- col.// -->
+                                </td>
+                                <td>
+                                    <div class="price-wrap">
+                                        <var class="price">{{cart_item.sub_total}} Eu</var>
+                                        <small class="text-muted"> {{cart_item.product.price_with_tax}} Eur </small>
+                                    </div> <!-- price-wrap .// -->
+                                </td>
+                                <td class="text-right">
+                                    <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}"
+                                       onclick="return confirm('Are you sure in delete this item ?')"
+                                       class="btn btn-danger"> Remove</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
 
-    <ul class="article-filter">
-      <li>Color : Blue</li>
-      <li>Size : XS</li>
-    </ul>
+                        </tbody>
+                    </table>
+                </div> <!-- card.// -->
 
-    <div class="trash">
-      <a href="{% url 'remove_cart_item' cart_item.product_id %}"><img src="{% static 'assets/imgs/trash.png' %}" alt="" /></a>
-    </div>
-  </div>
-  {% endfor %}
-<!--- End One Content-->
-  <div class="total-account">
-    <ul>
-      <li>Total</li>
-      <li>{{grand_total}}Eu</li>
-    </ul>
-  </div>
+            </aside> <!-- col.// -->
+            <aside class="col-lg-3">
 
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Total:</dt>
+                            <dd class="text-right text-dark b"><strong>${{ grand_total }}</strong></dd>
+
+                        </dl>
+                        <p>Include a tax of {{tax}}</p>
+                        <hr>
+                        <a href="{% url 'checkout' %}" class="btn btn-light btn-block">Continue Shopping</a>
+                    </div> <!-- card-body.// -->
+                </div> <!-- card.// -->
+
+            </aside> <!-- col.// -->
+
+
+        </div> <!-- row.// -->
+        {% endif %}
+        <!-- ============================ COMPONENT 1 END .// ================================= -->
+
+    </div> <!-- container .//  -->
 </section>
-<!--- End Contents -->
-<!--- Start Resume -->
-<section class="cart-resume">
-  <ul>
-    <li class="summary"><h1>Summary</h1></li>
-    <li class="resume">
-      <p class="first-content">Standard delivery</p>
-      <p>00.0 Eu</p>
-    </li>
-    <li class="resume">
-      <p class="first-content">Total order amount</p>
-      <p>{{grand_total}} Eur</p>
-    </li>
-    <li class="proceed-payment"><p>Proceed to payment</p></li>
-  </ul>
-</section>
-{% endif %}
-  
-   
-      <!--- End Resume -->
-      {% endblock content %}
+{% endblock %}

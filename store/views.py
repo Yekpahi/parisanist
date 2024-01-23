@@ -10,6 +10,9 @@ from django.core.paginator import EmptyPage, Paginator, Paginator
 def product_list(request, category_slug=None, product_slug=None):
     category = None
     categories = Category.objects.all()
+    # for printint only the parents
+    parents = Category.objects.filter(parent=None)
+
     products = Product.objects.filter(is_active=True).order_by('-created')
     
     if category_slug:
@@ -33,7 +36,8 @@ def product_list(request, category_slug=None, product_slug=None):
                   {'category': category,
                    'categories': categories,
                    'products': paged_products,
-                   'product_count' : product_count
+                   'product_count' : product_count,
+                   'parents' : parents
                    })
 def search(request):
     if 'keyword' in request.GET:
@@ -63,4 +67,6 @@ def product_detail(request, category_slug, product_slug):
     'in_cart' : in_cart
     }
     return render(request, 'store/product_detail.html', context)
+
+
 
