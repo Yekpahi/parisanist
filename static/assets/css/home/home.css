@@ -1,163 +1,191 @@
+
+/*SLIDER*/
+
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+  font-family: "Open Sans", sans-serif;
 }
 
-body {
-  background: #eee;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
-
-
-/* Middle elements */
-
-/* .home-middle-contents {
-  position: relative;
-  margin-top: 20px;
-}
-
-.home-middle-contents h1 {
-  margin-left: 125px;
-  margin-bottom: 10px;
-}
-
-.home-middle-contents .middle-images-shopping {
+.document-center {
+  margin-top: 130px;
+  position: absolute;
+  width: 100%;
+  height: 90%;
   display: flex;
   justify-content: center;
-}
-.home-middle-contents .middle-images-shopping .middle-images-shopping-item {
-  background-color: red;
-  width: 400px;
-  height: 560px;
-  margin: 10px;
+  align-items: center;
 }
 
-.home-middle-contents .middle-images-shopping .middle-images-shopping-item img {
+/*We do this because the carousel needs to be 100% width 
+in order for the aspect ratio trick to work*/
+.carousel-container {
+  max-width: 100vw;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
-.home-middle-contents
-  .middle-images-shopping
-  .middle-images-shopping-item
-  .all-infos {
+/*This is the actual carousel. Overflow hidden acts as a mask*/
+
+.carousel {
   position: relative;
   width: 100%;
-  height: 100%;
-  transform: translateY(-564px);
-  opacity: 0;
-  transition: 0.3s;
-}
-.home-middle-contents
-  .middle-images-shopping
-  .middle-images-shopping-item
-  .all-infos:hover {
-  opacity: 0.6;
-}
-.home-middle-contents
-  .middle-images-shopping
-  .middle-images-shopping-item
-  .all-infos
-  ul {
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 15px 0 15px;
-  transform: translateY(510px);
-}
-
-.home-middle-contents
-  .middle-images-shopping
-  .middle-images-shopping-item
-  .all-infos
-  img {
-  width: 25px;
-  height: 25px;
-  position: absolute;
-  left: 88%;
-  transform: translateY(512px);
-}
-
-.home-middle-contents
-  .middle-images-shopping
-  .middle-images-shopping-item
-  .all-infos:hover {
-  opacity: 1;
-} */
-
-/* Home Slider */
-
-lorem-ipsum {
-  padding: 1em;
-  margin: 1em;
-}
-
-/** carousel **/
-.simple-carousel {
-  position: relative;
+  /*Width of image is 980px. Height is 570px.*/
+  padding-top: calc(570 / 980 * 100%);
   overflow: hidden;
-  margin: 0 auto 0 auto;
-  border-radius: 4px;
-  height:900px; /* Carousel Heigth [now is full screen]*/
 }
 
-.simple-carousel ul {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.simple-carousel ul li.slide {
+.carousel-container img {
   position: absolute;
-  display: block;
   top: 0;
   left: 0;
-  margin: 0;
-  padding: 0;
   width: 100%;
-  height: 100vh;
-  background: #ccc;
-  text-align: center;
-  line-height: 300px;
-  background-size: cover;
-  background-position: center;
+  height: 100%;
 }
 
-.simple-carousel ul li.slide.active {
-  opacity: 1;
-}
-
-.simple-carousel a.control_prev,
-a.control_next {
+.left-arrow {
   position: absolute;
-  top: 40%;
-  z-index: 999;
-  display: block;
-  padding: 5em 2em;
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 147px;
   cursor: pointer;
 }
 
-.simple-carousel a.control_prev:hover,
-a.control_next:hover {
-  opacity: 1;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+.left-arrow:hover {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
 }
 
-.simple-carousel a.control_prev {
-  left: 0;
-  border-radius: 0 2px 2px 0;
+.left-arrow:hover .chevron,
+.right-arrow:hover .chevron {
+  border-color: #e6e6e6;
 }
 
-.simple-carousel a.control_next {
+.right-arrow {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
   right: 0;
-  border-radius: 2px 0 0 2px;
+  height: 100%;
+  width: 147px;
+  cursor: pointer;
 }
+
+.right-arrow:hover {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3));
+}
+
+.chevron {
+  width: 25px;
+  height: 25px;
+  border: solid rgba(255, 255, 255, 0.5);
+  border-width: 10px 10px 0 0;
+}
+
+.chevron.right {
+  transform: rotate(45deg);
+}
+
+.chevron.left {
+  transform: rotate(-135deg);
+}
+
+.circle-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 45px;
+}
+
+.circle {
+  border: 1px solid white;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.circle-fill {
+  background-color: white;
+}
+
+.text-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  bottom: 45px;
+  left: 0;
+  width: 100%;
+  color: white;
+  text-shadow: 1px 1px black;
+  text-align: center;
+}
+
+.text-container p:nth-child(1) {
+  margin: 10px 100px;
+  font-size: 1.5em;
+}
+
+.text-container p:nth-child(2) {
+  margin: 10px 100px 20px 100px;
+}
+
+.carousel-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Animations */
+@keyframes toRight {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes toLeft {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+@keyframes comeRight {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes comeLeft {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+
+/*END OF SLIDER*/

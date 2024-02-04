@@ -8,7 +8,7 @@
 
   <!-- Start all checkout element-->
   <section class="checkout-container">
-    <form action="" method="POST">
+    <form action="{% url 'place_order' %}" method="POST">
       {% csrf_token %}
     <!-- Start left elements-->
     <div class="container-left">
@@ -16,19 +16,19 @@
       <ul class="personal-infos">
         <li class="first-name">
           <label for="">First Name </label>
-          <input type="text" placeholder="First Name" />
+          <input type="text" name = "first_name" placeholder="First Name" />
         </li>
         <li class="last-name">
           <label for="">Last Name </label>
-          <input type="text" placeholder="First Name" />
+          <input type="text" name="last_name" placeholder="Last Name" />
         </li>
         <li class="email">
           <label for="">Email </label>
-          <input type="email" placeholder="First Name" />
+          <input type="email" name="email" placeholder="First Name" />
         </li>
         <li class="phone-number">
           <label for="">Phone Number </label>
-          <input name="phone" type="text" id="phone" />
+          <input name="phone" name = "phone" type="text" id="phone" />
         </li>
       </ul>
       <!-- End Personal informations-->
@@ -37,23 +37,23 @@
       <ul class="personal-infos">
         <li class="address1">
           <label for="">Address line 1</label>
-          <input type="text" placeholder="Address line 1" />
+          <input type="text" name="address_line_1" placeholder="Address line 1" />
         </li>
         <li class="address2">
           <label for="">Address line 2</label>
-          <input type="text" placeholder="Address line 2" />
+          <input type="text" name="address_line_2" placeholder="Address line 2" />
         </li>
         <li class="city">
           <label for="">City </label>
-          <input type="text" placeholder="City" />
+          <input type="text" name="city" placeholder="City" />
         </li>
         <li class="state">
           <label for="">State</label>
-          <input type="text" placeholder="State" />
+          <input type="text" name="state" placeholder="State" />
         </li>
         <li class="country">
           <label for="">Country</label>
-          <select name="countryCode" id="">
+          <select name="country" id="">
             <option data-countryCode="GB" value="44" selected>UK (+44)</option>
             <option data-countryCode="US" value="1">USA (+1)</option>
             <optgroup label="Other countries">

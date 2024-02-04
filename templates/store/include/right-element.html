@@ -18,7 +18,7 @@
             {% for i in single_product.variation_set.colors %}
             <div class="form-check">
               <input class="form-check-input" type="radio" name="color" id="username3" value="{{ i.variation_value | lower }}">
-              <label class="form-check-label" for="inlineRadio1">{{ i.variation_value | capfirst }}</label>
+              <label style = "color : {{ i.variation_value | lower }}" class="form-check-label" for="inlineRadio1">{{ i.variation_value | capfirst }}</label>
             </div>
             {% endfor %}
 

@@ -4,7 +4,7 @@ from store.models import Product
 
 
 def homepage(request):
-    products = Product.objects.all()[0:4]
+    products = Product.objects.all()[0:5]
     context = {'products': products}
     return render(request, "base/home.html", context)
 

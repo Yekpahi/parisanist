@@ -83,42 +83,7 @@ top:50%
 /* Color part */
 
 /* Add part */
-.add-element {
-    margin-top: 45px;
-    border: 1px solid black;
-    padding: 15px;
-    width: 400px;
-    display: flex;
-    list-style: none;
-}
 
-.add-element > li{
- margin-right: 15px;   
-}
-
-.product_price {
-    transform: translateX(200px);
-}
-
-.cartimage img {
-    width: 15px;
-}
-
-.details-cleaning {
-    display: flex;
-    list-style: none;
-    margin-top: 100px;
-}
-
-.details-cleaning > li{
-    margin-right: 20px;
-}
-
-.add > button {
-    border: none;
-}
-
-/* Chose variations */
-
+/* Check button */
 
   /* End Chose variations */

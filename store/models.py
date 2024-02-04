@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ValidationError
 from django.urls import reverse
 from category.models import Category
 from mptt.models import TreeForeignKey
@@ -77,3 +78,18 @@ class Variation(models.Model):
     objects = VariationManager()
     def __str__(self):
         return self.variation_value
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['product', 'color', 'size'],
+                name='unique_prod_color_size_combo'
+            )
+        ]
+    
+    # def save(self, *args, **kwargs):
+    #     if self.color not in self.product.colors.all():
+    #         raise ValidationError("Selected color is not valid <OR ANY MESSAGE YOU WANT TO SHOW>")
+    #     if self.size not in self.product.sizes.all():
+    #         raise ValidationError("Selected color is not valid <OR ANY MESSAGE YOU WANT TO SHOW>")            
+    #     super().save(*args, **kwargs)
