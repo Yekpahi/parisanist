@@ -1,12 +1,17 @@
 :root {
-  --shadow-small: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-small: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --color: #c7232f;
   --color2: #161d27;
   --color2-dark: #0f131a;
 }
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -46,11 +51,11 @@ body {
   margin-left: 0;
   position: relative;
   display: flex;
-  padding-left: 10px ;
+  padding-left: 10px;
 }
 
 .left-elements > li {
-  margin-left:0;
+  margin-left: 0;
   margin-top: 20px;
   margin-bottom: 15px;
   font-size: 0.9rem;
@@ -58,13 +63,12 @@ body {
 }
 
 .left-elements .about {
- margin-left: 30px;
+  margin-left: 30px;
 }
 
 /* Big Menu with store */
 
 .megamenu {
-
   position: absolute;
   left: 0;
   top: 70px;
@@ -79,17 +83,16 @@ body {
   opacity: 0;
 }
 
-.megamenu  .content {
+.megamenu .content {
   width: 100%;
   display: flex;
   list-style: none;
   justify-content: center;
 }
 
-
-.megamenu .content > li{
+.megamenu .content > li {
   margin-top: 50px;
- margin-right: 150px;
+  margin-right: 150px;
 }
 
 .dropdown:hover .megamenu {
@@ -99,7 +102,7 @@ body {
   opacity: 1;
 }
 
-.nav__item:hover .dropdown__icon{
+.nav__item:hover .dropdown__icon {
   transform: rotate(180deg);
   transition: all 0.3s ease;
 }
@@ -117,7 +120,6 @@ body {
 }
 
 /* End big Menu with store */
-
 
 /* Centered elements */
 
@@ -151,7 +153,7 @@ body {
 }
 
 /* Search part */
-#searchicon {
+#search_icon {
   cursor: pointer;
 }
 
@@ -161,6 +163,7 @@ body {
 }
 
 #search input {
+  background-color: aliceblue;
   width: 100%;
   margin-bottom: 10px;
   height: 50px;
@@ -181,7 +184,7 @@ body {
   padding-top: 70px;
   top: 0;
   left: 0;
-  z-index: 100;
+  z-index: 99;
   width: 450px;
   height: 100vh;
   background-color: white;
@@ -213,7 +216,6 @@ body {
 .showsidebar {
   display: none;
 }
-
 
 /* Responsive */
 
@@ -291,3 +293,95 @@ body {
   }
 }
 
+/* Start Account */
+
+/* modal */
+.account-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-contents-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 500px;
+  height: 100vh;
+  padding: 100px;
+  background-color: rgb(255, 255, 255);
+  overflow: none; /* Enable scroll if needed */
+}
+
+.modal-contents-container > ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin-top: 100px;
+}
+
+.modal-contents-container ul > li {
+  margin-top: 10px;
+}
+
+.form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form form > input {
+  padding: 5px 5px 5px 10px;
+}
+
+.form form > button {
+  padding: 10px 15px 10px 15px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  font-size: 1.2em;
+}
+
+.modal-contents-container > ul .create-account {
+  padding: 10px 15px 10px 15px;
+  cursor: pointer;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+}
+.modal-contents-container > ul .create-account > a {
+  color: white;
+  font-size: 1.2em;
+}
+
+.form form .form-child {
+  margin-bottom: 20px;
+}
+
+#account_modal_icon {
+  cursor: pointer;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* End Account */

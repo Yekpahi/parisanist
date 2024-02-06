@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="account-modal" id="account_modal">
+  <div class="modal-contents-container">
+    <span class="close">&times;</span>
+    <ul>
+      <li><h2>LOG IN</h2></li>
+      <li class="form">
+        <form action="">
+          <input class="form-child" type="email" placeholder="Email" />
+          <input class="form-child" type="password" placeholder="Password" />
+          <span class="form-child"> <a href="">Mot de passe oublié ?</a></span>
+          <button class="form-child">LOG IN</button>
+        </form>
+      </li>
+      <li><h2>CREATE A ACCOUNT</h2></li>
+      <li class="create-account">
+        <a href="">CREATE A ACCOUNT</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Modal script -->
+<script type="text/javascript" src="{% static 'assets/js/accountModal.js' %}"></script>
+
+
+<!-- End Modal script -->

@@ -13,9 +13,9 @@
     <nav class="nav-header">
         <ul class="left-elements hideOnMobile">
             <!-- big menu store -->
-            <li class="nav__item dropdown" storeId">
-                <a href="dropdown-link">
-                    Store
+            <li class="nav__item dropdown" id = "storeId">
+                <a href="{% url 'store' %}">
+                    Shop
                     <i class="bx bxs-chevron-down dropdown__icon"></i>
                 </a>
                 <!-- Big Menu elements  -->
@@ -45,18 +45,23 @@
                 <!-- End Big Menu elements  -->
             </li>
             <!-- big menu store -->
-            <li class="about">About</li>
+            <li class="about"><a href="{% url 'about' %}">About</a></li>
         </ul>
         <div class="centered-elements hideOnMobile">
-            <span>parisianist</span>
+            <span><a href="{% url 'home' %}">parisianist</a></span>
         </div>
         <ul class="right-elements">
-            <li class="right search-bar hideOnMobile" id="searchicon">
+            <!-- Start search icon -->
+            <li class="right search-bar hideOnMobile" id="search_icon">
                 <img src="{% static 'assets/imgs/search.png' %}" alt="">
             </li>
-            <li class="right account hideOnMobile"><img src="{% static 'assets/imgs/account.png' %}" alt=""></li>
+             <!-- End search icon -->
+            <!-- Start ccount modal icon -->
+            <li id = "account_modal_icon" class="right account hideOnMobile"><img src="{% static 'assets/imgs/account.png' %}" alt=""></li>
+            <!-- Start ccount modal icon -->
             <li class="right favorite hideOnMobile"><img src="{% static 'assets/imgs/favorite.png' %}" alt=""></li>
             <li class="right basket hideOnMobile"><img src="{% static 'assets/imgs/basket.png' %}" alt=""></li>
+            
             <!-- Show sidebar menu icon -->
             <li class="showsidebar" onclick="showSidebar()">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
@@ -66,46 +71,25 @@
             <!-- End Show sidebar menu icon -->
         </ul>
     </nav>
+
     <div id="search">
         <input type="text" placeholder="What are you looking for ?">
         <!-- <img src="{% static 'assets/imgs/search.png' %}" alt="" id="searchicon"></li> -->
     </div>
 
     <!-- Start Sidebar -->
-    <div class="sidebar">
-        <!-- Hide Sidebar bouton -->
-        <div class="hidesidebar" onclick="hideSidebar()">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                <path
-                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
-            </svg>
-        </div>
-        <!-- End Hide Sidebar bouton -->
-        <div><a href="">Store</a></div>
-        <div><a href="">About</a></div>
-        <ul>
-            <li class="right account"><img src="{% static 'assets/imgs/account.png' %}" alt=""></li>
-            <li class="right favorite"><img src="{% static 'assets/imgs/favorite.png' %}" alt=""></li>
-            <li class="right basket"><img src="{% static 'assets/imgs/basket.png' %}" alt=""></li>
-            <li class=" right search-bar" id="searchicon">
-                <img src="{% static 'assets/imgs/search.png' %}" alt="">
-            </li>
-            </li>
-        </ul>
-        <div id="search">
-            <input type="text" placeholder="What are you looking for ?">
-            <!-- <img src="{% static 'assets/imgs/search.png' %}" alt="" id="searchicon"></li> -->
-        </div>
-    </div>
+   {% include './sidebar.html' %}
+     <!-- Start Sidebar -->
 </header>
 
-<!-- Start big menu with store  -->
+<!-- Start Account part -->
+{% include './account.html' %}
+<!-- End Account part -->
 
 <!-- Search input script -->
 <script>
-
     const targetDiv = document.getElementById("search");
-    const btn = document.getElementById("searchicon");
+    const btn = document.getElementById("search_icon");
     btn.onclick = function () {
         if (targetDiv.style.display == "none") {
             targetDiv.style.display = "block";
@@ -113,7 +97,6 @@
             targetDiv.style.display = "none";
         }
     };
-
 </script>
 <!-- End Search input script -->
 
@@ -130,6 +113,3 @@
     }
 </script>
 <!-- End  Sidebar Script -->
-
-
-

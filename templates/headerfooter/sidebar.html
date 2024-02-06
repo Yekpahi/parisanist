@@ -1,0 +1,27 @@
+{% load static %}
+<div class="sidebar">
+    <!-- Hide Sidebar bouton -->
+    <div class="hidesidebar" onclick="hideSidebar()">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+            <path
+                d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+        </svg>
+    </div>
+    <!-- End Hide Sidebar bouton -->
+    <div><a href="">Store</a></div>
+    <div><a href="">About</a></div>
+    <ul>
+        <li class="right account"><img src="{% static 'assets/imgs/account.png' %}" alt=""></li>
+        <li class="right favorite"><img src="{% static 'assets/imgs/favorite.png' %}" alt=""></li>
+        <li class="right basket"><img src="{% static 'assets/imgs/basket.png' %}" alt=""></li>
+        <li class=" right search-bar" id="searchicon">
+            <img src="{% static 'assets/imgs/search.png' %}" alt="">
+        </li>
+        </li>
+    </ul>
+
+    <div id="search">
+        <input type="text" placeholder="What are you looking for ?">
+        <!-- <img src="{% static 'assets/imgs/search.png' %}" alt="" id="searchicon"></li> -->
+    </div>
+</div>

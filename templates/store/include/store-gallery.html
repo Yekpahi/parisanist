@@ -1,0 +1,69 @@
+{% load static %}
+<link
+  rel="stylesheet"
+  href=" {% static 'assets/css/store/store-gallery.css' %}"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<section class="store-gallery">
+  <!-- One slider -->
+  <div class="swiper mySwiper one">
+    <div class="swiper-wrapper">
+      <img
+        class="swiper-slide"
+        src="{% static 'assets/imgs/MQ2.jpg' %}"
+        alt=""
+      />
+      <img
+        class="swiper-slide"
+        src="{% static 'assets/imgs/MQ14.jpg' %}"
+        alt=""
+      />
+      <img
+        class="swiper-slide"
+        src="{% static 'assets/imgs/MQ4.jpg' %}"
+        alt=""
+      />
+    </div>
+    <div class="gallery-swiper-buttons-and-infos" onmouseover="chargeOpacity(this)" onmouseout="removeOpacity(this)">
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="gallery-infos">
+        <span class="title">Jacques Brico</span>
+        <span class="price">50000.85 Eur</span>
+      </div>
+      <img src="{% static 'assets/imgs/dislike.png' %}" alt="" />
+    </div>
+  </div>
+  <!-- End one slider -->
+</section>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+</script>
+
+<!-- Gallery infos scripts -->
+<script>
+  function chargeOpacity(x) {
+    x.style.opacity = "0.8";
+    x.style.transition = "all 0.9s ease-in-out";
+  }
+  
+  function removeOpacity(x) {
+    x.style.opacity = "0";
+    x.style.transition = "all 0.9s ease-in-out";
+  }
+  </script>
+<!-- Gallery infos scripts -->
