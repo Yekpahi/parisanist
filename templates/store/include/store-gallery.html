@@ -10,35 +10,34 @@
 
 <section class="store-gallery">
   <!-- One slider -->
+  {% if products %} 
+  {% for product in products %}
   <div class="swiper mySwiper one">
     <div class="swiper-wrapper">
+      {% for image in product.photos.all %}
       <img
         class="swiper-slide"
-        src="{% static 'assets/imgs/MQ2.jpg' %}"
-        alt=""
+        src="{{ image.photo_name.url }}"
+        alt="{{ product.product_name }}"
       />
-      <img
-        class="swiper-slide"
-        src="{% static 'assets/imgs/MQ14.jpg' %}"
-        alt=""
-      />
-      <img
-        class="swiper-slide"
-        src="{% static 'assets/imgs/MQ4.jpg' %}"
-        alt=""
-      />
+      {% endfor %}
     </div>
     <div class="gallery-swiper-buttons-and-infos" onmouseover="chargeOpacity(this)" onmouseout="removeOpacity(this)">
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
       <div class="gallery-infos">
-        <span class="title">Jacques Brico</span>
-        <span class="price">50000.85 Eur</span>
+        <span class="title">{{product.product_name}}</span>
+        <span class="price">{{product.product_price}} Eur</span>
       </div>
       <img src="{% static 'assets/imgs/dislike.png' %}" alt="" />
     </div>
   </div>
+  {% endfor %} 
+  {% else %}
+  <p>No product found, try again..</p>
+  {% endif %}
   <!-- End one slider -->
+
 </section>
 
 <!-- Swiper JS -->

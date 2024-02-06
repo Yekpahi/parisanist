@@ -71,23 +71,24 @@ body {
 .megamenu {
   position: absolute;
   left: 0;
-  top: 70px;
+  top: 40px;
   z-index: 100;
   width: 100vw;
   height: 300px;
-  background-color: rgb(245, 239, 239);
   display: flex;
+  opacity: 0;
   flex-direction: row;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   visibility: hidden;
   opacity: 0;
 }
 
 .megamenu .content {
+  margin-top: 20px;
   width: 100%;
   display: flex;
   list-style: none;
-  justify-content: center;
+  background-color: white;
+  padding-left: 50px;
 }
 
 .megamenu .content > li {

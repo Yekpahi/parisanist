@@ -104,7 +104,8 @@
   <div class="gallery">
     <!--- Start of One Item container -->
 
-    {% if products %} {% for product in products %}
+    {% if products %} 
+    {% for product in products %}
 
     <div class="item">
       <!--- All image for each product -->
@@ -128,7 +129,8 @@
       </div>
     </div>
 
-    {% endfor %} {% else %}
+    {% endfor %} 
+    {% else %}
     <p>No product found, try again..</p>
     {% endif %}
 
