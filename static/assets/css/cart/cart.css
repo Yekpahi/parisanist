@@ -1,238 +1,191 @@
-* {
-  padding: 0;
-  margin: 0;
-}
-body {
-  padding: 0;
-  margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+*,
+*:before,
+*:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.cart-main {
-  width: 100vw;
-  height: 100vh;
+.main {
+    min-height: 100vh;
+    width: 100vw;
+    padding-top: 20px;
 }
 
-.cart-main .cart-header ul {
-  display: flex;
-  align-items: center;
-  background-color: rgb(245, 235, 231);
-  position: relative;
-  padding: 10px 10px 10px 70px;
-  list-style: none;
-}
-.cart-main .cart-header ul .logo-text {
-  margin-right: 80px;
-}
-.cart-main .cart-header ul .logo-text > h1 {
-  font-size: 3rem;
+.main .shopping-cart-title {
+    text-align: center;
 }
 
-.cart-step {
-  display: flex;
-  justify-content: center;
+.main .main-cart {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
 }
 
-.cart-step ul li {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-}
-.cart-step ul li .circle {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
+.main .main-cart .card-container {
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    width: 60%;
+    text-rendering: optimizeLegibility;
 }
 
-.cart-step ul li .circleCart {
-  color: black;
-  background-color: rgb(71, 200, 235);
+/* image */
+.image-container {
+    width: 160px;
+    height: 100%;
 }
 
-.cart-step ul li .circleDelivery {
-  color: rgb(255, 255, 255);
-  background-color: rgb(8, 222, 61);
+.image-container>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.cart-step ul li .circlePayment {
-  color: rgb(255, 255, 255);
-  background-color: rgb(116, 98, 93);
-}
-/* shopping cart */
-.shopping-cart h1 {
-  text-align: center;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  font-size: 30px;
-  opacity: 0.6;
+.main .main-cart .card-container .right-infos {
+    position: absolute;
+    right: 0%;
+    top: 10px;
+    width: 80%;
 }
 
-/* Cart contents */
+/* Price and product-name */
 
-.cart-contents {
-  width: 50%;
-  margin-left: 100px;
-  position: relative;
-}
-.contents-header ul {
-  display: flex;
-  justify-content: flex-end;
-  list-style: none;
-  border-bottom: 1px solid black;
+.right-infos .name-and-price {
+
+    display: flex;
+    width: 100%;
 }
 
-.contents-header ul > li {
-  margin: 10px 20px 10px 10px;
-  font-size: 22px;
+.right-infos .name-and-price .product-name {
+    margin-right: 748px;
 }
 
-/* all contents */
-.all-cart-contents {
-  border-bottom: 1px solid black;
-  position: relative;
-}
-.all-cart-contents .article-price-qty {
-  display: flex;
-  justify-content: flex-end;
-  list-style: none;
-  margin-top: 20px;
-  
+/* color and size */
+
+.right-infos .color-and-size {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
 }
 
-.all-cart-contents .article-price-qty li {
-  font-size: 22px;
+.right-infos .color-and-size>li {
+    margin-bottom: 5px;
 }
 
-.article-price-qty .article-name {
-  margin-right: 425px;
-}
-
-.article-price-qty .article-price {
-  transform: translateX(-150px);
-}
-
-.article-price-qty .article-qty ul{
-  display: flex;
-  transform: translateX(-85px);
-}
-
-.article-price-qty .article-qty > ul > li {
-  margin-left: 20px;
-}
-
-.article-price-qty .article-subtotal {
-  transform: translateX(-20px);
+/* remove add and delete */
+.qty-remove-add-delete {
+    margin-top: 25px;
+    display: flex;
+    width: 100%;
+ 
 }
 
 
-.all-cart-contents .content-img-container {
-  width: 160px;
-  height: 160px;
-  background: rgb(244, 232, 232);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  transform: translateY(-40px);
-}
-.all-cart-contents .content-img-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.qty-remove-add-delete .remove-cart {
+    margin-right: 30px;
 }
 
-.article-filter {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  position: absolute;
-  top: 50px;
-  left: 230px;
+.qty-remove-add-delete .quantity {
+    margin-right: 30px;
 }
 
-.article-filter li {
-  font-size: 20px;
+.qty-remove-add-delete .add-cart {
+    margin-right: 755px;
 }
 
-.all-cart-contents .trash{
-  position: absolute;
-  height: 25px;
-  width: 25px;
- left: 900px;
- top: 170px;
-  margin-bottom: 10px;
+.qty-remove-add-delete .form>button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
 }
 
-.all-cart-contents .trash img{
-  height: 100%;
-  width: 100%;
+.qty-remove-add-delete .form>button:focus {
+    border: none;
+    outline: none;
 }
 
-/* Cart Resume*/
-.cart-resume {
-  position: absolute;
-  right: 380px;
-  top: 250px;
-  padding: 25px;
-  background-color: rgb(231, 234, 234);
-}
-
-.cart-resume ul {
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-}
-
-.summary {
-  margin-bottom: 20px;
-  border-bottom: 1px solid black;
-  padding-bottom: 15px;
-  text-align: center;
-  font-size: 1.3rem ;
-}
-
-.cart-resume ul .resume{
-  display: flex;
-  flex-direction: row;
-  list-style: none;
-  font-size: 1.5rem;
-  margin-bottom: 20px;
-  
-}
-
-.cart-resume ul .resume .first-content{
-margin-right: 100px;
+.qty-remove-add-delete .form>button:focus {
+    outline: none !important;
 }
 
 
-.proceed-payment {
-  border-top: 1px solid black;
-  padding-top: 20px;
+.qty-remove-add-delete .delete img {
+    width: 15px;
+    cursor: pointer;
 }
 
-
-.proceed-payment p{
-  border: 1px solid black;
-  font-size: 35px;
-  text-align: center;
-  padding: 5px 0 5px 0;
+/* Others informations */
+.others-infos-main {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
 }
 
-/* Total account */
+.others-infos-main .others-infos-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 60%;
+   
+}
 
-.total-account ul {
+.total-and-tva > ul {
+    display: flex;
+}
+
+.total-and-tva > ul li{
+    font-size: 1.5em;
+}
+
+/* total */
+.total-and-tva > ul .total-text{
+    display: flex;
+    margin-right: 1020px;
+    
+}
+
+.total-and-tva  .tva-infos{
+    margin-top: 5px;   
+}
+
+.others-infos-container .checkout-button {
+    margin: 20px 0 25px 0;
+}
+.others-infos-container .checkout-button > a{
+width: 100%;
+font-size: 1.5em;
+background-color: black;
 display: flex;
-justify-content:space-between;
-margin-top: 20px;
-margin-right: 20px;
-margin-left: 20px;
-list-style: none;
+justify-content: center;
+align-items: center;
+color: aliceblue;
+padding:10px
 }
 
-.total-account ul li{
-font-size: 20px;
-  }
+/* payment informations */
+
+.payment-infos ul {
+    margin-top: 20px;
+    display: flex;
+    list-style: none;
+}
+
+.payment-infos > ul >  li{
+    margin-right: 25px;
+ }
+
+.payment-infos > ul >  .paypal > img{
+   width: 60px;
+}
+
+.payment-infos > ul >  .credit-cart > img{
+    width: 30px;
+ }
+ 

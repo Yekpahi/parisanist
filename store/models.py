@@ -79,13 +79,13 @@ class Variation(models.Model):
     def __str__(self):
         return self.variation_value
     
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['product', 'color', 'size'],
-                name='unique_prod_color_size_combo'
-            )
-        ]
+    # class Meta:
+    #     constraints = [
+    #         models.UniqueConstraint(
+    #             fields=['product', 'color', 'size'],
+    #             name='unique_prod_color_size_combo'
+    #         )
+    #     ]
     
     # def save(self, *args, **kwargs):
     #     if self.color not in self.product.colors.all():

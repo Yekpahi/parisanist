@@ -1,119 +1,132 @@
-{% extends '../main.html' %} {% load static %}
+{% extends '../main.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href=" {% static 'assets/css/cart/cart.css' %}" />
+<section class="main">
+  <!-- cart label -->
+  <p class="shopping-cart-title">Shopping cart</p>
+  <!-- End cart label -->
+  <!-- One cart informations -->
+  <div class="main-cart">
+    <div class="card-container">
+      <!-- cart image -->
+      <div class="image-container">
+        <img src="{% static 'assets/imgs/Mq2.jpg' %}" alt="" />
+      </div>
+      <!-- End cart image -->
 
-{% block content %}
+      <!-- Right informations -->
+      <div class="right-infos">
+        <!-- Price and product name -->
+        <ul class="name-and-price">
+          <li class="product-name">name of product</li>
+          <li class="product-price">500 Eur</li>
+        </ul>
+        <!-- End Price and product name -->
+        <!-- color and size -->
+        <ul class="color-and-size">
+          <li>Color</li>
+          <li>Size</li>
+        </ul>
+        <!-- End color and size -->
+        <!-- Quantity remove add and delete cart -->
+        <ul class="qty-remove-add-delete">
+          <li class="remove-cart">
+            <a href=""
+              ><span class="material-symbols-outlined"> remove </span></a
+            >
+          </li>
+          <li class="quantity">qty : 4</li>
+          <li class="add-cart">
+            <form class="form" action="">
+              <input type="hidden" name="" value="" />
+              <button type="submit">
+                <span class="material-symbols-outlined"> add </span>
+              </button>
+            </form>
+          </li>
+          <li class="delete">
+            <img src="{% static 'assets/imgs/trash.png' %}" alt="" />
+          </li>
+        </ul>
+        <!-- End Quantity remove add and delete cart -->
+      </div>
+      <!-- End Right informations -->
+    </div>
+  </div>
+  <!-- End One cart informations -->
 
-<section class="section-content padding-y bg">
-    <div class="container">
+  <!-- One cart informations -->
+  <div class="main-cart">
+    <div class="card-container">
+      <!-- cart image -->
+      <div class="image-container">
+        <img src="{% static 'assets/imgs/Mq2.jpg' %}" alt="" />
+      </div>
+      <!-- End cart image -->
 
-        <!-- ============================ COMPONENT 1 ================================= -->
-        {% if not cart_items %}
-            <h2 class="text-center"> Your shopping cart is Empty </h2>
-            <br>
-            <div class="text-center">
-                <a href="{% url 'store' %}" class="btn btn-primary">Continue shopping</a>
-            </div>
-        {% else %}
-        <div class="row">
-            <aside class="col-lg-9">
-                <div class="card">
-                    <table class="table table-borderless table-shopping-cart">
-                        <thead class="text-muted">
-                        <tr class="small text-uppercase">
-                            <th scope="col">Product</th>
-                            <th scope="col" width="120">Quantity</th>
-                            <th scope="col" width="120">Price</th>
-                            <th scope="col" class="text-right" width="200"> </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        {% for cart_item in cart_items %}
-                            <tr>
-                                <td>
-                                    <figure class="itemside align-items-center">
-                                        <div class="aside">
-                                            <img src="{{ cart_item.product.images.url }}" class="img-sm">
-                                        </div>
-                                        <figcaption class="info">
-                                            <a href="{{ cart_item.product.get_url }}" class="title text-dark">
-                                                {{cart_item.product.product_name}}</a>
-                                            <p class="text-muted small">
-                                                {% if cart_item.variations.all %}
-                                                    {% for item in cart_item.variations.all %}
-                                                        {{ item.variation_category | capfirst }} :
-                                                        {{ item.variation_value | capfirst}}<br>
-                                                    {% endfor %}
-                                                {% endif %}
-                                            </p>
-                                        </figcaption>
-                                    </figure>
-                                </td>
-                                <td>
-                                    <!-- col.// -->
-                                    <div class="col">
-                                        <div class="input-group input-spinner">
-                                            <div class="input-group-prepend">
-                                                <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}"
-                                                   class="btn btn-light"
-                                                   type="button" id="button-plus">
-                                                    <i class="fa fa-minus"></i> </a>
-                                            </div>
-                                            <input type="text" class="form-control"  value="{{ cart_item.quantity }}">
-                                            <div class="input-group-append">
-                                                <form action="{% url 'add_cart' cart_item.product.id %}" method="POST">
-                                                    {% csrf_token %}
-                                                    {% for item in cart_item.variations.all %}
-                                                        <input type="hidden" name="{{ item.variation_category | lower }}"
-                                                        value="{{ item.variation_value | capfirst }}">
-                                                    {% endfor %}
-                                                    <button class="btn btn-light" type="submit" id="button-minus">
-                                                            <i class="fa fa-plus"></i></button>
-                                                </form>
-                                            </div>
-                                        </div> <!-- input-group.// -->
-                                    </div> <!-- col.// -->
-                                </td>
-                                <td>
-                                    <div class="price-wrap">
-                                        <var class="price">{{cart_item.sub_total}} Eu</var>
-                                        <small class="text-muted"> {{cart_item.product.price_with_tax}} Eur </small>
-                                    </div> <!-- price-wrap .// -->
-                                </td>
-                                <td class="text-right">
-                                    <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}"
-                                       onclick="return confirm('Are you sure in delete this item ?')"
-                                       class="btn btn-danger"> Remove</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-
-                        </tbody>
-                    </table>
-                </div> <!-- card.// -->
-
-            </aside> <!-- col.// -->
-            <aside class="col-lg-3">
-
-                <div class="card">
-                    <div class="card-body">
-                        <dl class="dlist-align">
-                            <dt>Total:</dt>
-                            <dd class="text-right text-dark b"><strong>${{ grand_total }}</strong></dd>
-
-                        </dl>
-                        <p>Include a tax of {{tax}}</p>
-                        <hr>
-                        <a href="{% url 'checkout' %}" class="btn btn-light btn-block">Continue Shopping</a>
-                    </div> <!-- card-body.// -->
-                </div> <!-- card.// -->
-
-            </aside> <!-- col.// -->
-
-
-        </div> <!-- row.// -->
-        {% endif %}
-        <!-- ============================ COMPONENT 1 END .// ================================= -->
-
-    </div> <!-- container .//  -->
+      <!-- Right informations -->
+      <div class="right-infos">
+        <!-- Price and product name -->
+        <ul class="name-and-price">
+          <li class="product-name">name of product</li>
+          <li class="product-price">500 Eur</li>
+        </ul>
+        <!-- End Price and product name -->
+        <!-- color and size -->
+        <ul class="color-and-size">
+          <li>Color</li>
+          <li>Size</li>
+        </ul>
+        <!-- End color and size -->
+        <!-- Quantity remove add and delete cart -->
+        <ul class="qty-remove-add-delete">
+          <li class="remove-cart">
+            <a href=""
+              ><span class="material-symbols-outlined"> remove </span></a
+            >
+          </li>
+          <li class="quantity">qty : 4</li>
+          <li class="add-cart">
+            <form class="form" action="">
+              <input type="hidden" name="" value="" />
+              <button type="submit">
+                <span class="material-symbols-outlined"> add </span>
+              </button>
+            </form>
+          </li>
+          <li class="delete">
+            <img src="{% static 'assets/imgs/trash.png' %}" alt="" />
+          </li>
+        </ul>
+        <!-- End Quantity remove add and delete cart -->
+      </div>
+      <!-- End Right informations -->
+    </div>
+  </div>
+  <!-- End One cart informations -->
+  <!-- cart others informations -->
+  <div class="others-infos-main">
+    <div class="others-infos-container">
+      <div class="total-and-tva">
+        <ul>
+          <li class="total-text">Total</li>
+          <li class="" the-total>1000 Eu</li>
+        </ul>
+        <p class="tva-infos">
+            A VAT of 1000 euros is included in the total price
+        </p>
+      </div>
+      <div class="checkout-button">
+        <a href=""><span>Check out</span></a>
+      </div>
+      <div class="payment-infos">
+        <p>Secure payment</p>
+        <ul>
+          <li class="credit-cart"><img src="{% static 'assets/imgs/credit-cart.png' %}" alt="" /></li>
+          <li class="paypal"><img src="{% static 'assets/imgs/paypal.png' %}" alt="" /></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
-{% endblock %}
+
+{% endblock content %}

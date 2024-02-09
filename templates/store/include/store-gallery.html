@@ -22,14 +22,16 @@
       />
       {% endfor %}
     </div>
+    
     <div class="gallery-swiper-buttons-and-infos" onmouseover="chargeOpacity(this)" onmouseout="removeOpacity(this)">
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
       <div class="gallery-infos">
-        <span class="title">{{product.product_name}}</span>
+        <a href="{{ product.get_url}}" class="title">{{product.product_name}}</a>
         <span class="price">{{product.product_price}} Eur</span>
       </div>
       <img src="{% static 'assets/imgs/dislike.png' %}" alt="" />
+
     </div>
   </div>
   {% endfor %} 

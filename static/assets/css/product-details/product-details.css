@@ -1,89 +1,263 @@
-.product-details-container {
-    background-color: aliceblue;
-    position: relative;
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
 }
 
-.carousel {
-    height: 140vh;
-    width: 58vw;
-    position: relative;
+html,
+body {
+  position: relative;
+  height: 100%;
 }
 
-.carousel button {
-position: absolute;
-background: none;
-border: none;
-outline: none;
-font-size: 2.6rem;
-z-index: 2;
-cursor: pointer;
-color:rgb(243, 241, 241);
-transform: translateY(-50%);
-top:50%
+body {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
 }
 
-.carousel .slide img {
-    display: block;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+/* Swiper carousel part */
+.swiper {
+  width: 100%;
+  height: 100%;
 }
 
-.carousel > ul .slide img {
-    display: block;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-}
-.carousel > ul li {
-  list-style: none;
-}
-
-
-.carousel > ul .slide {
-    position:absolute;
-    height: 100%;
-    width: 100%;
-    opacity: 1;
-    transition: 0.4s ease-in-out;
-}
-.slide.active {
-    opacity: 1;
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#prev {
-    left: 5px;
+.swiper-slide {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-#next {
-    right: 5px;
+/* End swiper part */
+
+.main-details-container {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
 }
 
-/* Right information */
-
-.right-informations {
-    height: 140vh;
-    width: 41vw;
-    position: absolute;
-    right: 0;
-    top: 0px;
+.main-details-container .left-details-container {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
 }
 
-.right-elements {
-    display: flex;
-    flex-direction: column;
-    margin-top: 200px;
-    margin-left: 140px;
-    
+.add-to-favorite {
+  position: sticky;
+  bottom: 8%;
+  left: 100%;
+  width: 15px;
+  z-index: 99;
+  margin-right: 30px;
+}
+
+/* Right detail elements */
+
+.right-details-container {
+  position: absolute;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 300px 10px 200px;
 }
 
 .product-name {
-    margin-bottom: 25px;
+  font-size: 18px;
+  margin-bottom: 50px;
 }
-/* Color part */
 
-/* Add part */
+/* Start input radio design (Size) */
+.variant-size {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
 
-/* Check button */
+.variant-size > span {
+  margin-bottom: 20px;
+  font-size: 12px;
+}
 
-  /* End Chose variations */
+#languagetable input[type="radio"] {
+  display: none;
+}
+
+#languagetable label {
+  display: inline-block;
+  margin: 0 auto;
+  font-family: Arial;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#languagetable {
+  display: flex;
+}
+
+#languagetable > div {
+  margin-right: 15px;
+}
+
+#languagetable > div > label {
+  font-size: 12px;
+}
+/* End input radio design (Size) */
+
+/* Variant colors  */
+
+.variant-colors {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgb(241, 224, 224);
+}
+.variant-colors > span {
+  font-size: 12px;
+}
+
+.variant-colors > ul {
+  margin-top: 20px;
+  display: flex;
+  margin-bottom: 80px;
+}
+
+.variant-colors > ul .colorbox {
+  margin-right: 40px;
+}
+
+.color-choice {
+  margin-bottom: 15px;
+}
+.color-choice .color {
+  position: absolute;
+}
+
+.colorbox > label {
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  transition: all 0.5s ease-in-out;
+}
+
+.colorbox > input[type="radio"] {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+#black {
+  opacity: 1;
+}
+#red {
+  opacity: 0;
+}
+#blue {
+  opacity: 0;
+}
+
+.blueinput {
+  cursor: pointer;
+}
+
+.redinput {
+  cursor: pointer;
+}
+
+.blackinput {
+  cursor: pointer;
+}
+
+#blackcolor {
+  border-bottom: 1px solid black;
+}
+
+/* Submit button */
+.submit-button > button {
+  background-color: rgb(255, 252, 252);
+  border: 1px solid black;
+  display: flex;
+  padding: 10px;
+  width: 460px;
+  align-items: center;
+}
+
+.submit-button > button > span {
+  color: rgb(0, 0, 0);
+}
+
+.price-button {
+  display: flex;
+  margin-left: 350px;
+  flex-direction: column;
+}
+
+.price-button p {
+  margin-bottom: 5px;
+}
+.add-button {
+  margin-left: 10px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 250, "GRAD" 0, "opsz" 15;
+}
+
+/* Details cleaning*/
+
+.details-cleaning {
+  margin-top: 50px;
+  overflow: hidden;
+}
+
+.details-cleaning > ul {
+  display: flex;
+  margin-bottom: 15px;
+}
+.details-cleaning > ul .details {
+  font-size: 1.2em;
+  padding-bottom: 2px;
+  border-bottom: 2px solid rgb(0, 0, 0);
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.details-cleaning > ul .cleaning {
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.details-cleaning > ul > li {
+  margin-right: 25px;
+}
+
+.details-cleaning .details-cleaning-text {
+  text-align: justify;
+  position: absolute;
+  width: 48%;
+}
+
+#detailsId {
+  opacity: 1;
+}
+
+#cleaningId {
+  opacity: 0;
+}

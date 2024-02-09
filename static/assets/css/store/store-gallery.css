@@ -34,19 +34,7 @@ body {
   padding: 0 20px 20px;
 }
 
-
-
 .swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swiper-slide img {
-  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -57,6 +45,7 @@ body {
   z-index: 99;
   opacity: 0;
   height: 100%;
+  cursor: pointer;
 }
 
 .gallery-swiper-buttons-and-infos .gallery-infos {
