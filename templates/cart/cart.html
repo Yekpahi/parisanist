@@ -4,119 +4,13 @@
   <!-- cart label -->
   <p class="shopping-cart-title">Shopping cart</p>
   <!-- End cart label -->
-  <!-- One cart informations -->
-  <div class="main-cart">
-    <div class="card-container">
-      <!-- cart image -->
-      <div class="image-container">
-        <img src="{% static 'assets/imgs/Mq2.jpg' %}" alt="" />
-      </div>
-      <!-- End cart image -->
+  {% if not cart_items %}
 
-      <!-- Right informations -->
-      <div class="right-infos">
-        <!-- Price and product name -->
-        <ul class="name-and-price">
-          <li class="product-name">name of product</li>
-          <li class="product-price">500 Eur</li>
-        </ul>
-        <!-- End Price and product name -->
-        <!-- color and size -->
-        <ul class="color-and-size">
-          <li>Color</li>
-          <li>Size</li>
-        </ul>
-        <!-- End color and size -->
-        <!-- Quantity remove add and delete cart -->
-        <ul class="qty-remove-add-delete">
-          <li class="remove-cart">
-            <a href=""
-              ><span class="material-symbols-outlined"> remove </span></a
-            >
-          </li>
-          <li class="quantity">qty : 4</li>
-          <li class="add-cart">
-            <form class="form" action="">
-              <input type="hidden" name="" value="" />
-              <button type="submit">
-                <span class="material-symbols-outlined"> add </span>
-              </button>
-            </form>
-          </li>
-          <li class="delete">
-            <img src="{% static 'assets/imgs/trash.png' %}" alt="" />
-          </li>
-        </ul>
-        <!-- End Quantity remove add and delete cart -->
-      </div>
-      <!-- End Right informations -->
-    </div>
-  </div>
-  <!-- End One cart informations -->
-
-  <!-- One cart informations -->
-  <div class="main-cart">
-    <div class="card-container">
-      <!-- cart image -->
-      <div class="image-container">
-        <img src="{% static 'assets/imgs/Mq2.jpg' %}" alt="" />
-      </div>
-      <!-- End cart image -->
-
-      <!-- Right informations -->
-      <div class="right-infos">
-        <!-- Price and product name -->
-        <ul class="name-and-price">
-          <li class="product-name">name of product</li>
-          <li class="product-price">500 Eur</li>
-        </ul>
-        <!-- End Price and product name -->
-        <!-- color and size -->
-        <ul class="color-and-size">
-          <li>Color</li>
-          <li>Size</li>
-        </ul>
-        <!-- End color and size -->
-        <!-- Quantity remove add and delete cart -->
-        <ul class="qty-remove-add-delete">
-          <li class="remove-cart">
-            <a href=""
-              ><span class="material-symbols-outlined"> remove </span></a
-            >
-          </li>
-          <li class="quantity">qty : 4</li>
-          <li class="add-cart">
-            <form class="form" action="">
-              <input type="hidden" name="" value="" />
-              <button type="submit">
-                <span class="material-symbols-outlined"> add </span>
-              </button>
-            </form>
-          </li>
-          <li class="delete">
-            <img src="{% static 'assets/imgs/trash.png' %}" alt="" />
-          </li>
-        </ul>
-        <!-- End Quantity remove add and delete cart -->
-      </div>
-      <!-- End Right informations -->
-    </div>
-  </div>
-  <!-- End One cart informations -->
-  <!-- cart others informations -->
   <div class="others-infos-main">
     <div class="others-infos-container">
-      <div class="total-and-tva">
-        <ul>
-          <li class="total-text">Total</li>
-          <li class="" the-total>1000 Eu</li>
-        </ul>
-        <p class="tva-infos">
-            A VAT of 1000 euros is included in the total price
-        </p>
-      </div>
+      <div><span>Your shopping cart is empty.</span></div>
       <div class="checkout-button">
-        <a href=""><span>Check out</span></a>
+        <a href="{% url 'store' %}" ><span>Continuing shopping</span></a>
       </div>
       <div class="payment-infos">
         <p>Secure payment</p>
@@ -127,6 +21,95 @@
       </div>
     </div>
   </div>
+  {% else %}
+<!-- One cart informations -->
+{% for cart_item in cart_items %}
+<div class="main-cart">
+  <div class="card-container">
+    <!-- cart image -->
+   
+    <div class="image-container">
+      <img src="{{ cart_item.product.product_cover_image.url }}" alt="" />
+
+    </div>
+    <!-- End cart image -->
+
+    <!-- Right informations -->
+    <div class="right-infos">
+      <!-- Price and product name -->
+      <ul class="name-and-price">
+        <li class="product-name"> <a href="{{ cart_item.product.get_url }}">{{cart_item.product.product_name}}</a></li>
+        <li class="product-price">{{cart_item.sub_total}} Eur</li>
+      </ul>
+      <!-- End Price and product name -->
+      <!-- color and size -->
+      <ul class="color-and-size">
+        <li>Color</li>
+        <li>Size</li>
+      </ul>
+      <!-- End color and size -->
+      <!-- Quantity remove add and delete cart -->
+      <ul class="qty-remove-add-delete">
+        <li class="remove-cart">
+          <a href="{% url 'remove_cart' cart_item.product.id cart_item.id %}"><span class="material-symbols-outlined"> remove </span></a
+          >
+        </li>
+        <li class="quantity">qty : {{ cart_item.quantity }}</li>
+        <li class="add-cart">
+          <form class="form" action="{% url 'add_cart' cart_item.product.id %}" method="POST">
+            {% csrf_token %}
+            {% for item in cart_item.variations.all %}
+            <input type="hidden" name="{{ item.variation_category | lower }}"
+            value="{{ item.variation_value | capfirst }}">
+            {% endfor %}
+            <button type="submit">
+              <span class="material-symbols-outlined"> add </span>
+            </button>
+          </form>
+        </li>
+        <li class="delete">
+          <a href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}">
+            <img src="{% static 'assets/imgs/trash.png' %}" alt="" />
+          </a>
+       
+        </li>
+      </ul>
+      <!-- End Quantity remove add and delete cart -->
+    </div>
+    <!-- End Right informations -->
+  </div>
+</div>
+<!-- End One cart informations -->
+{% endfor %}
+<!-- cart others informations -->
+<div class="others-infos-main">
+  <div class="others-infos-container">
+    <div class="total-and-tva">
+      <ul>
+        <li class="total-text">Total</li>
+        <li class="" the-total>{{ grand_total }} Eu</li>
+      </ul>
+      <p class="tva-infos">
+          A VAT of {{tax}} Eur is included in the total price
+      </p>
+    </div>
+    <div class="checkout-button">
+      <a href="{% url 'checkout' %}"><span>Check out</span></a>
+    </div>
+    <div class="continue-shop">
+      <a href="{% url 'store' %}"><span>Continue to shop</span></a>
+    </div>
+    <div class="payment-infos">
+      <p>Secure payment</p>
+      <ul>
+        <li class="credit-cart"><img src="{% static 'assets/imgs/credit-cart.png' %}" alt="" /></li>
+        <li class="paypal"><img src="{% static 'assets/imgs/paypal.png' %}" alt="" /></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+  {% endif %}
 </section>
 
 {% endblock content %}

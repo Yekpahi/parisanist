@@ -1,120 +1,187 @@
-.main {
-  position: relative;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+*,
+*:before,
+*:after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Logo design */
-.main .logo {
-  margin: 50px 0 0 50px;
+body {
+  width: 100vw;
 }
-.main .logo a {
-  font-size: 2.5rem;
-  text-decoration: none;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-/* End Logo design */
 
-/* Start Personal informations design */
-.checkout-container {
+.main {
+  position: relative;
+  width: 100%;
+}
+
+
+/* Right Side*/
+.main .right-side {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+}
+
+.main .right-side .shopping-cart-title {
+  text-align: center;
+}
+
+.main .right-side .main-cart {
+  position: relative;
+  width: 100%;
+  height: 200px;
   display: flex;
+  justify-content: center;
+  padding-top: 40px;
 }
 
-.container-left {
-  margin-left: 200px;
-  margin-top: 50px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 25%;
+.main .right-side .main-cart .card-container {
+  position: relative;
+  font-family: "Montserrat", sans-serif;
+  width: 60%;
+  text-rendering: optimizeLegibility;
+}
+
+/* image */
+.image-container {
+  width: 160px;
+  height: 100%;
+}
+
+.image-container > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.main .right-side .main-cart .card-container .right-infos {
+  position: absolute;
+  left: 35%;
+  top: 10px;
+  width: 80%;
+}
+
+/* Price and product-name */
+
+.right-infos .name-and-price {
+  display: flex;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+/* color and size */
+
+.right-infos .color-and-size {
   display: flex;
   flex-direction: column;
-  background-color: rgb(239, 234, 227);
-}
-.container-left > ul {
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.container-left > ul input,
-label {
-  display: flex;
-  margin: 5px;
+  margin-top: 20px;
 }
 
-.container-left > ul > li {
-  list-style: none;
+.right-infos .color-and-size > li {
   margin-bottom: 5px;
 }
 
-/* right cantainer */
-.container-right {
-  width: 50%;
-  margin-top: 50px;
+/* remove add and delete */
+.qty-remove-add-delete {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
+.qty-remove-add-delete .add-cart .form > button {
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+
+.qty-remove-add-delete .add-cart .form > button:focus {
+  border: none;
+  outline: none;
+}
+
+.qty-remove-add-delete .add-cart .form > button:focus {
+  outline: none !important;
+}
+
+.qty-remove-add-delete .delete img {
+  width: 15px;
+  cursor: pointer;
+}
+
+/* Others informations */
+.main .right-side .others-infos-main {
   position: absolute;
-  top:0;
-  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+
+}
+
+.others-infos-main .others-infos-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 60%;
+}
+
+/* total */
+.total-and-tva > ul {
+  display: flex;
+  justify-content: space-between;
+  width: 115%;
+}
+
+.total-and-tva > ul li {
+  font-size: 1.5em;
+}
+
+
+.total-and-tva .tva-infos {
+  margin-top: 5px;
+}
+
+.others-infos-container .continue-shop {
+  width: 115%;
+  margin: 10px 0 25px 0;
   border: 1px solid black;
 }
 
-.container-right .imgs-container {
-  width: 120px;
-  margin-top: 50px;
-  margin-left: 50px;
-  margin-bottom: 25px;
-}
-
-.container-right .imgs-container img {
+.others-infos-container .continue-shop > a {
   width: 100%;
-}
-.one-card {
+  font-size: 1.5em;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  padding: 10px;
 }
 
-/* articles informations */
+/* payment informations */
 
-.article-informations {
-  margin-left: 50px;
-}
-
-.article-informations > ul {
-  margin-top: 70px;
+.payment-infos ul {
+  margin-top: 20px;
   display: flex;
   list-style: none;
 }
 
-
-.article-informations .size-color-price {
-    margin-top: 90px;
-  }
-
-.one-card .article-informations > ul > li {
+.payment-infos > ul > li {
   margin-right: 25px;
 }
 
-/* Ul for price and discount */
-.price-and-discount {
-  margin-left: 250px;
-}
-.price-and-discount ul {
-  list-style-type: none;
-}
-.price-real {
-  text-decoration: line-through;
+.payment-infos > ul > .paypal > img {
+  width: 60px;
 }
 
-/* End Personal informations design */
-
-
-/* Responsive */
-
-@media (max-width: 1889px) { 
-  .main {
-    background-color: chartreuse;
-  }
-  .price-and-discount {
-    margin-left: 250px;
-  }
- }
+.payment-infos > ul > .credit-cart > img {
+  width: 30px;
+}
