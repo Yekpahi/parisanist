@@ -17,11 +17,10 @@ body {
   width: 100%;
 }
 
-
-/* Right Side*/
+/* Right Side */
 .main .right-side {
   position: absolute;
-  right: 0;
+  right: 2%;
   top: 0;
   width: 50%;
 }
@@ -30,13 +29,20 @@ body {
   text-align: center;
 }
 
+.main .right-side .scroll {
+  margin-top: 20px;
+  width: 100%;
+  height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 .main .right-side .main-cart {
   position: relative;
   width: 100%;
   height: 200px;
   display: flex;
   justify-content: center;
-  padding-top: 40px;
+  margin-bottom: 20px;
 }
 
 .main .right-side .main-cart .card-container {
@@ -74,8 +80,6 @@ body {
   justify-content: space-between;
 }
 
-
-
 /* color and size */
 
 .right-infos .color-and-size {
@@ -95,7 +99,6 @@ body {
   justify-content: space-between;
   width: 100%;
 }
-
 
 .qty-remove-add-delete .add-cart .form > button {
   border: none;
@@ -124,7 +127,6 @@ body {
   display: flex;
   justify-content: center;
   padding-top: 40px;
-
 }
 
 .others-infos-main .others-infos-container {
@@ -144,7 +146,6 @@ body {
 .total-and-tva > ul li {
   font-size: 1.5em;
 }
-
 
 .total-and-tva .tva-infos {
   margin-top: 5px;
@@ -184,4 +185,252 @@ body {
 
 .payment-infos > ul > .credit-cart > img {
   width: 30px;
+}
+
+/* Left informations */
+
+.main .left-side {
+  position: absolute;
+  left: 0;
+  margin-left: 50px;
+  margin-top: 40px;
+  width: 50%;
+  padding: 10px;
+}
+
+/* tab header */
+.main .left-side .tab-header {
+  width: 100%;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+  margin-bottom: 40px;
+}
+.main .left-side .tab-header ul {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.main .left-side .tab-header > ul > li {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.personal-infos {
+  cursor: pointer;
+}
+
+.delivery-infos {
+  cursor: pointer;
+}
+
+.summary-and-payment {
+  cursor: pointer;
+}
+
+/* Personal informations */
+
+.tab-contents .personal-infos-contents {
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-contents .personal-infos-contents > span {
+  margin-bottom: 25px;
+}
+
+.tab-contents .personal-infos-contents .delivery-link {
+  margin-bottom: 25px;
+  width: 100%;
+  background-color: black;
+}
+
+.tab-contents .personal-infos-contents .delivery-link > a {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  width: 100%;
+  color: white;
+}
+
+.personal-infos-title {
+  font-size: 1em;
+  opacity: 0.6;
+}
+
+.email {
+  font-size: 0.9em;
+  opacity: 0.4;
+}
+
+/* Delivery informations */
+
+/* Civility */
+.delivery-infos-contents .civility {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delivery-infos-contents .civility .form {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  height: 40px;
+  position: relative;
+}
+
+.form input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  font-size: 1.2em;
+}
+
+.form input:focus ~ .floating-label,
+.form input:valid ~ .floating-label {
+  transform: translateY(-20px);
+}
+
+.form .floating-label {
+  position: absolute;
+  text-transform: capitalize;
+  font-size: 1.2em;
+  transition: top 0.3s;
+  pointer-events: none;
+}
+
+/* List of countries */
+.others-delivery-infos {
+  margin-top: 25px;
+}
+
+.others-delivery-infos .countries {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.others-delivery-infos .countries label {
+  margin-bottom: 10px;
+}
+
+.others-delivery-infos .countries .country-select {
+  padding-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1.1em;
+}
+
+/* End List of countries */
+
+/* Life informations */
+
+.life-infos {
+  display: flex;
+  flex-direction: column;
+}
+
+.life-infos > label {
+  margin-bottom: 10px;
+}
+
+.life-infos input {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+/* Phone number part */
+.phone-number {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.phone-number > label {
+  margin-bottom: 10px;
+}
+
+.phone-number .list-code-phone {
+  width: 100%;
+  display: flex;
+}
+
+.phone-number .list-code-phone > li {
+  width: 100%;
+  margin-top: 7px;
+}
+.phone-number .list-code-phone .code {
+  margin-right: 10px;
+}
+
+.phone-number .list-code-phone > li > select {
+  padding-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.phone-number .list-code-phone > li > input {
+  padding-bottom: 10px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.phone-number .list-code-phone > li .code-phone {
+  width: 100%;
+  margin-right: 10px;
+}
+
+.phone-number .list-code-phone > li .number {
+  width: 100%;
+}
+
+/* Delivery */
+
+.delivery-method {
+  margin-top: 10px;
+}
+
+.delivery-method .deliv-title {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.delivery-method .xmethod {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid black;
+  padding: 35px 20px;
+}
+
+.delivery-method .xmethod > ul {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.delivery-method .xmethod > ul .method > input {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.delivery-method .xmethod > ul .method > input {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.delivery-method .xmethod > p {
+  margin-left: 27px;
+  opacity: 0.5;
 }

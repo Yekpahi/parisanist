@@ -31,9 +31,9 @@ def product_list(request, category_slug=None, product_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         sub_categories = category.get_descendants(include_self=True)
         products = products.filter(category__in=sub_categories)
-        paginator = Paginator(products, 2)
-        page = request.GET.get('page')
-        paged_products = paginator.get_page(page)
+        # paginator = Paginator(products, 2)
+        # page = request.GET.get('page')
+        # paged_products = paginator.get_page(page)
         product_count = products.count()
     else:
 
@@ -45,10 +45,6 @@ def product_list(request, category_slug=None, product_slug=None):
         elif sort_by == "h2l":
             products = Product.objects.filter(
                 is_active=True).order_by('-product_price')
-    # end sort by
-        paginator = Paginator(products, 4)
-        page = request.GET.get('page')
-        paged_products = paginator.get_page(page)
         product_count = products.count()
 
     varID = request.GET.get('varID')
@@ -60,7 +56,7 @@ def product_list(request, category_slug=None, product_slug=None):
                   'store/store.html',
                   {'category': category,
                    'categories': categories,
-                   'products': paged_products,
+                   'products': products,
                    'product_count': product_count,
                    'parents': parents,
                    'variations': variations,
