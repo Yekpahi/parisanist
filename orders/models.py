@@ -22,6 +22,10 @@ class Order(models.Model):
         ('Completed', 'Completed'),
         ('Cancelled', 'Cancelled'),
     )
+    DELIVERY_METHOD = ( 
+    ("1", "Colissimo"), 
+    ("2", "Chronopost"), 
+) 
     user = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
     payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, null=True, blank=True)
     order_number = models.CharField(max_length=20)
@@ -38,6 +42,7 @@ class Order(models.Model):
     order_total = models.FloatField()
     tax = models.FloatField()
     status = models.CharField(max_length=10, choices=STATUS, default='New')
+    derivery_method = models.CharField(max_length=10, choices=DELIVERY_METHOD, default='1')
     ip = models.CharField(max_length=20, blank=True)
     is_ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

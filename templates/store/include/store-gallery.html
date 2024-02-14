@@ -12,7 +12,7 @@
   <!-- One slider -->
   {% if products %} 
   {% for product in products %}
-  <div class="swiper mySwiper one">
+  <div class="swiper mySwiper">
     <div class="swiper-wrapper">
       {% for image in product.photos.all %}
       <img
@@ -47,7 +47,7 @@
 
 <!-- Initialize Swiper -->
 <script>
-  var swiper = new Swiper(".mySwiper", {
+  var swiper = new Swiper(".swiper", {
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",

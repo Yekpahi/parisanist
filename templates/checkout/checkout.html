@@ -9,15 +9,15 @@
   <div class="left-side">
     <div class="tab-header">
       <ul>
-        <li class="personal-infos">
+        <li class="personal-infos" onclick="tabsfunc('pinfos')">
           <span>1 on 3</span>
           <span>Personal informations</span>
         </li>
-        <li class="delivery-infos">
+        <li class="delivery-infos" onclick="tabsfunc('dinfos')">
           <span>2 on 3</span>
           <span>Delivery informations</span>
         </li>
-        <li class="summary-and-payment">
+        <li class="summary-and-payment" onclick="tabsfunc('sap')">
           <span>3 on 3</span>
           <span>Summary and payment</span>
         </li>
@@ -27,16 +27,16 @@
     <!-- Start The content -->
     <div class="tab-contents">
       <!-- Start of Personal informations -->
-      <!-- <div class="personal-infos-contents">
+      <div class="personal-infos-contents tabs" id="pinfos">
         <span class="personal-infos-title">Personal informations</span>
         <span class="email">princeyekpahi@gmail.com</span>
         <span class="delivery-link"><a href="">DELIVERY</a></span>
-      </div> -->
+      </div>
       <!-- End of Personal informations -->
 
       <!-- Start Delivery informations -->
 
-      <!-- <div class="delivery-infos-contents">
+      <div class="delivery-infos-contents tabs" id="dinfos" style="display:none">
         <ul class="civility">
           <li class="form">
             <input class="inputText" type="text" placeholder="" />
@@ -655,7 +655,7 @@
           </li>
         </ul>
         <!-- Delivery Method -->
-      <!-- <ul class="delivery-method">
+        <ul class="delivery-method">
           <li class="deliv-title">Delivery method</li>
           <li class="xmethod">
             <ul>
@@ -689,29 +689,31 @@
             </ul>
             <p>Delivery within 2 - 5 days</p>
           </li>
-        </ul> -->
-      <!-- </div>  -->
+        </ul>
+      </div>
       <!-- End of Delivery informations -->
 
       <!-- Start of summary and payment contents -->
-      <div class="summary-and-payment-contents">
+      <div class="summary-and-payment-contents tabs" id="sap" style="display:none">
         <ul>
-          <li>
+          <!-- Personal informations -->
+          <li class="summary-personal-infos">
             <ul>
-              <li>Personal informations</li>
-              <li>princeyekpahi@gmail.com</li>
+              <li class="p-infos">Personal informations</li>
+              <li class="p-email">princeyekpahi@gmail.com</li>
             </ul>
           </li>
+          <!-- End Personal informations -->
           <!-- Shipping information -->
           <li class="shipping-container">
             <ul>
-              <li>
+              <li class="shipping">
                 <ul>
-                  <li>shipping details</li>
-                  <li>uptade shipping details</li>
+                  <li class="sh-detail">shipping details</li>
+                  <li class="sh-upadate">uptate shipping details</li>
                 </ul>
               </li>
-              <li class="fullname">Prince Yekpah</li>
+              <li class="fullname">Prince Yekpahi</li>
               <li class="fulladress">
                 <ul>
                   <li>1, rue ingres</li>
@@ -722,13 +724,15 @@
           </li>
           <!-- End Shipping information -->
           <!-- Delivery method -->
-          <li>
+          <li class="delivery-method">
             <ul>
-              <li>Delivery method</li>
-              <li>
+              <li class="delivery-method-title">Delivery method</li>
+              <li class="method-price">
                 <ul>
-                  <li>Chronopost ( Delivery within 2-4 days )</li>
-                  <li>Delivery method</li>
+                  <li class="the-method">
+                    Chronopost ( Delivery within 2-4 days )
+                  </li>
+                  <li class="method-price">0 Eur</li>
                 </ul>
               </li>
             </ul>
@@ -737,13 +741,13 @@
           <!-- Start Billing address -->
           <li class="billing-address">
             <ul>
-              <li>
+              <li class="billing-title">
                 <ul>
-                  <li>Billing Address</li>
-                  <li>Update billing address</li>
+                  <li class="bill-addr">Billing Address</li>
+                  <li class="bill-update">Update billing address</li>
                 </ul>
               </li>
-              <li>
+              <li class="address-note">
                 <select name="" id="">
                   <option value="">
                     Prince Yekpahi, 1 rue Ingres, Blanc-Mesnil, 93150
@@ -754,27 +758,89 @@
           </li>
           <!-- End Billing address -->
           <!-- start of payments methods -->
-          <li>
+          <li class="summary-payment-method">
             <ul>
-              <li>Payment methods</li>
-              <li>
-                 <ul>
-                  <li>
-                    <input
-                    type="radio"
-                    id="html"
-                    name="fav_language"
-                    value="HTML"
-                  />
+              <li class="summary-payment-title">Payment methods</li>
+
+              <!-- Paypal-->
+              <li class="one-payment-method">
+                <ul>
+                  <li class="one-card-x">
+                    <ul class="first-infos">
+                      <li class="s-method-input">
+                        <input
+                          type="radio"
+                          id="html"
+                          name="fav_language"
+                          value="HTML"
+                        />
+                      </li>
+                      <li class="s-method-image">
+                        <img
+                          src="{% static 'assets/imgs/paypal.png' %}"
+                          alt=""
+                        />
+                      </li>
+                      <li class="s-method-label">
+                        <label for="html">Paypal</label><br />
+                      </li>
+                    </ul>
                   </li>
-                  <li>
-                    <img src="" alt="">
+                  <li class="link-paypal">
+                    <a href="">PAYPAL</a>
                   </li>
-                  <li><label for="html">HTML</label><br /></li>
                 </ul>
-               
-               
               </li>
+              <!-- Paypal -->
+              <!-- Credit card -->
+              <li class="one-payment-method">
+                <ul>
+                  <li class="one-card-x">
+                    <ul class="first-infos">
+                      <li class="s-method-input">
+                        <input
+                          type="radio"
+                          id="html"
+                          name="fav_language"
+                          value="HTML"
+                        />
+                      </li>
+                      <li class="s-method-image">
+                        <span class="material-symbols-outlined">
+                          credit_card
+                        </span>
+                      </li>
+                      <li class="s-method-label">
+                        <label for="html">Card</label><br />
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="fill-credit-card">
+                    <ul>
+                      <li class="card-number-and-type">
+                        <input type="text" placeholder="Card number" />
+                        <div>
+                          <img
+                            src="{% static 'assets/imgs/credit-cart.png'%}"
+                            alt=""
+                          />
+                          <img
+                            src="{% static 'assets/imgs/visa.png'%}"
+                            alt=""
+                          />
+                        </div>
+                      </li>
+                      <li class="expiration">
+                        <input type="text" placeholder="Expiration : MM/YY" />
+                      </li>
+                      <li class="cvc">
+                        <input type="text" placeholder="CVC" />
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <!-- End credit card -->
             </ul>
           </li>
           <!-- End of payments methods -->
@@ -894,5 +960,16 @@
     </div>
   </div>
 </div>
+
+<script>
+  function tabsfunc(tab) {
+    var i;
+    var x = document.getElementsByClassName("tabs");
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    document.getElementById(tab).style.display = "block";
+  }
+</script>
 
 {% endblock content %}
