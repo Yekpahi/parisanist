@@ -1,4 +1,15 @@
-{% extends '../main.html' %} {% load static %} {% block content %}
+{% extends '../main.html' %} {% load static %} 
+{% block title %}
+{% if category %}
+Product for {{category.name}}
+
+{% else %}
+All products in the store
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
 <link rel="stylesheet" href=" {% static 'assets/css/store/store.css' %}" />
 
 <!--- Start Collection slogan -->

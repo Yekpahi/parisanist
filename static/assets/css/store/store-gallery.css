@@ -1,40 +1,26 @@
-* {
-  box-sizing: border-box;
-}
-html,
-body,
-div,
-img {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-body {
-  line-height: 1;
-}
-
 .store-gallery {
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 0 20px 0 20px;
+  margin: 0 auto;
 }
 
 /* swiper carousel */
 .swiper {
-  width: 520px;
-  height: 700px;
+  flex-basis: 100%;
+  height: 600px;
   position: relative;
   top: 150px;
-  padding: 0 20px 20px;
+  box-sizing: border-box;
+  padding: 2px;
+  
 }
 
 .swiper-slide {
+  padding: 2px;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -48,6 +34,11 @@ body {
   cursor: pointer;
 }
 
+  /*adjust arrow size*/
+ .swiper [class^="swiper-button-"]{
+    width: 15px;
+    height: 15px;
+} 
 .gallery-swiper-buttons-and-infos .gallery-infos {
   display: flex;
   justify-content: space-between;
@@ -71,3 +62,21 @@ body {
 }
 
 /* End swiper carousel */
+
+@media only screen and (min-width:640px) {
+  .swiper {
+    flex-basis: 50%;
+  }  
+}
+
+@media only screen and (min-width:960px) {
+  .swiper {
+    flex-basis: 33.33%;
+  }  
+}
+
+@media only screen and (min-width:1280px) {
+  .swiper {
+    flex-basis: 25%;
+  }  
+}

@@ -8,11 +8,10 @@
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
 
-<section class="store-gallery">
+<div class="store-gallery">
   <!-- One slider -->
-  {% if products %} 
-  {% for product in products %}
-  <div class="swiper mySwiper">
+  {% if products %} {% for product in products %}
+  <div class="swiper">
     <div class="swiper-wrapper">
       {% for image in product.photos.all %}
       <img
@@ -22,25 +21,28 @@
       />
       {% endfor %}
     </div>
-    
-    <div class="gallery-swiper-buttons-and-infos" onmouseover="chargeOpacity(this)" onmouseout="removeOpacity(this)">
+
+    <div
+      class="gallery-swiper-buttons-and-infos"
+      onmouseover="chargeOpacity(this)"
+      onmouseout="removeOpacity(this)"
+    >
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
       <div class="gallery-infos">
-        <a href="{{ product.get_url}}" class="title">{{product.product_name}}</a>
+        <a href="{{ product.get_url}}" class="title"
+          >{{product.product_name}}</a
+        >
         <span class="price">{{product.product_price}} Eur</span>
       </div>
       <img src="{% static 'assets/imgs/dislike.png' %}" alt="" />
-
     </div>
   </div>
-  {% endfor %} 
-  {% else %}
+  {% endfor %} {% else %}
   <p>No product found, try again..</p>
   {% endif %}
   <!-- End one slider -->
-
-</section>
+</div>
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
@@ -61,10 +63,10 @@
     x.style.opacity = "0.8";
     x.style.transition = "all 0.9s ease-in-out";
   }
-  
+
   function removeOpacity(x) {
     x.style.opacity = "0";
     x.style.transition = "all 0.9s ease-in-out";
   }
-  </script>
+</script>
 <!-- Gallery infos scripts -->

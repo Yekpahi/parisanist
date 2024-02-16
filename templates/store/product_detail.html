@@ -1,6 +1,9 @@
-{% extends '../main.html' %} {% load static %} 
-{% block content %}
+{% extends '../main.html' %} 
+{% load static %} 
+{% block title %}{% if single_product %}{{ single_product.product_name }}{% else %}Product{% endif %}{% endblock %}
 <link rel="stylesheet" href=" {% static 'assets/css/product-details/product-details.css' %}" />
+
+{% block content %}
 <section class="product-details-container">
   <aside class="carousel">
     <div

@@ -22,7 +22,7 @@
     <!-- paypal script-->
     <script src="https://www.paypal.com/sdk/js?client-id=AawJgAAwp17Vt21QABjprpEzPSE7ZpoPKzPB85Wv4Wc5YeAWJqRfVkPeQE3KPs-MQngufgzve1_IoyfB&currency=USD"></script>
     
-    <title>parisianist</title>
+    <title>{% block title %}{% endblock %}</title>
   </head>
   <body>
     {% include './headerfooter/header.html' %} {% block content %} 

@@ -45,15 +45,16 @@ body {
 
 .filter-element .filter-modal-link {
   cursor: pointer;
+ 
 }
 
 .filter-modal {
   display: none;
   opacity: 1;
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 99; /* Sit on top */
   right: 0;
-  bottom: 0;
+  top: 200px;
   width: 100%; /* Full width */
   height: 80%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
@@ -93,9 +94,7 @@ body {
   margin-bottom: 15px;
 }
 
-.filter-contents > li:hover .filter__dropdown__icon{
+.filter-contents > li:hover .filter__dropdown__icon {
   transform: rotate(180deg);
   transition: all 0.3s ease;
 }
-
-

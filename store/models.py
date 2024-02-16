@@ -1,8 +1,10 @@
+from django.conf import settings
 from django.db import models
 from django.forms import ValidationError
 from django.urls import reverse
 from category.models import Category
 from mptt.models import TreeForeignKey
+
 
 class Product(models.Model):
     product_name = models.CharField(max_length=500)
@@ -18,7 +20,7 @@ class Product(models.Model):
     is_active_active_on_home_carousel = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
-
+    users_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="users_wishlist", blank=True)
     def get_url(self):
         return reverse('product_detail', args=[self.category.slug, self.product_slug])
 
@@ -42,7 +44,7 @@ class Photo(models.Model):
         Product, on_delete=models.CASCADE, related_name='photos')
     photo_name = models.ImageField(upload_to='stactic/photos/', verbose_name=("image"))
     photo_slug = models.SlugField(null=True, blank=True)
-
+    is_feature=models.BooleanField(default=False)
     def __str__(self):
         return str(self.photo_name)  # on met str(...) pour convertir en string
 

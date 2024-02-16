@@ -19,6 +19,10 @@ class Order(models.Model):
     STATUS = (
         ('New', 'New'),
         ('Accepted', 'Accepted'),
+        ('PENDING', 'Pending'),
+        ('Processing', 'Processing'),
+        ('Shipping', 'Shipped'),
+        ('Refunding', 'Refunding'),
         ('Completed', 'Completed'),
         ('Cancelled', 'Cancelled'),
     )
@@ -36,8 +40,10 @@ class Order(models.Model):
     address_line_1 = models.CharField(max_length=50)
     address_line_2 = models.CharField(max_length=50, blank=True)
     country = models.CharField(max_length=50)
+    zip_code = models.CharField(max_length=20)
     state = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
+    postcode = models.CharField(max_length=50)
     order_note = models.CharField(max_length=100, blank=True)
     order_total = models.FloatField()
     tax = models.FloatField()

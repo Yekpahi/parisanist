@@ -1,10 +1,11 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 import requests
 from carts.models import Cart, CartItem
+from store.models import Product
 from userauths.forms import RegistrationForm
 from django.contrib import messages, auth
 from django.contrib.sites.shortcuts import get_current_site
@@ -124,6 +125,17 @@ def login(request):
             return redirect('login')
 
     return render(request, 'user/login.html')
+
+@login_required(login_url='login')
+def add_to_wishlist(request, id=id):
+    product = get_object_or_404(Product, id=id)
+    if product.users_wishlist.filter(id=request.user.id).exists():
+        product.users_wishlist.remove(request.user)
+    else:
+        product.users_wishlist.add(request.user)
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
+        
+
 
 
 @login_required(login_url='login')

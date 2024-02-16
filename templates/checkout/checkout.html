@@ -1,4 +1,7 @@
-{% extends '../main.html' %} {% load static %} {% block content %}
+{% extends '../main.html' %} 
+{% load static %} 
+{% block title %}Site Parisianist{% endblock %}
+{% block content %}
 <link
   rel="stylesheet"
   href=" {% static 'assets/css/checkout/checkout.css' %}"
@@ -36,7 +39,11 @@
 
       <!-- Start Delivery informations -->
 
-      <div class="delivery-infos-contents tabs" id="dinfos" style="display:none">
+      <div
+        class="delivery-infos-contents tabs"
+        id="dinfos"
+        style="display: none"
+      >
         <ul class="civility">
           <li class="form">
             <input class="inputText" type="text" placeholder="" />
@@ -694,7 +701,11 @@
       <!-- End of Delivery informations -->
 
       <!-- Start of summary and payment contents -->
-      <div class="summary-and-payment-contents tabs" id="sap" style="display:none">
+      <div
+        class="summary-and-payment-contents tabs"
+        id="sap"
+        style="display: none"
+      >
         <ul>
           <!-- Personal informations -->
           <li class="summary-personal-infos">
@@ -865,7 +876,13 @@
           <!-- cart image -->
 
           <div class="image-container">
-            <img src="{{ cart_item.product.product_cover_image.url }}" alt="" />
+            <!-- Selection the one image which is feature -->
+            {% for image in cart_item.product.photos.all %} 
+            {% if image.is_feature %}
+            <img src="{{ image.photo_name.url }}" alt="" />
+            {% endif %} 
+            {% endfor %}
+            <!-- Selection the one image which is feature -->
           </div>
           <!-- End cart image -->
 
