@@ -40,6 +40,7 @@ body {
   width: 100%;
   display: flex;
   position: relative;
+  padding: 10px 15px 10px 15px;
 }
 
 .main-header .nav-header > ul {
@@ -66,28 +67,39 @@ body {
   margin-left: 30px;
 }
 
+.left-elements .about > a {
+  text-decoration: none;
+  color: black;
+}
+
+.left-elements .nav__item > a {
+  text-decoration: none;
+  color: black;
+}
+
 /* Big Menu with store */
 
 .megamenu {
   position: absolute;
   left: 0;
-  top: 40px;
+  top: 17px;
   z-index: 100;
   width: 100vw;
   height: 300px;
   display: flex;
   opacity: 0;
+  padding-top: 30px;
   flex-direction: row;
   visibility: hidden;
-  opacity: 0;
 }
 
 .megamenu .content {
+  transform: translateX(-25px);
   margin-top: 20px;
   width: 100%;
   display: flex;
   list-style: none;
-  background-color: white;
+  background-color: rgb(249, 249, 247);
   padding-left: 50px;
 }
 
@@ -120,6 +132,10 @@ body {
   margin-bottom: 8px;
 }
 
+.category-and-subcategory > ul > li > a {
+  text-decoration: none;
+  color: black;
+}
 /* End big Menu with store */
 
 /* Centered elements */
@@ -133,6 +149,11 @@ body {
 
 .centered-elements span {
   font-size: 3rem;
+}
+
+.centered-elements > span > a {
+  text-decoration: none;
+  color: black;
 }
 
 /* Right element */
@@ -351,15 +372,22 @@ body {
 }
 
 .modal-contents-container > ul .create-account {
+  font-size: 2em;
+  font-weight: bolder;
+  margin-bottom: 20px;
+}
+
+.modal-contents-container > ul .create-account-link {
   padding: 10px 15px 10px 15px;
   cursor: pointer;
   background-color: black;
   display: flex;
   justify-content: center;
 }
-.modal-contents-container > ul .create-account > a {
+.modal-contents-container > ul .create-account-link > a {
   color: white;
   font-size: 1.2em;
+  text-decoration: none;
 }
 
 .form form .form-child {
@@ -371,15 +399,16 @@ body {
 }
 
 /* The Close Button */
-.close {
+.modal-contents-container .close {
   color: #aaaaaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
+  transform: translateY(-60px);
 }
 
-.close:hover,
-.close:focus {
+.modal-contents-container .close:hover,
+.modal-contents-container .close:focus {
   color: #000;
   text-decoration: none;
   cursor: pointer;

@@ -7,6 +7,10 @@
   box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
 }
+body {
+  overflow: hidden; /* Hide scrollbars */
+}
+
 
 .document-center {
   margin-top: 130px;
