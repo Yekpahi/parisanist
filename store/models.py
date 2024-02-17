@@ -1,9 +1,10 @@
 from django.conf import settings
 from django.db import models
-from django.forms import ValidationError
 from django.urls import reverse
 from category.models import Category
 from mptt.models import TreeForeignKey
+
+from userauths.models import Account
 
 
 class Product(models.Model):
@@ -20,7 +21,6 @@ class Product(models.Model):
     is_active_active_on_home_carousel = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
-    users_wishlist = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="users_wishlist", blank=True)
     def get_url(self):
         return reverse('product_detail', args=[self.category.slug, self.product_slug])
 
@@ -38,7 +38,17 @@ class Product(models.Model):
             url = ''
         print('URL :', url)
         return url
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
+    product =models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(auto_now_add=True)
     
+    class Meta:
+        verbose_name_plural = "wishlists"
+    def __str__(self):
+        return self.product.product_name
+   
 class Photo(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='photos')

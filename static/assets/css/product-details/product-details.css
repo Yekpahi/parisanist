@@ -121,32 +121,33 @@ body {
 /* Variant colors  */
 
 .variant-colors {
+  position: relative;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid rgb(241, 224, 224);
+  padding-bottom: 40px;
+  border-bottom: 1px solid black;
+  margin-bottom: 40px;
 }
-.variant-colors > span {
-  font-size: 12px;
-}
-
-.variant-colors > ul {
+/* color choice */
+.variant-colors .color-choice {
   margin-top: 20px;
   display: flex;
-  margin-bottom: 80px;
+  margin-bottom: 25px;
 }
 
-.variant-colors > ul .colorbox {
-  margin-right: 40px;
+.variant-colors .color-choice > span {
+  margin-right: 10px;
 }
 
-.color-choice {
-  margin-bottom: 15px;
-}
-.color-choice .color {
-  position: absolute;
+.variant-colors .color-container {
+  display: flex;
 }
 
-.colorbox > label {
+.variant-colors .color-container .colorbox {
+  margin-right: 60px;
+}
+
+.variant-colors .color-container .colorbox > label {
   cursor: pointer;
   width: 10px;
   height: 10px;
@@ -162,16 +163,6 @@ body {
   position: absolute;
 }
 
-#black {
-  opacity: 1;
-}
-#red {
-  opacity: 0;
-}
-#blue {
-  opacity: 0;
-}
-
 .blueinput {
   cursor: pointer;
 }
@@ -184,10 +175,6 @@ body {
   cursor: pointer;
 }
 
-#blackcolor {
-  border-bottom: 1px solid black;
-}
-
 /* Submit button */
 .submit-button > button {
   background-color: rgb(255, 252, 252);
@@ -196,6 +183,7 @@ body {
   padding: 10px;
   width: 460px;
   align-items: center;
+  cursor: pointer;
 }
 
 .submit-button > button > span {

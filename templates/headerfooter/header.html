@@ -1,84 +1,111 @@
-{% load static %}
-{% load mptt_tags %}
+{% load static %} {% load mptt_tags %}
 <link rel="stylesheet" href=" {% static 'assets/css/header/header.css' %}" />
-<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+/>
 <!-- google fonts  -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
+  rel="stylesheet"
+/>
 <!-- End google fonts  -->
-    <header class="main-header">
-    <nav class="nav-header">
-        <ul class="left-elements hideOnMobile">
-            <!-- big menu store -->
-            <li class="nav__item dropdown" id = "storeId">
-                <a href="{% url 'store' %}">
-                    Shop
-                    <i class="bx bxs-chevron-down dropdown__icon"></i>
-                </a>
-                <!-- Big Menu elements  -->
-                <section class="megamenu">
-                    <ul class="content">
-                        <li class="category-and-subcategory">
-                          
-                            <ul class="">
-                                <li class="header_megamenu megamenu_item"><a href="">Men</a></li>
-                                <li class="subcategory megamenu_item"><a href="">Jean</a></li>
-                                <li class="subcategory megamenu_item"><a href="">Jackets</a></li>
-                                <li class="subcategory megamenu_item"><a href="">Skirts</a></li>
-                            </ul>
-                        </li>
-                        <li class="category-and-subcategory">
-                          
-                            <ul class="">
-                                <li class="header_megamenu megamenu_item"><a href="">Women</a></li>
-                                <li class="subcategory megamenu_item"><a href="">Jean</a></li>
-                                <li class="subcategory megamenu_item"><a href="">Jackets</a></li>
-                                <li class="subcategory megamenu_item"><a href="">Skirts</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </section>
+<header class="main-header">
+  <nav class="nav-header">
+    <ul class="left-elements hideOnMobile">
+      <!-- big menu store -->
+      <li class="nav__item dropdown" id="storeId">
+        <a href="{% url 'store' %}">
+          Shop
+          <i class="bx bxs-chevron-down dropdown__icon"></i>
+        </a>
+        <!-- Big Menu elements  -->
+        <section class="megamenu">
+          <ul class="content">
+            <li class="category-and-subcategory">
+              <ul class="">
+                <li class="header_megamenu megamenu_item">
+                  <a href="">Men</a>
+                </li>
+                <li class="subcategory megamenu_item"><a href="">Jean</a></li>
+                <li class="subcategory megamenu_item">
+                  <a href="">Jackets</a>
+                </li>
+                <li class="subcategory megamenu_item"><a href="">Skirts</a></li>
+              </ul>
+            </li>
+            <li class="category-and-subcategory">
+              <ul class="">
+                <li class="header_megamenu megamenu_item">
+                  <a href="">Women</a>
+                </li>
+                <li class="subcategory megamenu_item"><a href="">Jean</a></li>
+                <li class="subcategory megamenu_item">
+                  <a href="">Jackets</a>
+                </li>
+                <li class="subcategory megamenu_item"><a href="">Skirts</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
 
-                <!-- End Big Menu elements  -->
-            </li>
-            <!-- big menu store -->
-            <li class="about"><a href="{% url 'about' %}">About</a></li>
-        </ul>
-        <div class="centered-elements hideOnMobile">
-            <span><a href="{% url 'home' %}">parisianist</a></span>
-        </div>
-        <ul class="right-elements">
-            <!-- Start search icon -->
-            <li class="right search-bar hideOnMobile" id="search_icon">
-                <img src="{% static 'assets/imgs/search.png' %}" alt="">
-            </li>
-             <!-- End search icon -->
-            <!-- Start ccount modal icon -->
-            <li id = "account_modal_icon" class="right account hideOnMobile"><img src="{% static 'assets/imgs/account.png' %}" alt=""></li>
-            <!-- Start ccount modal icon -->
-            <li class="right favorite hideOnMobile"><img src="{% static 'assets/imgs/favorite.png' %}" alt=""></li>
-            <li class="right basket hideOnMobile"><img src="{% static 'assets/imgs/basket.png' %}" alt=""></li>
-            
-            <!-- Show sidebar menu icon -->
-            <li class="showsidebar" onclick="showSidebar()">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
-                </svg>
-            </li>
-            <!-- End Show sidebar menu icon -->
-        </ul>
-    </nav>
-
-    <div id="search">
-        <input type="text" placeholder="What are you looking for ?">
-        <!-- <img src="{% static 'assets/imgs/search.png' %}" alt="" id="searchicon"></li> -->
+        <!-- End Big Menu elements  -->
+      </li>
+      <!-- big menu store -->
+      <li class="about"><a href="{% url 'about' %}">About</a></li>
+    </ul>
+    <div class="centered-elements hideOnMobile">
+      <span><a href="{% url 'home' %}">parisianist</a></span>
     </div>
+    <ul class="right-elements">
+      <!-- Start search icon -->
+      <li class="right search-bar hideOnMobile" id="search_icon">
+        <img src="{% static 'assets/imgs/search.png' %}" alt="" />
+      </li>
+      <!-- End search icon -->
+      <!-- Start ccount modal icon -->
+      <li id="account_modal_icon" class="right account hideOnMobile">
+        <img src="{% static 'assets/imgs/account.png' %}" alt="" />
+      </li>
+      <!-- Start ccount modal icon -->
+      <li class="right favorite hideOnMobile">
+        <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
+      </li>
+      <li class="right basket hideOnMobile">
+        <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
+      </li>
 
-    <!-- Start Sidebar -->
-   {% include './sidebar.html' %}
-     <!-- Start Sidebar -->
+      <!-- Show sidebar menu icon -->
+      <li class="showsidebar" onclick="showSidebar()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24"
+          viewBox="0 -960 960 960"
+          width="24"
+        >
+          <path
+            d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"
+          />
+        </svg>
+      </li>
+      <!-- End Show sidebar menu icon -->
+    </ul>
+  </nav>
+
+  <div id="search">
+    <input type="text" placeholder="What are you looking for ?" />
+    <!-- <img src="{% static 'assets/imgs/search.png' %}" alt="" id="searchicon"></li> -->
+  </div>
+
+  <!-- Start Sidebar -->
+  {% include './sidebar.html' %}
+  <!-- Start Sidebar -->
 </header>
 
 <!-- Start Account part -->
@@ -87,28 +114,28 @@
 
 <!-- Search input script -->
 <script>
-    const targetDiv = document.getElementById("search");
-    const btn = document.getElementById("search_icon");
-    btn.onclick = function () {
-        if (targetDiv.style.display == "none") {
-            targetDiv.style.display = "block";
-        } else {
-            targetDiv.style.display = "none";
-        }
-    };
+  const targetDiv = document.getElementById("search");
+  const bt = document.getElementById("search_icon");
+  bt.onclick = function () {
+    if (targetDiv.style.display == "none") {
+      targetDiv.style.display = "block";
+    } else {
+      targetDiv.style.display = "none";
+    }
+  };
 </script>
 <!-- End Search input script -->
 
 <!-- Start Sidebar Script -->
 <script>
-    function showSidebar() {
-        const sidebar = document.querySelector('.sidebar')
-        sidebar.style.display = 'flex'
-    }
+  function showSidebar() {
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.style.display = "flex";
+  }
 
-    function hideSidebar() {
-        const sidebar = document.querySelector('.sidebar')
-        sidebar.style.display = 'none'
-    }
+  function hideSidebar() {
+    const sidebar = document.querySelector(".sidebar");
+    sidebar.style.display = "none";
+  }
 </script>
 <!-- End  Sidebar Script -->

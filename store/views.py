@@ -1,13 +1,20 @@
-from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from carts.models import CartItem
 from carts.views import _cart_id
 from category.models import Category
-from store.models import Photo, Product, Variation
+from store.models import Photo, Product, Variation, Wishlist
 from django.db.models import Q
-from django.core.paginator import EmptyPage, Paginator, Paginator
-
+from django.contrib.auth.decorators import login_required
+from django.template.loader import render_to_string
 
 def product_list(request, category_slug=None, product_slug=None):
+    wishlisted_list =[]
+    if request.user.is_authenticated:
+        wishlisted_list = list(Wishlist.objects.filter(user_id=request.user).values_list('product_id',flat=True).order_by('product_id'))
+    
+    
     category = None
     categories = Category.objects.all()
     # for printint only the parents
@@ -60,7 +67,8 @@ def product_list(request, category_slug=None, product_slug=None):
                    'product_count': product_count,
                    'parents': parents,
                    'variations': variations,
-                   'product': product
+                   'product': product,
+                   'wishlisted_list':wishlisted_list
                    })
 
 
@@ -95,4 +103,76 @@ def product_detail(request, category_slug, product_slug):
         'images': images,
         'in_cart': in_cart
     }
-    return render(request, 'store/product_detail.html', context)
+    return render(request, 'store/product-details/product_details.html', context)
+
+@login_required
+def wishlist(request):
+    wishlist = Wishlist.objects.all()
+    context = {
+        "w":wishlist
+    }
+    return render(request, "store/wishlist.html", context)
+
+
+@login_required
+def add_to_wishlist(request):
+    if request.accepts('text/html') and request.POST and 'attr_id' in request.POST:
+        if request.user.is_authenticated:
+            data = Wishlist.objects.filter(user_id = request.user.pk, product_id = int(request.POST['attr_id']))
+            print(data)
+            if data.exists():
+                data.delete()
+            else:
+                Wishlist.objects.create(user_id = request.user.pk,product_id = int(request.POST['attr_id']))
+    else:
+        print("No Product is Found")
+
+    return redirect("home")
+
+# def add_to_wishlist(request):
+#     if request.method == 'POST':
+#         product = get_object_or_404(Product, pk=request.POST.get('id'))
+#         Wishlist.objects.get_or_create(user=request.user, product=product)
+#         return HttpResponseRedirect(reverse('wishlist'))
+
+
+"""
+def add_to_wishlist(request):
+
+    product_id = request.GET['id']
+    # product = get_object_or_404(Product, id=request.Product.get('product_id'))
+    product = Product.objects.get(id = product_id)
+    print("product Id is :" + product_id)
+    
+    context = {}
+    wishlist_count = Wishlist.objects.filter(product=product, user=request.user).count()
+    if wishlist_count > 0 :
+        context = {
+            "bool": True
+        }
+    else:
+        new_wishlist = Wishlist.objects.create(
+            user=request.user,
+            product=product,
+           
+        )
+        context = {
+            "bool": True,
+        }
+        
+    return JsonResponse(context)
+"""
+def remove_wishlist(request):
+    pid = request.GET['id']
+    wishlist = Wishlist.objects.filter(user=request.user).count()
+    wishlist_id = Wishlist.objects.get(id=pid)
+    delete_product = wishlist_id.delete()
+    context = {
+        "bool": True,
+        'wishlist':wishlist
+    }
+    
+    t = render_to_string('store/async/wishlist_list.html', context)
+    
+    return JsonResponse({'data' :t, 'all_wishlist':wishlist})
+     

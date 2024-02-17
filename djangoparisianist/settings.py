@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'djangoparisianist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'abcd',
+        'NAME': 'abcbase',
         'USER': 'kouassi',
         'PASSWORD': 'kouassiAz1654?',
         'HOST': '127.0.0.1',

@@ -1,12 +1,23 @@
 {% extends '../../main.html' %} {% load static %} {% block content %}
-<link rel="stylesheet" href=" {% static 'assets/css/product-details/product-details.css' %}" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<link rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link
+  rel="stylesheet"
+  href=" {% static 'assets/css/product-details/product-details.css' %}"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+/>
 
 <!-- Jquery part -->
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"
+></script>
 <!-- End Jquery part -->
 
 <section class="main-details-container">
@@ -14,101 +25,103 @@
   <div class="left-details-container">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        <img class="swiper-slide" src="{% static 'assets/imgs/MQ4.jpg' %}" />
-        <img class="swiper-slide" src="{% static 'assets/imgs/MQ14.jpg' %}" />
-        <img class="swiper-slide" src="{% static 'assets/imgs/MQ2.jpg' %}" />
+        {% for img in images %} 
+        {% if img.photo_name %}
+        <img class="swiper-slide {% if forloop.counter0 == 0 %} active {% endif %}" src="{{img.photo_name.url}}" />
+        {% endif %} {% endfor %}
       </div>
       <div class="swiper-button-next"></div>
       <div class="swiper-button-prev"></div>
     </div>
-    <img class="add-to-favorite" src="{% static 'assets/imgs/dislike.png' %}" alt="" />
+    <img
+      class="add-to-favorite"
+      src="{% static 'assets/imgs/dislike.png' %}"
+      alt=""
+    />
   </div>
   <!-- End Left details elements -->
 
   <!-- Right details elements -->
   <div class="right-details-container">
-    <form action="">
+    <form action="{% url 'add_cart' single_product.id %}" method="POST">
+      {% csrf_token %}
       <ul>
-        <li class="product-name">Product name</li>
+        <li class="product-name">{{single_product.product_name }}</li>
         <li class="variant-colors">
+        
           <div class="color-choice">
-            <span class="color" id="red">Red</span>
-            <span class="color" id="black">Black</span>
-            <span class="color" id="blue">Blue</span>
+            {% for i in single_product.variation_set.colors %}
+            <span >{{ i.variation_value | capfirst }}</span>
+            {% endfor %}
           </div>
+          <div class="color-container">
+            {% for i in single_product.variation_set.colors %}
+            <div class="colorbox">
+              <input
+                class="blackinput"
+                type="radio"
+                name="color"
+                id="username3"
+                value="{{ i.variation_value | lower }}"
+              />
+              <label style="background: {{ i.variation_value | lower }}" for=""></label>
+            </div>
+            {% endfor %}
+          </div>
+       
+        </li>
 
-          <div class="colorbox" id="blackcolor" onmouseover="openBlack()">
-            <input class="blackinput" type="radio" name="color" id="username3" value="" />
-            <label style="background: black" for=""></label>
+        <!-- Size -->
+        <li class="variant-size">
+          <span>Size</span>
+          <div id="languagetable">
+            {% for i in single_product.variation_set.sizes %}
+            <div width="33.33333%">
+              <input type="radio" id="fr" name="languageselection"value="{{ i.variation_value | lower }}" />
+              <label for="en"> {{ i.variation_value | capfirst }} </label>
+            </div>
+            {% endfor %}
           </div>
-          <div class="colorbox" id="redcolor" onmouseover="openRed()">
-
-            <input class="redinput" type="radio" name="color" id="username3" value="" />
-            <label style="background: rgb(211, 0, 0)" for=""></label>
-          </div>
-          <div class="colorbox" id="bluecolor" onmouseover="openBlue()">
-
-            <input class="blueinput" type="radio" name="color" id="username3" value="" />
-            <label style="background: blue" for=""></label>
-          </div>
-      </ul>
-      </li>
-      <li class="variant-size">
-        <span>Size</span>
-        <div id="languagetable">
-          <div width="33.33333%">
-            <input type="radio" id="fr" name="languageselection" value="en" />
-            <label for="en">XXL </label>
-          </div>
-          <div width="33.33333%">
-            <input type="radio" id="en" name="languageselection" value="de" checked />
-            <label for="de">XS</label>
-          </div>
-          <div width="33.33333%">
-            <input type="radio" id="it" name="languageselection" value="it" />
-            <label for="de">M</label>
-          </div>
-        </div>
-      </li>
-      <li class="submit-button">
-        <button type="submit">
-          <span class="material-symbols-outlined">
-            shopping_bag
-          </span>
-          <span class="add-button"> Add</span>
-          <span class="price-button">
-            <p class="price">500</p>
-            <p class="discount">200</p>
-          </span>
-        </button>
-      </li>
+        </li>
+        <li class="submit-button">
+          <button type="submit">
+            <span class="material-symbols-outlined"> shopping_bag </span>
+            <span class="add-button"> Add</span>
+            <span class="price-button">
+              <p class="price">{{single_product.product_price }}</p>
+              <!-- <p class="discount">200</p> -->
+            </span>
+          </button>
+        </li>
       </ul>
     </form>
     <div class="details-cleaning">
       <ul>
-        <li id="details-linkId" onmouseover="openDetails()" class="details">Details</li>
-        <li id="cleaning-linkId" onmouseover="openCleaning()" class="cleaning">Cleaning</li>
+        <li id="details-linkId" onmouseover="openDetails()" class="details">
+          Details
+        </li>
+        <li id="cleaning-linkId" onmouseover="openCleaning()" class="cleaning">
+          Cleaning
+        </li>
       </ul>
       <div id="detailsId" class="details-cleaning-text" id="page_content">
-        <p class="details-text">Les details Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium non
-          aspernatur
-          molestiae quis molestias tempora veritatis praesentium, reiciendis mollitia? Officia repellendus hic minima
-          aliquid cum labore
-          autem deserunt laboriosam? Velit?
+        <p class="details-text">
+          Les details Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Accusantium non aspernatur molestiae quis molestias tempora veritatis
+          praesentium, reiciendis mollitia? Officia repellendus hic minima
+          aliquid cum labore autem deserunt laboriosam? Velit?
         </p>
       </div>
 
       <div id="cleaningId" class="details-cleaning-text" id="page_content">
-        <p class="cleaning-text">Les cleaning Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium non
-          aspernatur
-          molestiae quis molestias tempora veritatis praesentium, reiciendis mollitia? Officia repellendus hic minima
-          aliquid cum labore
-          autem deserunt laboriosam? Velit?
+        <p class="cleaning-text">
+          Les cleaning Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+          Accusantium non aspernatur molestiae quis molestias tempora veritatis
+          praesentium, reiciendis mollitia? Officia repellendus hic minima
+          aliquid cum labore autem deserunt laboriosam? Velit?
         </p>
       </div>
-
     </div>
-
   </div>
   <!-- End Right details elements -->
 </section>
@@ -125,69 +138,29 @@
 </script>
 <!-- End Swiper JS -->
 
-
 <!-- Details and cleaning script -->
 <script>
-  var details = document.getElementById('detailsId')
-  var cleaning = document.getElementById('cleaningId')
-  var detailsLink = document.getElementById('details-linkId')
-  var cleaningLink = document.getElementById('cleaning-linkId')
+  var details = document.getElementById("detailsId");
+  var cleaning = document.getElementById("cleaningId");
+  var detailsLink = document.getElementById("details-linkId");
+  var cleaningLink = document.getElementById("cleaning-linkId");
 
   function openDetails() {
-    details.style.opacity = "1"
-    cleaning.style.opacity = "0"
-    detailsLink.style.borderBottom = "1px solid black"
-    cleaningLink.style.borderBottom = "1px solid white"
+    details.style.opacity = "1";
+    cleaning.style.opacity = "0";
+    detailsLink.style.borderBottom = "1px solid black";
+    cleaningLink.style.borderBottom = "1px solid white";
   }
 
   function openCleaning() {
-    details.style.opacity = "0"
-    cleaning.style.opacity = "1"
-    cleaningLink.style.borderBottom = "1px solid black"
-    detailsLink.style.borderBottom = "1px solid white"
+    details.style.opacity = "0";
+    cleaning.style.opacity = "1";
+    cleaningLink.style.borderBottom = "1px solid black";
+    detailsLink.style.borderBottom = "1px solid white";
   }
-
 </script>
 <!-- End details and cleaning script -->
 
 <!-- Colors variants scripts -->
-<script>
-
-  var blue = document.getElementById('blue')
-  var black = document.getElementById('black')
-  var red = document.getElementById('red')
-  var blackLink = document.getElementById('blackcolor')
-  var redLink = document.getElementById('redcolor')
-  var blueLink = document.getElementById('bluecolor')
-
-  function openBlack() {
-    black.style.opacity = "1"
-    red.style.opacity = "0"
-    blue.style.opacity = "0"
-    blackLink.style.borderBottom = "1px solid black"
-    redLink.style.borderBottom = "1px solid white"
-    blueLink.style.borderBottom = "1px solid white"
-  }
-
-  function openBlue() {
-    black.style.opacity = "0"
-    red.style.opacity = "0"
-    blue.style.opacity = "1"
-    blackLink.style.borderBottom = "1px solid white"
-    redLink.style.borderBottom = "1px solid white"
-    blueLink.style.borderBottom = "1px solid black"
-  }
-
-  function openRed() {
-    black.style.opacity = "0"
-    red.style.opacity = "1"
-    blue.style.opacity = "0"
-    blackLink.style.borderBottom = "1px solid white"
-    redLink.style.borderBottom = "1px solid black"
-    blueLink.style.borderBottom = "1px solid white"
-  }
-
-
-</script>
 <!-- Colors variants scripts -->
 {% endblock %}

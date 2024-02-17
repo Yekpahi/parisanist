@@ -1,4 +1,5 @@
 {% load static %}
+
 <link
   rel="stylesheet"
   href=" {% static 'assets/css/store/store-gallery.css' %}"
@@ -7,7 +8,10 @@
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <div class="store-gallery">
   <!-- One slider -->
   {% if products %} {% for product in products %}
@@ -33,9 +37,40 @@
         <a href="{{ product.get_url}}" class="title"
           >{{product.product_name}}</a
         >
-        <span class="price">{{product.product_price}} Eur</span>
+        <span class="price">{{product.product_price}}</span>
       </div>
-      <img src="{% static 'assets/imgs/dislike.png' %}" alt="" />
+      <!-- <form action="{% url 'add-to-wishlist' %}" method="POST">
+        {%csrf_token%}
+        <input type="hidden" name="id" value="{{product.id}}">
+        <input type="submit" value="Add to Wishlist">
+      </form> -->
+
+      {% if product.pk in wishlisted_list %} 
+      {% for i in wishlisted_list %} 
+      {% if product.pk is i %}
+      <span
+        class="like heart"
+        id="id"
+        attr_id="{{product.pk}}"
+        action_url="{% url 'add-to-wishlist' %}"
+        ><img src="{% static 'assets/imgs/like.png' %}" alt=""
+      /></span>
+      {% endif %} 
+      {% endfor %} 
+      {% else %}
+      <span
+        class="like"
+        id="id"
+        attr_id="{{product.pk}}"
+        action_url="{% url 'add-to-wishlist' %}"
+      >
+        <img src="{% static 'assets/imgs/dislike.png' %}" alt=""
+      /></span>
+      {% endif %}
+
+      <!-- <a class="add-to-wishlist" href ="{% url 'add-to-wishlist' %}" data-product-item="{{product.id}}">
+        <img  src="{% static 'assets/imgs/dislike.png' %}" alt="" />
+      </a>  -->
     </div>
   </div>
   {% endfor %} {% else %}
@@ -43,6 +78,54 @@
   {% endif %}
   <!-- End one slider -->
 </div>
+
+<script>
+  $(document).ready(function () {
+    $(".like").click(function () {
+      var attr_id = $(this).attr("attr_id");
+      var action_url = $(this).attr("action_url");
+      var that = $(this);
+
+      $.ajax({
+        url: action_url,
+        type: "POST",
+        data: { attr_id: attr_id },
+        headers: { "X-CSRFToken": $.cookie("csrftoken") },
+        success: function (result) {
+          console.log("Success");
+          that.toggleClass("heart");
+        },
+        error: function () {
+          alert("Please login");
+        },
+      });
+    });
+  });
+</script>
+
+<!-- <script>
+  $(document).on("click", '.like', function(){
+    let product_id = $(this).attr("data-product-item")
+    let this_val = $(this)
+  console.log("Product ID is", product_id)
+    $.ajax({
+      url: "/add-to-wishlist",
+      data : {
+        "id": product_id
+      },
+      dataType : "json",
+      beforeSend: function(){
+       console.log("Adding to wishlist ♥...")
+      },
+      success: function(response){
+          this_val.html("♥")
+          if (response.bool === true) {
+              console.log("Added to wishlist...");
+        }
+      }
+    })
+  })
+  </script> -->
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

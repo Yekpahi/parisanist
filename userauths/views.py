@@ -127,18 +127,6 @@ def login(request):
     return render(request, 'user/login.html')
 
 @login_required(login_url='login')
-def add_to_wishlist(request, id=id):
-    product = get_object_or_404(Product, id=id)
-    if product.users_wishlist.filter(id=request.user.id).exists():
-        product.users_wishlist.remove(request.user)
-    else:
-        product.users_wishlist.add(request.user)
-    return HttpResponseRedirect(request.META["HTTP_REFERER"])
-        
-
-
-
-@login_required(login_url='login')
 def logout(request):
     auth.logout(request)
     messages.success(request, "You are logged out.")
