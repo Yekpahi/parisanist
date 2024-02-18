@@ -196,6 +196,7 @@ body {
   font-size: 1.8em;
   padding-top: 20px;
   padding-bottom: 20px;
+  outline: none;
 }
 
 /* Sidebar */
@@ -321,7 +322,7 @@ body {
 .account-modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 1111; /* Sit on top */
   padding-top: 100px; /* Location of the box */
   left: 0;
   top: 0;

@@ -1,23 +1,69 @@
-.footer {
-    height: 300px;
-    width: 100vw;
-    background-color: black;
-    position: relative;
+body {
+  position: relative;
+  overflow: hidden;
 }
 
-.footer ul{
-    position: absolute;
-    left: 90%;
-    bottom: 100px;
-   list-style: none;
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   
+.footer-container {
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+  height: 10%;
+  padding: 20px 200px 10px 200px;
+  border-top: 1px solid black;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+.footer-container > ul {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+}
+
+.footer-container > ul > li {
+  margin-bottom: 20px;
+}
+.footer-container > ul li a {
+  text-decoration: none;
+  color: black;
+}
+
+/* high-elements */
+.footer-container > ul .high-elements > ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-container > ul .high-elements > ul > li{
+  font-size: 1.1em;
+  text-transform: uppercase;
+  
 }
 
 
-.footer ul li{
-    margin-bottom:20px ;
-   color: aliceblue;
- } 
+/* End high-elements */
+.footer-container > ul .low-elements > ul {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-container > ul .low-elements > ul .bank-elements > ul {
+  display: flex;
+}
+
+.footer-container > ul .low-elements > ul .bank-elements > ul > li {
+  margin-left: 15px;
+}
+
+.footer-container > ul .low-elements > ul .instagram > a > img {
+  width: 15px;
+}
+
+
+
+.footer-container > ul .low-elements > ul .bank-elements > ul > li > img {
+  width: 25px;
+}
+
+.footer-container > ul .low-elements > ul .bank-elements > ul .paypalmethod > img{
+  width: 45px;
+}
