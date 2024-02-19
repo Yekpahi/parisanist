@@ -65,3 +65,20 @@
 .footer-container > ul .low-elements > ul .bank-elements > ul .paypalmethod > img{
   width: 45px;
 }
+
+/* Responsive */
+
+@media  screen and (max-width:1319px) {
+  .footer-container {
+    padding: 20px 70px 10px 70px;
+
+  }
+}
+
+@media  screen and (max-width:1059px) {
+  .footer-container {
+    padding: 20px 30px 10px 30px;
+    font-size:0.8em ;
+
+  }
+}

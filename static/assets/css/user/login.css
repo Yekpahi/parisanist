@@ -1,36 +1,97 @@
-body{
-    background: #00589F;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00589F', endColorstr='#0073CF', GradientType=0);
-    background: -webkit-linear-gradient(to bottom, #00589F 50%, #0073CF) !important;
-    background: -moz-linear-gradient(to bottom, #00589F 50%, #0073CF) !important;
-    background: -ms-linear-gradient(to bottom, #00589F 50%, #0073CF) !important;
-    background: -o-linear-gradient(to bottom, #00589F 50%, #0073CF) !important;
-    background: linear-gradient(to bottom, #00589F 50%, #0073CF) !important;
-    color: white;
-  }
-  
-  div.well{
-    height: 250px;
-  } 
-  
-  .Absolute-Center {
-    margin: auto;
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
-  }
-  
-  .Absolute-Center.is-Responsive {
-    width: 50%; 
-    height: 50%;
-    min-width: 200px;
-    max-width: 400px;
-    padding: 40px;
-  }
-  
-  #logo-container{
-    margin: auto;
-    margin-bottom: 10px;
-    width:200px;
-    height:30px;
-    background-image:url('http://placehold.it/200x30/000000/ffffff/&text=BRAND+LOGO');
-  }
+/* Start Account */
+
+/* modal */
+.account-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1111; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.2); /* Black w/ opacity */
+}
+
+.modal-contents-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 500px;
+  height: 100vh;
+  padding: 100px;
+  background-color: rgb(255, 255, 255);
+  overflow: none; /* Enable scroll if needed */
+}
+
+.modal-contents-container > ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin-top: 100px;
+}
+
+.modal-contents-container ul > li {
+  margin-top: 10px;
+}
+
+.form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form form > input {
+  padding: 5px 5px 5px 10px;
+  outline: none;
+}
+
+.form form > button {
+  padding: 10px 15px 10px 15px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  font-size: 1.2em;
+}
+
+.modal-contents-container > ul .create-account {
+  font-size: 2em;
+  font-weight: bolder;
+  margin-bottom: 20px;
+}
+
+.modal-contents-container > ul .create-account-link {
+  padding: 10px 15px 10px 15px;
+  cursor: pointer;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+}
+.modal-contents-container > ul .create-account-link > a {
+  color: white;
+  font-size: 1.2em;
+  text-decoration: none;
+}
+
+.form form .form-child {
+  margin-bottom: 20px;
+}
+
+/* The Close Button */
+.modal-contents-container .login_close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  transform: translate(80px, -90px);
+}
+
+.modal-contents-container .login_close:hover,
+.modal-contents-container .login_close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* End Account */

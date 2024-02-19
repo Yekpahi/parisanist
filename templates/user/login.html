@@ -1,49 +1,59 @@
-{% extends "main.html" %}
 {% load static %}
-{% block title %} Login Page {% endblock title%}
 <link rel="stylesheet" href=" {% static 'assets/css/user/login.css' %}" />
 
 
-{% block content %}
-
-{% if request.GET.command == 'verification' %}
-<div class="container mx-auto alert-info" role="alert" style="max-width: 1024px; margin-top:100px;">
-Thank you for registered with us. We have sent you a verification email to your email address [{{request.GET.email}}]
-  <br><br>
-  Already verified ? <a href="{% url 'login' %}">Login</a>
-</div>
-{% else %}
-<div class="container">
-  {% include 'partials/alert.html' %}
-    <div class="row">
-      <div class="Absolute-Center is-Responsive">
-        <div id="logo-container"></div>
-        <div class="col-sm-12 col-md-10 col-md-offset-1">
-          <form action="{% url 'login' %}" id="loginForm" method="post">
-            {% csrf_token %}
-            <div class="form-group input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <input class="form-control" type="text" name='email' placeholder="username"/>          
-            </div>
-            <div class="form-group input-group">
-              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-              <input class="form-control" type="password" name='password' placeholder="password"/>     
-            </div>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox"> I agree to the <a href="#">Terms and Conditions</a>
-              </label>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-def btn-block">Login</button>
-            </div>
-            <div class="form-group text-center">
-              <a href="{% url 'forgotPassword' %}">Forgot Password</a>&nbsp;|&nbsp;<a href="#">Support</a>
-            </div>
-          </form>        
-        </div>  
-      </div>    
-    </div>
+<div class="account-modal" id="login_modal">
+  <div class="modal-contents-container">
+    <span class="login_close">&times;</span>
+    <ul>
+      <li><h2>LOG IN</h2></li>
+      <li class="form">
+        <form action="{% url 'login' %}" method="POST" >
+          {% csrf_token %}
+          <input class="form-child" type="email" name='email' placeholder="Email" />
+          <input class="form-child" type="password" name='password' placeholder="Password" />
+          <span class="form-child"> <a href="{% url 'forgotPassword' %}">Mot de passe oublié ?</a></span>
+          <button type="submit" class="form-child">LOG IN</button>
+        </form>
+      </li>
+      <li class="create-account">CREATE A ACCOUNT</li>
+      <li class="create-account-link">
+        <a href="{% url 'register' %}">CREATE A ACCOUNT</a>
+      </li>
+    </ul>
   </div>
-  {% endif%}
-{% endblock content %}
+</div>
+
+<!-- Modal script -->
+<script>
+
+  
+  // Get the modal
+  var login_modal = document.getElementById("login_modal");
+
+  // Get the button that opens the modal
+  var login_btn = document.getElementById("login_modal_btn");
+
+  // Get the <span> element that closes the modal
+  var login_span = document.getElementsByClassName("login_close")[0];
+
+  // When the user clicks the button, open the modal
+  login_btn.onclick = function () {
+    login_modal.style.display = "block";
+  };
+
+  // When the user clicks on <span> (x), close the modal
+    login_span.onclick = function () {
+      login_modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == login_modal) {
+      login_modal.style.display = "none";
+    }
+  };
+
+</script>
+
+<!-- End Modal script -->

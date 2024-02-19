@@ -1,0 +1,49 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %} Login Page {% endblock title%}
+<link rel="stylesheet" href=" {% static 'assets/css/user/login.css' %}" />
+
+
+{% block content %}
+
+{% if request.GET.command == 'verification' %}
+<div class="container mx-auto alert-info" role="alert" style="max-width: 1024px; margin-top:100px;">
+Thank you for registered with us. We have sent you a verification email to your email address [{{request.GET.email}}]
+  <br><br>
+  Already verified ? <a href="{% url 'login' %}">Login</a>
+</div>
+{% else %}
+<div class="container">
+  {% include 'partials/alert.html' %}
+    <div class="row">
+      <div class="Absolute-Center is-Responsive">
+        <div id="logo-container"></div>
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+          <form action="{% url 'login' %}" id="loginForm" method="post">
+            {% csrf_token %}
+            <div class="form-group input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <input class="form-control" type="text" name='email' placeholder="username"/>          
+            </div>
+            <div class="form-group input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+              <input class="form-control" type="password" name='password' placeholder="password"/>     
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> I agree to the <a href="#">Terms and Conditions</a>
+              </label>
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-def btn-block">Login</button>
+            </div>
+            <div class="form-group text-center">
+              <a href="{% url 'forgotPassword' %}">Forgot Password</a>&nbsp;|&nbsp;<a href="#">Support</a>
+            </div>
+          </form>        
+        </div>  
+      </div>    
+    </div>
+  </div>
+  {% endif%}
+{% endblock content %}
