@@ -1,23 +1,22 @@
+
 .store-gallery {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  /* margin: 0 auto; */
+  margin-top: 150px;
 }
 
 /* swiper carousel */
 .swiper {
   flex-basis: 100%;
   height: 600px;
-  position: relative;
-  top: 150px;
   box-sizing: border-box;
   padding: 2px;
   
 }
-
 .swiper-slide {
   padding: 2px;
   display: block;
@@ -25,6 +24,7 @@
   height: 100%;
   object-fit: cover;
 }
+
 .gallery-swiper-buttons-and-infos {
   position: relative;
   bottom: 100%;
@@ -34,11 +34,7 @@
   cursor: pointer;
 }
 
-  /*adjust arrow size*/
- .swiper [class^="swiper-button-"]{
-    width: 15px;
-    height: 15px;
-} 
+
 .gallery-swiper-buttons-and-infos .gallery-infos {
   display: flex;
   justify-content: space-between;
@@ -48,16 +44,18 @@
 
 .gallery-swiper-buttons-and-infos .gallery-infos .title {
   margin-left: 15px;
+  text-decoration: none;
+  color: black;
 }
 
 .gallery-swiper-buttons-and-infos .gallery-infos .price {
   margin-right: 15px;
 }
 
-.gallery-swiper-buttons-and-infos img {
+.gallery-swiper-buttons-and-infos > span > img {
   width: 20px;
   position: relative;
-  top: 92%;
+  top: 91%;
   left: 93%;
 }
 

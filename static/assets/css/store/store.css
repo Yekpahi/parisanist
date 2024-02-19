@@ -1,17 +1,18 @@
 *,
-::before,
-::after {
+*:before,
+*:after {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 
 body {
-  font-family: "Inter", sans-serif;
-  color: #343a40;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+  position: relative;
 }
-
 
 .category-and-filter {
   position: relative;
@@ -46,7 +47,6 @@ body {
 
 .filter-element .filter-modal-link {
   cursor: pointer;
- 
 }
 
 .filter-modal {

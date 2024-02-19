@@ -4,14 +4,23 @@
   rel="stylesheet"
   href=" {% static 'assets/css/store/store-gallery.css' %}"
 />
+
+<!-- Swiper Link -->
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
+<!-- End Swiper Link -->
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css" />
 
+<!-- Ajax link -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<!-- End Ajax link -->
+
 <div class="store-gallery">
   <!-- One slider -->
   {% if products %} {% for product in products %}
@@ -45,8 +54,7 @@
         <input type="submit" value="Add to Wishlist">
       </form> -->
 
-      {% if product.pk in wishlisted_list %} 
-      {% for i in wishlisted_list %} 
+      {% if product.pk in wishlisted_list %} {% for i in wishlisted_list %} 
       {% if product.pk is i %}
       <span
         class="like heart"
@@ -68,6 +76,8 @@
       /></span>
       {% endif %}
 
+
+
       <!-- <a class="add-to-wishlist" href ="{% url 'add-to-wishlist' %}" data-product-item="{{product.id}}">
         <img  src="{% static 'assets/imgs/dislike.png' %}" alt="" />
       </a>  -->
@@ -79,13 +89,13 @@
   <!-- End one slider -->
 </div>
 
-<script>
+<script type="text/javascript">
   $(document).ready(function () {
-    $(".like").click(function () {
+    $(document).on('click', '.like', function (event) {
+      event.preventDefault();
       var attr_id = $(this).attr("attr_id");
       var action_url = $(this).attr("action_url");
       var that = $(this);
-
       $.ajax({
         url: action_url,
         type: "POST",
@@ -102,6 +112,33 @@
     });
   });
 </script>
+
+
+ <!--
+<script type="text/javascript">
+  $(document).ready(function () {
+    $(".like").click(function () {
+      var attr_id = $(this).attr("attr_id");
+      var action_url = $(this).attr("action_url");
+      var that = $(this);
+      $.ajax({
+        url: action_url,
+        type: "POST",
+        data: { attr_id: attr_id },
+        headers: { "X-CSRFToken": $.cookie("csrftoken") },
+        success: function (result) {
+          console.log("Success");
+          that.toggleClass("heart");
+        },
+        error: function () {
+          alert("Please login");
+        },
+      });
+    });
+  });
+</script>
+-->
+
 
 <!-- <script>
   $(document).on("click", '.like', function(){
