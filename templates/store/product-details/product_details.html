@@ -26,8 +26,8 @@
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
         {% for img in images %} 
-        {% if img.photo_name %}
-        <img class="swiper-slide {% if forloop.counter0 == 0 %} active {% endif %}" src="{{img.photo_name.url}}" />
+        {% if img.product_image %}
+        <img class="swiper-slide {% if forloop.counter0 == 0 %} active {% endif %}" src="{{img.product_image.url}}" />
         {% endif %} {% endfor %}
       </div>
       <div class="swiper-button-next"></div>

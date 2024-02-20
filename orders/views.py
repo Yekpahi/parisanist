@@ -108,6 +108,7 @@ def place_order(request, total=0, quantity=0):
             data.city = form.cleaned_data['city']
             data.order_note = form.cleaned_data['order_note']
             data.derivery_method = form.cleaned_data['derivery_method']
+            data.derivery_method = form.cleaned_data['payment_method']
             data.order_total = grand_total
             data.tax = tax
             data.ip = request.META.get('REMOTE_ADDR')
@@ -122,6 +123,7 @@ def place_order(request, total=0, quantity=0):
             order_number = current_date + str(data.id)  # 20210615+id
             data.order_number = order_number
             data.save()
+            
 
             order = Order.objects.get(user=current_user, is_ordered=False, order_number=order_number)
             context = {

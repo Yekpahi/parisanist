@@ -153,7 +153,7 @@ def activate(request, uidb64, token):
 
 @login_required(login_url="login")
 def dashboard(request):
-    return render(request, 'user/dashboard.html')
+    return render(request, 'user/dashboard/dashboard.html')
 
 def forgotPassword(request) :
     if request.method == "POST":

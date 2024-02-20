@@ -5,7 +5,7 @@ from .models import Photo, Product, Variation, Wishlist
 class PhotoAdmin(admin.StackedInline):
     model = Photo
     list_display = ['product_name', 'product_slug']
-    prepopulated_fields = {'photo_slug': ('photo_name',),}
+    prepopulated_fields = {'photo_slug': ('product_image',),}
 
 class ProductAdmin(admin.ModelAdmin):
     inlines = [PhotoAdmin]

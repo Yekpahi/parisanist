@@ -70,11 +70,9 @@
       </li>
       <!-- End search icon -->
       {% if user.is_authenticated %}
-      <!-- Start ccount modal icon -->
-      <li class="right account hideOnMobile">
-        <a href="{% url 'logout' %}">
-        <img src="{% static 'assets/imgs/logout.png' %}" alt="" />
-      </a>
+      <!-- Start account modal icon -->
+      <li id="account_modal_btn" class="right account hideOnMobile">
+        <img src="{% static 'assets/imgs/account.png' %}" alt="" />
       </li>
       <!-- Start ccount modal icon -->
       <li class="right favorite hideOnMobile">
@@ -126,6 +124,10 @@
 
 <!-- Start Account part -->
 {% include '../user/login.html' %}
+<!-- End Account part -->
+
+<!-- Start Account part -->
+{% include '../user/account-modal.html' %}
 <!-- End Account part -->
 
 <!-- Search input script -->

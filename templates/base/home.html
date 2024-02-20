@@ -24,7 +24,7 @@ Site officiel{% endblock %} {% block content %}
         {% if product.is_active_active_on_home_carousel == True %}
       <img
         class="swiper-slide"
-        src="{{product.product_cover_image.url}}"
+        src="{{product.product_home_carousel_image.url}}"
         alt="{{product.product_name}}"
       />
       {% endif %} {% endfor %}

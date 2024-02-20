@@ -16,7 +16,8 @@ class Product(models.Model):
     product_discountprice = models.FloatField(blank=True, null=True)
     product_description = models.TextField(null=True, blank=True)
     product_cleaning = models.TextField(null=True, blank=True)
-    product_cover_image = models.ImageField(upload_to='static/cover/')
+    # product_cover_image = models.ImageField(upload_to='static/cover/')
+    product_home_carousel_image = models.ImageField(upload_to='static/cover/')
     is_active = models.BooleanField(default=False)
     is_active_active_on_home_carousel = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
@@ -50,13 +51,15 @@ class Wishlist(models.Model):
         return self.product.product_name
    
 class Photo(models.Model):
+    title = models.CharField(max_length=500, blank=True, null = True)
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='photos')
-    photo_name = models.ImageField(upload_to='stactic/photos/', verbose_name=("image"))
+    # photo_name = models.ImageField(upload_to='stactic/photos/', verbose_name=("image"))
+    product_image = models.ImageField(upload_to='stactic/photos/', verbose_name=("image"))
     photo_slug = models.SlugField(null=True, blank=True)
     is_feature=models.BooleanField(default=False)
     def __str__(self):
-        return str(self.photo_name)  # on met str(...) pour convertir en string
+        return str(self.product_image)  # on met str(...) pour convertir en string
 
     @property
     def photoURL(self):
@@ -91,17 +94,3 @@ class Variation(models.Model):
     def __str__(self):
         return self.variation_value
     
-    # class Meta:
-    #     constraints = [
-    #         models.UniqueConstraint(
-    #             fields=['product', 'color', 'size'],
-    #             name='unique_prod_color_size_combo'
-    #         )
-    #     ]
-    
-    # def save(self, *args, **kwargs):
-    #     if self.color not in self.product.colors.all():
-    #         raise ValidationError("Selected color is not valid <OR ANY MESSAGE YOU WANT TO SHOW>")
-    #     if self.size not in self.product.sizes.all():
-    #         raise ValidationError("Selected color is not valid <OR ANY MESSAGE YOU WANT TO SHOW>")            
-    #     super().save(*args, **kwargs)

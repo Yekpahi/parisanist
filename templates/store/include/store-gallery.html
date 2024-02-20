@@ -29,7 +29,7 @@
       {% for image in product.photos.all %}
       <img
         class="swiper-slide"
-        src="{{ image.photo_name.url }}"
+        src="{{ image.product_image.url }}"
         alt="{{ product.product_name }}"
       />
       {% endfor %}

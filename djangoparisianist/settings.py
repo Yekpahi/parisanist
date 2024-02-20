@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'djangoparisianist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'abcbase',
+        'NAME': 'parisianistdb102',
         'USER': 'kouassi',
-        'PASSWORD': 'kouassiAz1654?',
+        'PASSWORD': 'azerty1234',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
@@ -182,7 +182,7 @@ MESSAGE_TAGS = {
     50: "critical",
 }
 
-#Stripe setting
+# Stripe setting
 
 STRIPE_PUBLIC_KEY = ""
 STRIPE_SECRET_KEY = ""

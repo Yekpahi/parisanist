@@ -879,7 +879,7 @@
             <!-- Selection the one image which is feature -->
             {% for image in cart_item.product.photos.all %} 
             {% if image.is_feature %}
-            <img src="{{ image.photo_name.url }}" alt="" />
+            <img src="{{ image.product_image.url }}" alt="" />
             {% endif %} 
             {% endfor %}
             <!-- Selection the one image which is feature -->
