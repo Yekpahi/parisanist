@@ -1,0 +1,89 @@
+/* 64ac15 */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  height: 100vh;
+}
+
+.register-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+}
+
+.register-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.register-elements {
+  width: 30%;
+}
+
+.register-elements > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-elements > form > div {
+  margin-bottom: 15px;
+}
+
+.inptx {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-password .passwordx {
+  display: flex;
+  flex-direction: column;
+}
+#showPass {
+  display: inline-block;
+  position: relative;
+  left: 96%;
+  bottom: 24px;
+  cursor: pointer;
+}
+
+#cshowPass {
+  display: inline-block;
+  position: relative;
+  left: 96%;
+  bottom: 24px;
+  cursor: pointer;
+}
+
+.register-validation-button {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-validation-button > span > button {
+  border: none;
+  padding: 10px;
+  outline: none;
+  width: 100%;
+  background-color: black;
+  color: white;
+  font-size: 1.4em;
+  cursor: pointer;
+}
+
+.register-gle-conditions {
+  margin-top: 15px;
+}
+
+.register-gle-conditions > a{
+  text-decoration: none;
+}
+

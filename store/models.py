@@ -16,7 +16,6 @@ class Product(models.Model):
     product_discountprice = models.FloatField(blank=True, null=True)
     product_description = models.TextField(null=True, blank=True)
     product_cleaning = models.TextField(null=True, blank=True)
-    # product_cover_image = models.ImageField(upload_to='static/cover/')
     product_home_carousel_image = models.ImageField(upload_to='static/cover/')
     is_active = models.BooleanField(default=False)
     is_active_active_on_home_carousel = models.BooleanField(default=False)
