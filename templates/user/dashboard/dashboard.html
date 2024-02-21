@@ -1,6 +1,29 @@
-{% extends '../../main.html' %} {% load static %} 
-<link rel="stylesheet" href=" {% static 'assets/css/user/dashboard.css' %}" />
+{% extends '../../main.html' %} 
+{% load static %} 
 
 {% block content %}
-<a href="">User dashboard</a>
+<link rel="stylesheet" href=" {% static 'assets/css/user/dashboard.css' %}" />
+
+<main class="dashboad-main">
+
+    <aside class="dashboard-left-side">
+        <ul>
+            <li><a href="">My Account</a></li>
+            <li><a href="">My orders</a></li>
+            <li><a href="">Wishlist</a></li>
+            <li><a href="">Address</a></li>
+            <li><a href="">Account informations</a></li>
+        </ul>
+
+    </aside>
+<aside class="dashboard-right-side">
+<div class="dashboard-right-contents">
+
+    {% include './orders.html' %}
+</div>
+</aside>
+</main>
+<!-- Start FOOTER -->
+{% include '../../footer/footer.html' %}
+<!-- End FOOTER -->
 {% endblock content %}

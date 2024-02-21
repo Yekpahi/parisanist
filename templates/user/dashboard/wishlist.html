@@ -1,0 +1,63 @@
+{% load static %}
+<ul class="db-Wishlist">
+  <li class="db-wishlist-infos">
+    <span class="db-Wishlist-title">Wishlist</span>
+    <span class="db-Wishlist-count"> 2 articles selected</span>
+  </li>
+
+  <li class="db-wishlist-store-gallery">
+    <div class="db-one-item">
+      <img src="{% static 'assets/imgs/Mq2.jpg' %}" alt="" />
+      <div class="db-others-infos"
+      onmouseover="chargeOpacity(this)"
+      onmouseout="removeOpacity(this)"
+      >
+        <ul>
+          <li class="db-title-and-price">
+            <ul>
+              <li>John Beno</li>
+              <li>2000 Euro</li>
+            </ul>
+          </li>
+          <li class="db-favorite-img">
+            <img src="{% static 'assets/imgs/dislike.png' %}" alt="" />
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="db-one-item">
+      <img src="{% static 'assets/imgs/MQ4.jpg' %}" alt="" />
+      <div
+        class="db-others-infos"
+        onmouseover="chargeOpacity(this)"
+        onmouseout="removeOpacity(this)"
+      >
+        <ul>
+          <li class="db-title-and-price">
+            <ul>
+              <li>John Beno</li>
+              <li>2000 Euro</li>
+            </ul>
+          </li>
+          <li class="db-favorite-img">
+            <img src="{% static 'assets/imgs/dislike.png' %}" alt="" />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<!-- Gallery infos scripts -->
+<script>
+  function chargeOpacity(x) {
+    x.style.opacity = "1";
+    x.style.transition = "all 0.9s ease-in-out";
+  }
+
+  function removeOpacity(x) {
+    x.style.opacity = "0";
+    x.style.transition = "all 0.9s ease-in-out";
+  }
+</script>
+<!-- Gallery infos scripts -->
