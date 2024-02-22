@@ -57,18 +57,3 @@ class Account(AbstractUser):
         return self.is_admin
     def has_module_perms(self, add_label):
         return True
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     firstname = models.CharField(max_length=100, blank=True)
-#     lastname = models.CharField(max_length=100, blank=True)
-#     email = models.EmailField(max_length=150)
-#     signup_confirmation = models.BooleanField(default=False)
-
-#     def __str__(self):
-#         return self.user.username
-
-# @receiver(post_save, sender=User)
-# def update_profile_signal(sender, instance, created, **kwargs):
-#     if created:
-#         Profile.objects.create(user=instance)
-#     instance.profile.save()

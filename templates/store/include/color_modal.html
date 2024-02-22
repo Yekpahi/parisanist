@@ -1,0 +1,47 @@
+<div class="filter-modal-color">
+  <div class="filter-color-overlay" >
+    <ul class="filter-modal-content color-modal">
+      <li>
+        <a href="">
+          <input type="checkbox" />
+          <span>Black</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <input type="checkbox" />
+          <span>Blue</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <input type="checkbox" />
+          <span>Yellow</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  </div>
+
+  <!-- Modal script -->
+<script>
+    const colorButton = document.querySelector("#filter-modal-link-colorid");
+    const colorModal= document.querySelector(".filter-modal-color");
+    const colorOverlay= document.querySelector(".filter-color-overlay");    
+    ///opens the popup when the user clicks the button
+  
+    colorButton.addEventListener("click", () => {
+      colorModal.style.display = "block";
+      colorOverlay.style.display = "block";
+    });
+  
+    /// close popup is user clicks outside the popup content window
+    colorModal.addEventListener("click", (e) => {
+      if (e.target.className == "filter-modal-color" || e.target.className == "filter-color-overlay") {
+        colorModal.style.display = "none";
+        colorOverlay.style.display = "none";
+      }
+    });
+  
+  </script>
+  <!-- End Modal script -->

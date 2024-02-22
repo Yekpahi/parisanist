@@ -1,7 +1,7 @@
 /* Start Account */
 
 /* modal */
-.account-modal {
+.login-modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1111; /* Sit on top */

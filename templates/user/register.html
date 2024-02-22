@@ -10,99 +10,111 @@
 
 <!-- Ajax cdn -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 
 <div class="register-container">
   <div class="register-header">
     <span> <h2>Create your account</h2></span>
-    <span 
-      > <h6>Create your account and benefit from the best shopping services from PARISIANIST.</h6>
-     </span
-    >
+    <span>
+      <h6>
+        Create your account and benefit from the best shopping services from
+        PARISIANIST.
+      </h6>
+    </span>
   </div>
   <div class="register-elements">
-    <form action="">
-        <div class="inptx register-firstname">
-            <label for="">First name</label>
-            <input type="text" placeholder="">
-        </div>
-        <div class="inptx register-lastname">
-            <label for="">Last name</label>
-            <input type="text" placeholder="">
-        </div>
-        <div class="inptx register-username">
-            <label for="">Username</label>
-            <input type="text" placeholder="">
-        </div>
+    {% include 'partials/alert.html' %}
+    <form action="{% url 'register' %}" method="POST">
+      {% csrf_token %}
+      <div class="inptx register-firstname">
+        <label for="">First name</label>
+          {{form.first_name}}
+      </div>
+      <div class="inptx register-lastname">
+        <label for="">Last name</label>
+        {{form.last_name}}
+      </div>
+      <div class="inptx register-username">
+        <label for="">Username</label>
+        {{form.username}}
+      </div>
+      <div class="inptx register-email">
+        <label for="">Email</label>
+        {{form.email}}
+      </div>
+      <div class="register-password">
+        <span class="passwordx">
+          <label for="">Password</label>
+          {{form.password}}
+        </span>
 
-        <div class="register-password">
-            <span class="passwordx">
-                <label for="">Password</label>
-                <input type="password" placeholder="" id="myPass">
-            </span>
-          
-            <span id="showPass">
-                <i class="fa fa-eye-slash" aria-hidden="true"></i>
-                <i class="fa fa-eye" aria-hidden="true" style="display:none;"></i>
-              </span>
-        </div>
+        <span id="showPass">
+          <i class="fa fa-eye-slash" aria-hidden="true"></i>
+          <i class="fa fa-eye" aria-hidden="true" style="display: none"></i>
+        </span>
+      </div>
 
-        <div class="register-password">
-            <span class="passwordx">
-                <label for="">Confirm Password</label>
-                <input type="password" placeholder="" id="cmyPass">
-            </span>
-        
-            <span id="cshowPass">
-                <i class="fa fa-eye-slash" aria-hidden="true"></i>
-                <i class="fa fa-eye" aria-hidden="true" style="display:none;"></i>
-              </span>
-        </div>
+      <div class="register-password">
+        <span class="passwordx">
+          <label for="">Confirm Password</label>
+          {{form.confirm_password}}
+        </span>
 
-        <div class="register-validation-button">
-            <span>
-                <button type="submit">Create your account</button>
-            </span>
-            <span class="register-gle-conditions">
-                By clicking on “create your account”, you accept <a href="">the general conditions of sale and the confidentiality policy</a> of PARISIANIST.
-            </span>
-        </div>
+        <span id="cshowPass">
+          <i class="fa fa-eye-slash" aria-hidden="true"></i>
+          <i class="fa fa-eye" aria-hidden="true" style="display: none"></i>
+        </span>
+      </div>
+
+      <div class="register-validation-button">
+        <span>
+          <button type="submit">Create your account</button>
+        </span>
+        <span class="register-gle-conditions">
+          By clicking on “create your account”, you accept
+          <a href=""
+            >the general conditions of sale and the confidentiality policy</a
+          >
+          of PARISIANIST.
+        </span>
+      </div>
+      {{ form.email.errors }}
+      {{ form.non_field_errors }}
     </form>
   </div>
 </div>
 
-
 <script>
-    $(document).ready(function() {
-  $("#showPass").click(function() {
-    if ($("#myPass").attr("type") == "password") {
-      $("#myPass").attr("type", "text");
-    } else {
-      $("#myPass").attr("type", "password");
-    }
+  $(document).ready(function () {
+    $("#showPass").click(function () {
+      if ($("#myPass").attr("type") == "password") {
+        $("#myPass").attr("type", "text");
+      } else {
+        $("#myPass").attr("type", "password");
+      }
+    });
+    $("#showPass").click(function () {
+      $("#showPass i").toggle();
+    });
   });
-  $("#showPass").click(function() {
-    $("#showPass i").toggle();
-  });
-});
-
 </script>
 
 <script>
-    $(document).ready(function() {
-  $("#cshowPass").click(function() {
-    if ($("#cmyPass").attr("type") == "password") {
-      $("#cmyPass").attr("type", "text");
-    } else {
-      $("#cmyPass").attr("type", "password");
-    }
+  $(document).ready(function () {
+    $("#cshowPass").click(function () {
+      if ($("#cmyPass").attr("type") == "password") {
+        $("#cmyPass").attr("type", "text");
+      } else {
+        $("#cmyPass").attr("type", "password");
+      }
+    });
+    $("#cshowPass").click(function () {
+      $("#cshowPass i").toggle();
+    });
   });
-  $("#cshowPass").click(function() {
-    $("#cshowPass i").toggle();
-  });
-});
-
 </script>
 {% endblock content %}

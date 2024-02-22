@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 
-
 body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -49,31 +48,33 @@ body {
   cursor: pointer;
 }
 
-.filter-modal {
-  display: none;
-  opacity: 1;
-  position: fixed; /* Stay in place */
-  z-index: 99; /* Sit on top */
-  right: 0;
-  top: 200px;
+/* color filter */
+
+.filter-modal-color {
+  display: block;
+  position: absolute;
+  top:-210px;
+  right: -22%;
+  width:2050px ;
+  height: 1500px;
+  z-index: 1111; /* Sit on top */
+  overflow: hidden; /* Enable scroll if needed */
+  padding-top: 250px;
+}
+
+.filter-color-overlay {
+  display: block;
   width: 100%; /* Full width */
-  height: 80%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%; /* Full height */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.1); /* Black w/ opacity */
 }
-
-.filter-modal.show {
-  opacity: 1;
-}
-
 .filter-modal-content {
-  width: 100px;
+  width: 120px;
   margin-top: 10px;
-  padding: 10px;
+  padding: 6px;
   border: none;
   background-color: white;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 .size-modal {
@@ -83,8 +84,27 @@ body {
 
 .color-modal {
   position: absolute;
-  right: 14%;
+  right: 14.5%;
+  top: 235px;
 }
+
+.color-modal > li > a{
+display: flex;
+text-decoration: none;
+color: rgb(0, 0, 0);
+margin: 10px;
+}
+
+.color-modal > li > a > input{
+  margin-right: 10px;
+  font-size:large;
+  cursor: pointer;
+  }
+.color-modal > li > a > span{
+  margin-right: 10px;
+  font-size:large;
+}  
+  
 
 .sortby-modal {
   position: absolute;

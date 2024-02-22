@@ -1,16 +1,12 @@
-{% extends '../main.html' %} {% load static %} 
-{% block title %}
-{% if category %}
-Product for {{category.name}}
-
-{% else %}
-All products in the store
-{% endif %}
-{% endblock %}
-
+{% extends '../main.html' %} {% load static %} {% block title %} 
+{% if category %} Product for {{category.name}} {% else %} All products in the store {% endif %} 
+{% endblock %} 
 {% block content %}
 <link rel="stylesheet" href=" {% static 'assets/css/store/store.css' %}" />
-<link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+/>
 
 <section class="top-content"></section>
 
@@ -22,93 +18,32 @@ All products in the store
   </ul>
   <ul class="filter-contents">
     <li class="filter-element">
-      <a id="filter-modal-link-colorid" class="filter-modal-link">Colors
+      <a id="filter-modal-link-colorid" class="filter-modal-link"
+        >Colors
         <i class="bx bxs-chevron-down filter__dropdown__icon"></i>
       </a>
-      <div id="filter-modal-colorid" class="filter-modal">
-        <ul class="filter-modal-content color-modal">
-          <li>
-            <a href=""><input type="checkbox" />Black</a>
-          </li>
-          <li>
-            <a href=""><input type="checkbox" />Blue</a>
-          </li>
-          <li>
-            <a href=""><input type="checkbox" />Yellow</a>
-          </li>
-        </ul>
-      </div>
+      {% include './include/color_modal.html' %}
     </li>
-        <!-- Start filter size -->
-        <li class="filter-element">
-          <a id="filter-modal-link-sizeid" class="filter-modal-link">Size
-            <i class="bx bxs-chevron-down filter__dropdown__icon"></i>
-          </a>
-          <div class="filter-modal" id="filter-modal-sizeid">
-            <ul class="filter-modal-content size-modal">
-              <li>
-                <a href=""><input type="checkbox" />XS</a>
-              </li>
-              <li>
-                <a href=""><input type="checkbox" />XXL</a>
-              </li>
-              <li>
-                <a href=""><input type="checkbox" />M</a>
-              </li>
-            </ul>
-          </div>
-        </li>
+    <!-- Start filter size -->
+    <li class="filter-element">
+      <a id="filter-modal-link-sizeid" class="filter-modal-link"
+        >Size
+        <i class="bx bxs-chevron-down filter__dropdown__icon"></i>
+      </a>
+      {% include './include/size_modal.html' %}
+    </li>
     <!-- end filter size -->
     <li class="filter-element">
-      <a id="filter-modal-link-sortbyid" class="filter-modal-link">Sort by
+      <a id="filter-modal-link-sortbyid" class="filter-modal-link"
+        >Sort by
         <i class="bx bxs-chevron-down filter__dropdown__icon"></i>
       </a>
-      <div class="filter-modal" id="filter-modal-sortbyid">
-        <ul class="filter-modal-content sortby-modal">
-          <li>
-            <a href=""><input type="checkbox" />+</a>
-          </li>
-          <li>
-            <a href=""><input type="checkbox" />-</a>
-          </li>
-        </ul>
-      </div>
-    </li>
+      {% include './include/sort_modal.html' %}
     </li>
   </ul>
 </div>
-{% include './include/store-gallery.html' %}
-
+{% include './include/store-gallery.html' %} 
 {% include '../footer/footer.html' %}
-<!-- Modal script -->
 
-<!-- Color Modal script -->
-<script>
-  // Get the modal
-  var modal = document.getElementById("filter-modal-colorid");
-  
-  // Get the button that opens the modal
-  var btn = document.getElementById("filter-modal-link-colorid");
-  
-  // Get the <span> element that closes the modal
-  var span = document.getElementsByClassName("close")[0];
-  
-  // When the user clicks the button, open the modal 
-  btn.onclick = function() {
-    modal.style.display = "block";
-  }
-  
-  // When the user clicks on <span> (x), close the modal
-  span.onclick = function() {
-    modal.style.display = "none";
-  }
-  
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
-    }
-  }
-  </script>
 
 {% endblock %}

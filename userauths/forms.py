@@ -5,15 +5,16 @@ from userauths.models import Account
 
 
 class RegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput(
-        attrs={"placeholder": "Password"}))
-    confirm_password = forms.CharField(widget=forms.PasswordInput(
-        attrs={"placeholder": "Confirm Password"}))
+    first_name = forms.CharField(required=True, widget=forms.TextInput(attrs={"class": "register-all-input", "name": "first_name"}))
+    last_name = forms.CharField(required=True, widget=forms.TextInput(attrs={"class": "register-all-input", "name": "last_name"}))
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={"class": "register-all-input", "name": "username"}))
+    email = forms.CharField(required=True, widget=forms.EmailInput(attrs={"class": "register-all-input", "name": "email"}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "register-all-input", "id":"myPass", "name":"password"}))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={"class": "register-all-input", "id":"cmyPass", "name":"confirm_password"}))
 
     class Meta:
         model = Account
-        fields = ["first_name", "last_name",
-                  "phone_number", "email", "password"]
+        fields = ["first_name", "last_name", "username", "phone_number", "email", "password"]
     
     def clean(self):
         cleaned_data = super(RegistrationForm, self).clean()

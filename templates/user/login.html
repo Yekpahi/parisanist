@@ -2,7 +2,7 @@
 <link rel="stylesheet" href=" {% static 'assets/css/user/login.css' %}" />
 
 
-<div class="account-modal" id="login_modal">
+<div class="login-modal" id="login_modal">
   <div class="modal-contents-container">
     <span class="login_close">&times;</span>
     <ul>
@@ -26,33 +26,28 @@
 
 <!-- Modal script -->
 <script>
+  const loginButton = document.querySelector("#login_modal_btn");
+  const loginModal= document.querySelector(".login-modal");
+  const loginClose = document.querySelector(".login_close");
+ 
 
-  
-  // Get the modal
-  var login_modal = document.getElementById("login_modal");
+  ///opens the popup when the user clicks the button
 
-  // Get the button that opens the modal
-  var login_btn = document.getElementById("login_modal_btn");
+  loginButton.addEventListener("click", () => {
+    loginModal.style.display = "block";
+  });
 
-  // Get the <span> element that closes the modal
-  var login_span = document.getElementsByClassName("login_close")[0];
+  //closes the popup window when user clicks the x
+  loginClose.addEventListener("click", (e) => {
+    loginModal.style.display = "none";
+  });
 
-  // When the user clicks the button, open the modal
-  login_btn.onclick = function () {
-    login_modal.style.display = "block";
-  };
-
-  // When the user clicks on <span> (x), close the modal
-    login_span.onclick = function () {
-      login_modal.style.display = "none";
-  };
-
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function (event) {
-    if (event.target == login_modal) {
-      login_modal.style.display = "none";
+  /// close popup is user clicks outside the popup content window
+  loginModal.addEventListener("click", (e) => {
+    if (e.target.className == "login-modal") {
+      loginModal.style.display = "none";
     }
-  };
+  });
 
 </script>
 
