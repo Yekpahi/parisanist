@@ -49,67 +49,167 @@ body {
 }
 
 /* color filter */
-
-.filter-modal-color {
-  display: block;
+.color-modal-content {
   position: absolute;
-  top:-210px;
-  right: -22%;
-  width:2050px ;
-  height: 1500px;
-  z-index: 1111; /* Sit on top */
-  overflow: hidden; /* Enable scroll if needed */
-  padding-top: 250px;
-}
-
-.filter-color-overlay {
-  display: block;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.1); /* Black w/ opacity */
-}
-.filter-modal-content {
-  width: 120px;
+  right: 14.5%;
+  top: 235px;
   margin-top: 10px;
   padding: 6px;
   border: none;
   background-color: white;
 }
 
-.size-modal {
-  position: absolute;
-  right: 8%;
+.color-modal-content > li > a {
+  display: flex;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  margin: 10px;
 }
 
-.color-modal {
-  position: absolute;
-  right: 14.5%;
-  top: 235px;
-}
-
-.color-modal > li > a{
-display: flex;
-text-decoration: none;
-color: rgb(0, 0, 0);
-margin: 10px;
-}
-
-.color-modal > li > a > input{
+.color-modal-content > li > a > input {
   margin-right: 10px;
-  font-size:large;
+  font-size: large;
   cursor: pointer;
-  }
-.color-modal > li > a > span{
-  margin-right: 10px;
-  font-size:large;
-}  
-  
-
-.sortby-modal {
-  position: absolute;
-  right: 2%;
 }
+.color-modal-content > li > a > span {
+  margin-right: 10px;
+  font-size: large;
+}
+
+.filter-modal-color {
+  display: none;
+  position: absolute;
+  top: -210px;
+  right: -22%;
+  width: 2050px;
+  height: 1500px;
+  z-index: 1111; /* Sit on top */
+  overflow: hidden; /* Enable scroll if needed */
+  padding-top: 250px;
+  cursor: pointer;
+}
+
+.filter-color-overlay {
+  display: none;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.1); /* Black w/ opacity */
+  cursor: pointer;
+}
+
+/* End color Modal */
+
+
+/* Size Modal */
+
+.size-modal-content {
+  position: absolute;
+  right: 10%;
+  top: 235px;
+  margin-top: 10px;
+  padding: 6px;
+  border: none;
+  background-color: white;
+}
+
+
+.size-modal-content > li > a {
+  display: flex;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  margin: 10px;
+}
+
+.size-modal-content > li > a > input {
+  margin-right: 10px;
+  font-size: large;
+  cursor: pointer;
+}
+
+.size-modal-content > li > a > span {
+  margin-right: 10px;
+  font-size: large;
+}
+
+.filter-modal-size {
+  display: none;
+  position: absolute;
+  top: -210px;
+  right: -22%;
+  width: 2050px;
+  height: 1500px;
+  z-index: 1111; /* Sit on top */
+  overflow: hidden; /* Enable scroll if needed */
+  padding-top: 250px;
+  cursor: pointer;
+}
+
+.filter-size-overlay {
+  display: none;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.1); /* Black w/ opacity */
+  cursor: pointer;
+}
+
+/* End size Modal */
+
+
+/* sortby Modal */
+.sortby-modal-content {
+  position: absolute;
+  right: 4%;
+  top: 235px;
+  margin-top: 10px;
+  padding: 6px;
+  border: none;
+  background-color: white;
+}
+
+.sortby-modal-content > li > a {
+  display: flex;
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  margin: 10px;
+}
+
+.sortby-modal-content > li > a > input {
+  margin-right: 10px;
+  font-size: large;
+  cursor: pointer;
+}
+.sortby-modal-content > li > a > span {
+  margin-right: 10px;
+  font-size: large;
+}
+
+.filter-modal-sortby {
+  display: none;
+  position: absolute;
+  top: -210px;
+  right: -22%;
+  width: 2050px;
+  height: 1500px;
+  z-index: 1111; /* Sit on top */
+  overflow: hidden; /* Enable scroll if needed */
+  padding-top: 250px;
+  cursor: pointer;
+}
+
+.filter-sortby-overlay {
+  display: none;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.1); /* Black w/ opacity */
+  cursor: pointer;
+}
+
+/* End sortby Modal */
+
+
 
 .filter-menu > li {
   margin-bottom: 15px;

@@ -65,7 +65,7 @@
     </div>
     <ul class="right-elements">
       <!-- Start search icon -->
-      <li class="right search-btn hideOnMobile" id="smyBtn">
+      <li class="right search-btn hideOnMobile" id="search-modal-btn-id">
         <img src="{% static 'assets/imgs/search.png' %}" alt="" />
       </li>
       <!-- End search icon -->
@@ -82,17 +82,17 @@
         <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
       </li>
       {% else %}
-            <!-- Start ccount modal icon -->
-            <li id="login_modal_btn" class="right account hideOnMobile">
-              <img src="{% static 'assets/imgs/account.png' %}" alt="" />
-            </li>
-            <!-- Start ccount modal icon -->
-            <li class="right favorite hideOnMobile">
-              <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
-            </li>
-            <li class="right basket hideOnMobile">
-              <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
-            </li>
+      <!-- Start ccount modal icon -->
+      <li id="login_modal_btn" class="right account hideOnMobile">
+        <img src="{% static 'assets/imgs/account.png' %}" alt="" />
+      </li>
+      <!-- Start ccount modal icon -->
+      <li class="right favorite hideOnMobile">
+        <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
+      </li>
+      <li class="right basket hideOnMobile">
+        <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
+      </li>
       {% endif %}
 
       <!-- Show sidebar menu icon -->
@@ -111,15 +111,13 @@
       <!-- End Show sidebar menu icon -->
     </ul>
   </nav>
-
-  <div class="search-modal" id="smyModal">
-    <input type="text" placeholder="What are you looking for ?" />
-    <!-- <img src="{% static 'assets/imgs/search.png' %}" alt="" id="searchicon"></li> -->
-  </div>
+  <!-- Start search modal -->
+  {% include './search-modal.html' %}
+  <!-- End search modal -->
 
   <!-- Start Sidebar -->
   {% include './sidebar.html' %}
-  <!-- Start Sidebar -->
+  <!-- End Sidebar -->
 </header>
 
 <!-- Start Account part -->
@@ -130,31 +128,7 @@
 {% include '../user/account-modal.html' %}
 <!-- End Account part -->
 
-<!-- Search input script -->
 
-<script>
-  // Get the modal
-  var smodal = document.getElementById("smyModal");
-  
-  // Get the button that opens the modal
-  var sbtn = document.getElementById("smyBtn");
-  
-  
-  // When the user clicks the button, open the modal 
-  sbtn.onclick = function() {
-    smodal.style.display = "block";
-  }
-  
-  
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(event) {
-    if (event.target == smodal) {
-      smodal.style.display = "none";
-    }
-  }
-  </script>
-
-<!-- End Search input script -->
 
 <!-- Start Sidebar Script -->
 <script>
