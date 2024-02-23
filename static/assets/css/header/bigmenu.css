@@ -1,0 +1,117 @@
+/* Big Menu with store */
+.megamenu {
+  position: absolute;
+  left: 0;
+  top: 17px;
+  z-index: 100;
+  width: 100vw;
+  height: 400px;
+  display: flex;
+  opacity: 0;
+  padding-top: 30px;
+  flex-direction: row;
+  visibility: hidden;
+}
+
+.megamenu .megamenu-content {
+  display: flex;
+  justify-content: space-between;
+  transform: translateX(-25px);
+  margin-top: 20px;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  border-top: 1px solid rgb(242, 231, 231);
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.megamenu .megamenu-content .cats-content {
+  display: flex;
+  list-style: none;
+}
+
+.megamenu .megamenu-content .cats-content > li {
+  margin-top: 50px;
+  margin-right: 150px;
+}
+
+.dropdown:hover .megamenu {
+  color: rgb(218, 218, 245);
+  visibility: visible;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+.nav__item:hover .dropdown__icon {
+  transform: rotate(180deg);
+  transition: all 0.3s ease;
+}
+
+/* Megamenu categories */
+
+.cats-content {
+  background-color: rgb(251, 249, 246);
+  padding-left: 50px;
+}
+
+.category-and-subcategory > ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-and-subcategory > ul .header_megamenu {
+  margin-bottom: 5px;
+}
+
+.category-and-subcategory > ul .header_megamenu > a {
+  font-size: 1.2em;
+  font-weight: bolder;
+  opacity: 0.6;
+  text-decoration: none;
+  color: black;
+
+}
+.category-and-subcategory > ul .header_megamenu > a:hover {
+  opacity: 1;
+  color: rgb(0, 0, 0);
+  border-bottom: 1px solid black;
+}
+
+.category-and-subcategory > ul .subcategory {
+    margin-bottom: 5px;
+    margin-left: 5px;
+}
+
+.category-and-subcategory > ul .subcategory > a {
+  font-size: 0.9em;
+  font-weight: bolder;
+  opacity: 0.4;
+  text-decoration: none;
+  color: black;
+}
+
+.category-and-subcategory > ul .subcategory > a:hover {
+    opacity: 1;
+  }
+
+/* End big Menu with store */
+
+/* Megamenu cat images */
+.header-cat-image {
+  display: flex;
+  width: 600px;
+  height: 100%;
+  padding: 30px 60px 0px 0px;
+}
+
+.header-cat-image > li {
+  width: 50%;
+  height: 100%;
+  margin-right: 15px;
+}
+
+.header-cat-image > li > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}

@@ -26,34 +26,7 @@
           <i class="bx bxs-chevron-down dropdown__icon"></i>
         </a>
         <!-- Big Menu elements  -->
-        <section class="megamenu">
-          <ul class="content">
-            <li class="category-and-subcategory">
-              <ul class="">
-                <li class="header_megamenu megamenu_item">
-                  <a href="">Men</a>
-                </li>
-                <li class="subcategory megamenu_item"><a href="">Jean</a></li>
-                <li class="subcategory megamenu_item">
-                  <a href="">Jackets</a>
-                </li>
-                <li class="subcategory megamenu_item"><a href="">Skirts</a></li>
-              </ul>
-            </li>
-            <li class="category-and-subcategory">
-              <ul class="">
-                <li class="header_megamenu megamenu_item">
-                  <a href="">Women</a>
-                </li>
-                <li class="subcategory megamenu_item"><a href="">Jean</a></li>
-                <li class="subcategory megamenu_item">
-                  <a href="">Jackets</a>
-                </li>
-                <li class="subcategory megamenu_item"><a href="">Skirts</a></li>
-              </ul>
-            </li>
-          </ul>
-        </section>
+        {% include './bigmenu.html' %}
 
         <!-- End Big Menu elements  -->
       </li>
@@ -77,9 +50,11 @@
       <!-- Start ccount modal icon -->
       <li class="right favorite hideOnMobile">
         <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
+        <div class="favorite-counter"><span>10</span></div>
       </li>
       <li class="right basket hideOnMobile">
         <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
+        <div class="basket-counter"><span>10</span></div>
       </li>
       {% else %}
       <!-- Start ccount modal icon -->
@@ -96,7 +71,7 @@
       {% endif %}
 
       <!-- Show sidebar menu icon -->
-      <li class="showsidebar" id ="showsidebar-Id">
+      <li id ="showsidebarIcon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="24"
@@ -128,3 +103,30 @@
 {% include '../user/account-modal.html' %}
 <!-- End Account part -->
 
+<script>
+  // Get the modal
+  var sidebarModal = document.getElementsByClassName("sidebar-modal")
+  
+  // Get the button that opens the modal
+  var sidebarmodalIcon = document.getElementById("showsidebarIcon");
+  
+  // Get the <span> element that closes the modal
+  var sidebarmodalClose = document.getElementsByClassName("hidesidebar")[0];
+  
+  // When the user clicks the button, open the modal 
+  sidebarmodalIcon.onclick = function() {
+      sidebarModal.style.display = "block";
+  }
+  
+  // When the user clicks on <span> (x), close the modal
+  sidebarmodalClose.onclick = function() {
+      sidebarModal.style.display = "none";
+  }
+  
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(e) {
+    if (e.target == sidebarModal) {
+      sidebarModal.style.display = "none";
+    }
+  }
+  </script>

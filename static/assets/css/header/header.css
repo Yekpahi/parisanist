@@ -81,68 +81,7 @@ body {
   color: black;
 }
 
-/* Big Menu with store */
 
-.megamenu {
-  position: absolute;
-  left: 0;
-  top: 17px;
-  z-index: 100;
-  width: 100vw;
-  height: 300px;
-  display: flex;
-  opacity: 0;
-  padding-top: 30px;
-  flex-direction: row;
-  visibility: hidden;
-}
-
-.megamenu .content {
-  transform: translateX(-25px);
-  margin-top: 20px;
-  width: 100%;
-  display: flex;
-  list-style: none;
-  background-color: rgb(249, 249, 247);
-  padding-left: 50px;
-}
-
-.megamenu .content>li {
-  margin-top: 50px;
-  margin-right: 150px;
-}
-
-.dropdown:hover .megamenu {
-  color: rgb(218, 218, 245);
-  visibility: visible;
-  transition: all 0.3s ease;
-  opacity: 1;
-}
-
-.nav__item:hover .dropdown__icon {
-  transform: rotate(180deg);
-  transition: all 0.3s ease;
-}
-
-.category-and-subcategory>ul {
-  list-style: none;
-}
-
-.category-and-subcategory>ul .category {
-  margin-bottom: 12px;
-  font-weight: bolder;
-}
-
-.category-and-subcategory>ul .subcategory {
-  margin-bottom: 8px;
-}
-
-.category-and-subcategory>ul>li>a {
-  text-decoration: none;
-  color: black;
-}
-
-/* End big Menu with store */
 
 /* Centered elements */
 
@@ -184,6 +123,50 @@ body {
   width: 20px;
 }
 
+/* favorite and  counter */
+.favorite {
+  cursor: pointer;
+}
+.favorite-counter {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background-color: #c7232f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(15px, -38px) ;
+  padding: 5px;
+}
+
+.favorite-counter > span{
+ color:white;
+ font-size: 0.6em;
+}
+/* End favorite and  counter */
+
+/* basket and  counter */
+.basket {
+  cursor: pointer;
+}
+.basket-counter{
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background-color: #c7232f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(15px, -38px) ;
+  padding: 5px;
+}
+
+.basket-counter > span{
+ color:white;
+ font-size: 0.6em;
+}
+/* End basket and  counter */
+
 /* Search part */
 .search-btn {
   cursor: pointer;
@@ -222,12 +205,14 @@ body {
 /* End search part */
 
 
+/* show sidebar icon */
 
-
-.showsidebar {
+#showsidebarIcon{
   display: none;
   cursor: pointer;
 }
+
+/* end show sidebar icon */
 
 /* End header sidebar */
 
@@ -248,10 +233,10 @@ body {
     display: none;
   }
 
-  .showsidebar {
+  #showsidebarIcon {
     display: block;
     position: relative;
-    left: 560px;
+    left: 540px;
   }
 }
 

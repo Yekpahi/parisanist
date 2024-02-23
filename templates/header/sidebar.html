@@ -7,7 +7,7 @@
                 <span>parisianist</span>
             </div>
             <!-- Hide Sidebar bouton -->
-            <div class="hidesidebar" id="sidebar_close">
+            <div class="hidesidebar">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
                     <path
                         d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
@@ -51,11 +51,13 @@
                 <li class="right account">
                     <img src="{% static 'assets/imgs/account.png' %}" alt="" />
                 </li>
-                <li class="right favorite">
+                <li class="right sidebar-favorite">
                     <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
+                    <div class="sidebar-favorite-counter"><span>10</span></div>
                 </li>
-                <li class="right basket">
+                <li class="right side-basket">
                     <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
+                    <div class="sidebar-basket-counter"><span>10</span></div>
                 </li>
                 <li class="right search-bar" id="searchicon">
                     <img src="{% static 'assets/imgs/search.png' %}" alt="" />
@@ -69,24 +71,30 @@
     </div>
 
    
-<script>
-    const showsidebar = document.querySelector("#showsidebar-Id");
-    const sidebarModal = document.querySelector(".sidebar-modal");
-    const sidebarClose = document.querySelector(".sidebar_close");
-    ///opens the popup when the user clicks the button
-    showsidebar.addEventListener("click", () => {
-        sidebarModal.style.display = "block";
-    });
-
-    //closes the popup window when user clicks the x
-    sidebarClose.addEventListener("click", (e) => {
-        sidebarModal.style.display = "none";
-    });
-
-    /// close popup is user clicks outside the popup content window
-    sidebarModal.addEventListener("click", (e) => {
-        if (e.target.className == "sidebar-modal") {
+    <script>
+        // Get the modal
+        var sidebarModal = document.getElementsByClassName("sidebar-modal")
+        
+        // Get the button that opens the modal
+        var sidebarmodalIcon = document.getElementById("showsidebarIcon");
+        
+        // Get the <span> element that closes the modal
+        var sidebarmodalClose = document.getElementsByClassName("hidesidebar")[0];
+        
+        // When the user clicks the button, open the modal 
+        sidebarmodalIcon.onclick = function() {
+            sidebarModal.style.display = "block";
+        }
+        
+        // When the user clicks on <span> (x), close the modal
+        sidebarmodalClose.onclick = function() {
             sidebarModal.style.display = "none";
         }
-    });
-</script>
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(e) {
+          if (e.target == sidebarModal) {
+            sidebarModal.style.display = "none";
+          }
+        }
+        </script>

@@ -173,3 +173,49 @@
     border-bottom: 1px solid rgb(195, 195, 195);
     background-color: rgb(223, 246, 255);
   }
+
+
+
+  /* sidebar favorite and  counter */
+.sidebar-favorite {
+  cursor: pointer;
+}
+.sidebar-favorite-counter {
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background-color: #c7232f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(15px, -38px) ;
+  padding: 5px;
+}
+
+.sidebar-favorite-counter > span{
+ color:white;
+ font-size: 0.6em;
+}
+/* End sidebar favorite and  counter */
+
+/* basket and  counter */
+.sidebar-basket {
+  cursor: pointer;
+}
+.sidebar-basket-counter{
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background-color: #c7232f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translate(15px, -38px) ;
+  padding: 5px;
+}
+
+.sidebar-basket-counter > span{
+ color:white;
+ font-size: 0.6em;
+}
+/* End sidebar basket and  counter */
