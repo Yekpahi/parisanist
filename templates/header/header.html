@@ -96,7 +96,7 @@
       {% endif %}
 
       <!-- Show sidebar menu icon -->
-      <li class="showsidebar" onclick="showSidebar()">
+      <li class="showsidebar" id ="showsidebar-Id">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="24"
@@ -128,18 +128,3 @@
 {% include '../user/account-modal.html' %}
 <!-- End Account part -->
 
-
-
-<!-- Start Sidebar Script -->
-<script>
-  function showSidebar() {
-    const sidebar = document.querySelector(".sidebar");
-    sidebar.style.display = "flex";
-  }
-
-  function hideSidebar() {
-    const sidebar = document.querySelector(".sidebar");
-    sidebar.style.display = "none";
-  }
-</script>
-<!-- End  Sidebar Script -->
