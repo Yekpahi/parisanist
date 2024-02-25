@@ -1,5 +1,5 @@
 {% load static %}
-<ul class="db-Wishlist">
+<ul class="db_content wishlist-content">
   <li class="db-wishlist-infos">
     <span class="db-Wishlist-title">Wishlist</span>
     <span class="db-Wishlist-count"> 2 articles selected</span>
@@ -8,9 +8,10 @@
   <li class="db-wishlist-store-gallery">
     <div class="db-one-item">
       <img src="{% static 'assets/imgs/Mq2.jpg' %}" alt="" />
-      <div class="db-others-infos"
-      onmouseover="chargeOpacity(this)"
-      onmouseout="removeOpacity(this)"
+      <div
+        class="db-others-infos"
+        onmouseover="chargeOpacity(this)"
+        onmouseout="removeOpacity(this)"
       >
         <ul>
           <li class="db-title-and-price">
@@ -59,5 +60,24 @@
     x.style.opacity = "0";
     x.style.transition = "all 0.9s ease-in-out";
   }
+</script>
+
+<script>
+  console.log("salut");
+  const tabs = document.querySelectorAll(".tabs-link");
+  console.log(tabs);
+  const all_content = document.querySelectorAll(".db_content");
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", (e) => {
+      tabs.forEach((tab) => {
+        tab.classList.remove("active");
+      });
+      tab.classList.add("active");
+      all_content.forEach((content) => {
+        content.classList.remove("active");
+      });
+      all_content['index'].classList.add("active");
+    });
+  });
 </script>
 <!-- Gallery infos scripts -->

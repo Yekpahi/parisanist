@@ -34,7 +34,7 @@
       <li class="about"><a href="{% url 'about' %}">About</a></li>
     </ul>
     <div class="centered-elements hideOnMobile">
-      <span><a href="{% url 'home' %}">parisianist</a></span>
+      <span class="center-logo"><a href="{% url 'home' %}">parisianist</a></span>
     </div>
     <ul class="right-elements">
       <!-- Start search icon -->
@@ -47,21 +47,28 @@
       <li id="account_modal_btn" class="right account hideOnMobile">
         <img src="{% static 'assets/imgs/userauth.png' %}" alt="" />
       </li>
-      <!-- Start ccount modal icon -->
+      <!-- End account modal icon -->
+
+
+      <!-- favorite icon -->
       <li class="right favorite hideOnMobile">
         <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
         <div class="favorite-counter"><span>10</span></div>
       </li>
+      <!-- End favorite icon -->
+      <!-- basket icon -->
       <li class="right basket hideOnMobile">
         <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
         <div class="basket-counter"><span>10</span></div>
       </li>
+        <!-- End basket icon -->
       {% else %}
-      <!-- Start ccount modal icon -->
+      <!-- Start account modal icon -->
       <li id="login_modal_btn" class="right account hideOnMobile">
         <img src="{% static 'assets/imgs/account.png' %}" alt="" />
       </li>
-      <!-- Start ccount modal icon -->
+      <!-- Start account modal icon -->
+      
       <li class="right favorite hideOnMobile">
         <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
       </li>
@@ -71,7 +78,7 @@
       {% endif %}
 
       <!-- Show sidebar menu icon -->
-      <li id ="showsidebarIcon">
+      <li id ="showsidebarIcon" class="showsidebarIcon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="24"
@@ -103,30 +110,3 @@
 {% include '../user/account-modal.html' %}
 <!-- End Account part -->
 
-<script>
-  // Get the modal
-  var sidebarModal = document.getElementsByClassName("sidebar-modal")
-  
-  // Get the button that opens the modal
-  var sidebarmodalIcon = document.getElementById("showsidebarIcon");
-  
-  // Get the <span> element that closes the modal
-  var sidebarmodalClose = document.getElementsByClassName("hidesidebar")[0];
-  
-  // When the user clicks the button, open the modal 
-  sidebarmodalIcon.onclick = function() {
-      sidebarModal.style.display = "block";
-  }
-  
-  // When the user clicks on <span> (x), close the modal
-  sidebarmodalClose.onclick = function() {
-      sidebarModal.style.display = "none";
-  }
-  
-  // When the user clicks anywhere outside of the modal, close it
-  window.onclick = function(e) {
-    if (e.target == sidebarModal) {
-      sidebarModal.style.display = "none";
-    }
-  }
-  </script>

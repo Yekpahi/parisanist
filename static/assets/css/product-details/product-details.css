@@ -81,41 +81,38 @@ body {
 }
 
 /* Start input radio design (Size) */
-.variant-size {
+
+.size-container {
   display: flex;
-  flex-direction: column;
-  margin-top: 20px;
   margin-bottom: 50px;
+  margin-left: 15px;
 }
 
-.variant-size > span {
-  margin-bottom: 20px;
-  font-size: 12px;
-}
-
-#languagetable input[type="radio"] {
-  display: none;
-}
-
-#languagetable label {
-  display: inline-block;
-  margin: 0 auto;
-  font-family: Arial;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-#languagetable {
+.size-container .sizebox {
+  position: relative;
+  margin-right: 20px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 50px;
+}
+.size-container .sizebox > input[type=radio] {
+  position: absolute;
+  z-index: 111;
+  top:-20px;
+  right: -15px;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  opacity: 0;
 }
 
-#languagetable > div {
-  margin-right: 15px;
+.size-container .sizebox > label {
+  position: absolute;
+  text-transform: uppercase;
 }
 
-#languagetable > div > label {
-  font-size: 12px;
-}
+
 /* End input radio design (Size) */
 
 /* Variant colors  */
@@ -157,10 +154,12 @@ body {
 }
 
 .colorbox > input[type="radio"] {
+  z-index: 1;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   position: absolute;
+  opacity: 0;
 }
 
 .blueinput {
@@ -177,22 +176,28 @@ body {
 
 /* Submit button */
 .submit-button > button {
-  background-color: rgb(255, 252, 252);
+  background-color: rgb(253, 247, 247);
   border: 1px solid black;
   display: flex;
+  justify-content: space-between;
   padding: 10px;
   width: 460px;
   align-items: center;
   cursor: pointer;
 }
 
-.submit-button > button > span {
+.submit-button > button .submit-left {
+  display: flex;
+  align-items: center;
+}
+
+
+.submit-button > button > div > span {
   color: rgb(0, 0, 0);
 }
 
 .price-button {
   display: flex;
-  margin-left: 350px;
   flex-direction: column;
 }
 

@@ -1,29 +1,44 @@
-{% extends '../../main.html' %} 
-{% load static %} 
+{% extends '../../main.html' %} {% load static %} 
+{% block title %} {{ user.username}} | Dashboard {% endblock %} 
 
 {% block content %}
 <link rel="stylesheet" href=" {% static 'assets/css/user/dashboard.css' %}" />
 
 <main class="dashboad-main">
-
-    <aside class="dashboard-left-side">
-        <ul>
-            <li><a href="">My Account</a></li>
-            <li><a href="">My orders</a></li>
-            <li><a href="">Wishlist</a></li>
-            <li><a href="">Address</a></li>
-            <li><a href="">Account informations</a></li>
-        </ul>
-
-    </aside>
-<aside class="dashboard-right-side">
-<div class="dashboard-right-contents">
-
-    {% include './orders.html' %}
-</div>
-</aside>
+  <aside class="dashboard-left-side">
+    <ul>
+      <li><a class="tabs-link active" href="">My Account</a></li>
+      <li><a class="tabs-link" href="">My orders</a></li>
+      <li><a class="tabs-link" href="">Wishlist</a></li>
+      <li><a class="tabs-link" href="">Address</a></li>
+    </ul>
+  </aside>
+  <aside class="dashboard-right-side">
+    <div class="dashboard-right-contents">
+      {% include './personal_infos.html' %} 
+      {% include './orders.html' %} 
+      {% include './wishlist.html' %} 
+      {% include './address.html' %}
+    </div>
+  </aside>
 </main>
 <!-- Start FOOTER -->
 {% include '../../footer/footer.html' %}
 <!-- End FOOTER -->
+
+<script>
+  console.log("salut")
+  const tabs = document.querySelectorAll('.tabs-link');
+  console.log(tabs)
+  const all_content = document.querySelectorAll('.db_content');
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', (e) => {
+      tabs.forEach(tab=>{tab.classList.remove("active")});
+      tab.classList.add('active');
+      all_content.forEach(content=>{content.classList.remove('active')});
+      all_content[index].classList.add('active');
+    })
+  })
+</script>
+
 {% endblock content %}

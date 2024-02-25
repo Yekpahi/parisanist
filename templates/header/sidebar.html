@@ -1,100 +1,107 @@
 {% load static %}
 <link rel="stylesheet" href=" {% static 'assets/css/header/sidebar.css' %}" />
 
-    <div class="sidebar-modal">
-        <div class="header-sidebar">
-            <div class="sidebar-logo">
-                <span>parisianist</span>
-            </div>
-            <!-- Hide Sidebar bouton -->
-            <div class="hidesidebar">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
-                    <path
-                        d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
-                </svg>
-            </div>
-            <!-- End Hide Sidebar bouton -->
+<!-- Ajax link -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<!-- End Ajax link -->
+<div class="sidebar-modal" id="sidebar-modalId">
+    <div class="header-sidebar">
+        <div class="sidebar-logo">
+            <span>parisianist</span>
         </div>
-
-        <div class="all-cats-content">
-            <a href="">All</a>
+        <!-- Hide Sidebar bouton -->
+        <div class="hidesidebar" id="hidesidebarId">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                <path
+                    d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+            </svg>
         </div>
-        <div class="sidebar-cats-container">
-            <div class="sidebar-cat-men-women">
-                <ul class="sidebar-cat-men-women-title">
-                    <li><a href="">Men</a></li>
-                    <li><i class="bx bxs-chevron-down filter__dropdown__icon"></i></li>
-                </ul>
-                <ul class="sidebar-cat-subcats">
-                    <li>Jeans</li>
-                    <li>Jackets for men</li>
-                    <li>Skirts</li>
-                </ul>
-            </div>
-            <div class="sidebar-cat-men-women">
-                <ul class="sidebar-cat-men-women-title">
-                    <li><a href="">Women</a></li>
-                    <li><i class="bx bxs-chevron-down filter__dropdown__icon"></i></li>
-                </ul>
-                <ul class="sidebar-cat-subcats">
-                    <li>Jeans for women</li>
-                    <li>Jackets for women</li>
-                    <li>Dresses</li>
-                </ul>
-            </div>
-        </div>
-        <div class="sidebar-about">
-            <a href="">About</a>
-        </div>
-        <div class="sidebar-right-content">
-            <ul>
-                <li class="right account">
-                    <img src="{% static 'assets/imgs/account.png' %}" alt="" />
-                </li>
-                <li class="right sidebar-favorite">
-                    <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
-                    <div class="sidebar-favorite-counter"><span>10</span></div>
-                </li>
-                <li class="right side-basket">
-                    <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
-                    <div class="sidebar-basket-counter"><span>10</span></div>
-                </li>
-                <li class="right search-bar" id="searchicon">
-                    <img src="{% static 'assets/imgs/search.png' %}" alt="" />
-                </li>
-            </ul>
-        </div>
-        <div class="sidebar-search-modal" id="sidebar-search-Id">
-            <input type="text" placeholder="What are you looking for ?" />
-            <!-- <img src="{% static 'assets/imgs/search.png' %}" alt="" id="searchicon"></li> -->
-        </div>
+        <!-- End Hide Sidebar bouton -->
     </div>
 
-   
-    <script>
-        // Get the modal
-        var sidebarModal = document.getElementsByClassName("sidebar-modal")
-        
-        // Get the button that opens the modal
-        var sidebarmodalIcon = document.getElementById("showsidebarIcon");
-        
-        // Get the <span> element that closes the modal
-        var sidebarmodalClose = document.getElementsByClassName("hidesidebar")[0];
-        
-        // When the user clicks the button, open the modal 
-        sidebarmodalIcon.onclick = function() {
-            sidebarModal.style.display = "block";
-        }
-        
-        // When the user clicks on <span> (x), close the modal
-        sidebarmodalClose.onclick = function() {
-            sidebarModal.style.display = "none";
-        }
-        
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(e) {
-          if (e.target == sidebarModal) {
-            sidebarModal.style.display = "none";
-          }
-        }
-        </script>
+    <div class="all-cats-content">
+        <a href="">All</a>
+    </div>
+    <div class="sidebar-cats-container">
+        <div class="sidebar-cat-men-women">
+            <ul class="sidebar-cat-men-women-title">
+                <li><a href="">Men</a></li>
+                <li><i class="bx bxs-chevron-down filter__dropdown__icon"></i></li>
+            </ul>
+            <ul class="sidebar-cat-subcats">
+                <li>Jeans</li>
+                <li>Jackets for men</li>
+                <li>Skirts</li>
+            </ul>
+        </div>
+        <div class="sidebar-cat-men-women">
+            <ul class="sidebar-cat-men-women-title">
+                <li><a href="">Women</a></li>
+                <li><i class="bx bxs-chevron-down filter__dropdown__icon"></i></li>
+            </ul>
+            <ul class="sidebar-cat-subcats">
+                <li>Jeans for women</li>
+                <li>Jackets for women</li>
+                <li>Dresses</li>
+            </ul>
+        </div>
+    </div>
+    <div class="sidebar-about">
+        <a href="">About</a>
+    </div>
+    <div class="sidebar-right-content">
+        <ul>
+            <li class="right account">
+                <img src="{% static 'assets/imgs/account.png' %}" alt="" />
+            </li>
+            <li class="right sidebar-favorite">
+                <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
+                <div class="sidebar-favorite-counter"><span>10</span></div>
+            </li>
+            <li class="right sidebar-basket">
+                <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
+                <div class="sidebar-basket-counter"><span>10</span></div>
+            </li>
+            <li class="right sidebar-search" id="searchicon">
+                <img src="{% static 'assets/imgs/search.png' %}" alt="" />
+            </li>
+        </ul>
+    </div>
+    <div class="sidebar-search-modal" id="sidebar-search-Id">
+        <input type="text" placeholder="What are you looking for ?" />
+        <!-- <img src="{% static 'assets/imgs/search.png' %}" alt="" id="searchicon"></li> -->
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.showsidebarIcon').click(function () {
+            $('.sidebar-modal').css('display', 'block');
+        })
+        $('.hidesidebar').click(function () {
+            $('.sidebar-modal').css('display', 'none');
+        })
+    });
+</script>
+
+<!-- Modal script -->
+<script>
+    const openSearch = document.querySelector("#searchicon");
+    const theSearchModal = document.querySelector(".sidebar-search-modal");
+  
+    ///opens the popup when the user clicks the button
+  
+    openSearch.addEventListener("click", () => {
+        theSearchModal.style.display = "block";
+    });
+  
+  
+    /// close popup is user clicks outside the popup content window
+    theSearchModal.addEventListener("click", (e) => {
+      if (e.target.className == "sidebar-search-modal") {
+        theSearchModal.style.display = "none";
+      }
+    });
+  
+  </script>

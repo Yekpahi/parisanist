@@ -1,54 +1,31 @@
-*{
-    margin: 0;
-    padding: 0;
-
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
-.about {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-.about .brand{
-    width: 55%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
+.about-container > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
 }
 
-.about .brand p{
-margin-top: 10px;
-font-size: 1.4rem;
-text-align: justify;
-}
-.about .clothes{
-    width: 55%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 1300px;
-    margin-top: 50px;
-    margin-bottom: 50px;
+
+.about-container .about-logo {
+    margin-bottom: 20px;
+  }
+.about-container .about-logo > img {
+  width: 300px;
 }
 
-.about .clothes p{
-margin-top: 10px;    
-font-size: 1.4rem;
-text-align: justify;
-
-}
-.about .logoabout {
-    margin-bottom: 50px;
+.about-store-image {
+    margin-top: 20px;
 }
 
-.about .logoabout img {
-    width: 400px;
-    height: 400px;
+.about-store-image > img {
+  width: 400px;
+  height: 500px;
+  object-fit: cover;
 }
-
-/* Media queries */

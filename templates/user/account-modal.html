@@ -18,8 +18,11 @@
         toute confiance
       </li>
 
-      <li class="users-elements"><a href="">MES COMMANDES</a></li>
-      <li class="users-elements"><a href = "{% url 'dashboard' %}">MON COMPTE</a></li>
+      <li class="users-elements"><a href="">MY ORDERS</a></li>
+      <li class="users-elements"><a href = "{% url 'dashboard' %}">USER ACCOUNT</a></li>
+      {% if user.is_superuser  %}
+      <li class="users-elements"><a href="{% url 'admin:index' %}">ADMINISTRATOR ACCOUNT</a></li>
+      {% endif %}
       <li class="users-elements"><a href="">WISHLIST</a></li>
       <li class="users-elements"><a href="{% url 'logout' %}">SE DÉCONNECTER</a></li>
     </ul>

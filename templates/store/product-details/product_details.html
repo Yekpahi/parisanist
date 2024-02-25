@@ -25,9 +25,11 @@
   <div class="left-details-container">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        {% for img in images %} 
-        {% if img.product_image %}
-        <img class="swiper-slide {% if forloop.counter0 == 0 %} active {% endif %}" src="{{img.product_image.url}}" />
+        {% for img in images %} {% if img.product_image %}
+        <img
+          class="swiper-slide {% if forloop.counter0 == 0 %} active {% endif %}"
+          src="{{img.product_image.url}}"
+        />
         {% endif %} {% endfor %}
       </div>
       <div class="swiper-button-next"></div>
@@ -48,49 +50,65 @@
       <ul>
         <li class="product-name">{{single_product.product_name }}</li>
         <li class="variant-colors">
-        
           <div class="color-choice">
             {% for i in single_product.variation_set.colors %}
-            <span >{{ i.variation_value | capfirst }}</span>
+            <span>{{ i.variation_value | capfirst }}</span>
             {% endfor %}
           </div>
           <div class="color-container">
             {% for i in single_product.variation_set.colors %}
             <div class="colorbox">
               <input
+                required
                 class="blackinput"
                 type="radio"
                 name="color"
                 id="username3"
                 value="{{ i.variation_value | lower }}"
               />
-              <label style="background: {{ i.variation_value | lower }}" for=""></label>
+              <label
+                style="background: {{ i.variation_value | lower }}"
+                for=""
+              ></label>
             </div>
             {% endfor %}
           </div>
-       
         </li>
 
         <!-- Size -->
+
         <li class="variant-size">
-          <span>Size</span>
-          <div id="languagetable">
+          <div class="size-container">
             {% for i in single_product.variation_set.sizes %}
-            <div width="33.33333%">
-              <input type="radio" id="fr" name="languageselection"value="{{ i.variation_value | lower }}" />
-              <label for="en"> {{ i.variation_value | capfirst }} </label>
+            <div class="sizebox">
+              <input
+                required
+                class="size_input"
+                type="radio"
+                name="size"
+                id="username3"
+                value="{{ i.variation_value | lower }}"
+              />
+              <label class="size_label"
+                >{{ i.variation_value | capfirst }}</label
+              >
             </div>
             {% endfor %}
           </div>
         </li>
+
         <li class="submit-button">
           <button type="submit">
-            <span class="material-symbols-outlined"> shopping_bag </span>
-            <span class="add-button"> Add</span>
-            <span class="price-button">
-              <p class="price">{{single_product.product_price }}</p>
-              <!-- <p class="discount">200</p> -->
-            </span>
+            <div class="submit-left">
+              <span class="material-symbols-outlined"> shopping_bag </span>
+              <span class="add-button"> Add</span>
+            </div>
+            <div class="submit-right">
+              <span class="price-button">
+                <p class="price">{{single_product.product_price }}</p>
+                <!-- <p class="discount">200</p> -->
+              </span>
+            </div>
           </button>
         </li>
       </ul>

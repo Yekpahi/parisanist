@@ -4,7 +4,7 @@
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
 />
 
-<ul class="db-orders">
+<ul class="db_content orders-content" >
   <li class="db-orders-infos">My orders</li>
   <li class="db-orders-container">
     <table>
@@ -74,3 +74,18 @@
     </table>
   </li>
 </ul>
+
+<script>
+  console.log("salut")
+  const tabs = document.querySelectorAll('.tabs-link');
+  console.log(tabs)
+  const all_content = document.querySelectorAll('.db_content');
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', (e) => {
+      tabs.forEach(tab=>{tab.classList.remove("active")});
+      tab.classList.add('active');
+      all_content.forEach(content=>{content.classList.remove('active')});
+      all_content[index].classList.add('active');
+    })
+  })
+</script>
