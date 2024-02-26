@@ -1,24 +1,17 @@
 <div class="filter-modal-size">
   <div class="filter-size-overlay">
     <ul class="size-modal-content">
+      
+      {% for size in sizes %}
       <li>
         <a href="">
-          <input type="checkbox" />
-          <span>XXL</span>
+          <input
+          data-filter="size" type="checkbox" name="size" value="{{size.size__id}}" class="filter-checkbox" />
+          <span>{{size.size}}</span>
         </a>
       </li>
-      <li>
-        <a href="">
-          <input type="checkbox" />
-          <span>XS</span>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <input type="checkbox" />
-          <span>M</span>
-        </a>
-      </li>
+      {% endfor %}
+        
     </ul>
   </div>
 </div>

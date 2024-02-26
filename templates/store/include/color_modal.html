@@ -1,24 +1,15 @@
 <div class="filter-modal-color">
   <div class="filter-color-overlay" >
     <ul class="color-modal-content">
+      {% for color in colors %}
       <li>
         <a href="">
-          <input type="checkbox" />
-          <span>Black</span>
+          <input
+           data-filter="color" type="checkbox" name="color" value="{{color.color__id}}" class="filter-checkbox"/>
+          <span>{{color.name}}</span>
         </a>
       </li>
-      <li>
-        <a href="">
-          <input type="checkbox" />
-          <span>Blue</span>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <input type="checkbox" />
-          <span>Yellow</span>
-        </a>
-      </li>
+      {% endfor %}
     </ul>
   </div>
   </div>

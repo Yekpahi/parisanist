@@ -51,12 +51,12 @@
         <li class="product-name">{{single_product.product_name }}</li>
         <li class="variant-colors">
           <div class="color-choice">
-            {% for i in single_product.variation_set.colors %}
-            <span>{{ i.variation_value | capfirst }}</span>
+            {% for i in single_product.variation_set.all %}
+            <span>{{ i.color.name | capfirst }}</span>
             {% endfor %}
           </div>
           <div class="color-container">
-            {% for i in single_product.variation_set.colors %}
+            {% for i in single_product.variation_set.all %}
             <div class="colorbox">
               <input
                 required
@@ -64,10 +64,10 @@
                 type="radio"
                 name="color"
                 id="username3"
-                value="{{ i.variation_value | lower }}"
+                value="{{ i.color.name | lower }}"
               />
               <label
-                style="background: {{ i.variation_value | lower }}"
+                style="background: {{i.color.colorCode}}; border : 1px solid black"
                 for=""
               ></label>
             </div>
@@ -79,7 +79,7 @@
 
         <li class="variant-size">
           <div class="size-container">
-            {% for i in single_product.variation_set.sizes %}
+            {% for i in single_product.variation_set.all %}
             <div class="sizebox">
               <input
                 required
@@ -87,10 +87,10 @@
                 type="radio"
                 name="size"
                 id="username3"
-                value="{{ i.variation_value | lower }}"
+                value="{{ i.size.size | lower }}"
               />
               <label class="size_label"
-                >{{ i.variation_value | capfirst }}</label
+                >{{ i.size.size | capfirst }}</label
               >
             </div>
             {% endfor %}

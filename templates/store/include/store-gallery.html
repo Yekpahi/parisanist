@@ -10,17 +10,20 @@
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css"
+/>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
 <!-- End Swiper Link -->
 
 <!-- Ajax link -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 <!-- End Ajax link -->
 
-<div class="store-gallery">
+<div class="store-gallery" id="filteredProducts">
+  <p class="ajaxLoader">Loading ...</p>
   <!-- One slider -->
   {% if products %} {% for product in products %}
   <div class="swiper">
@@ -75,8 +78,6 @@
       /></span>
       {% endif %}
 
-
-
       <!-- <a class="add-to-wishlist" href ="{% url 'add-to-wishlist' %}" data-product-item="{{product.id}}">
         <img  src="{% static 'assets/imgs/dislike.png' %}" alt="" />
       </a>  -->
@@ -90,7 +91,7 @@
 
 <script type="text/javascript">
   $(document).ready(function () {
-    $(document).on('click', '.like', function (event) {
+    $(document).on("click", ".like", function (event) {
       event.preventDefault();
       var attr_id = $(this).attr("attr_id");
       var action_url = $(this).attr("action_url");
@@ -112,8 +113,7 @@
   });
 </script>
 
-
- <!--
+<!--
 <script type="text/javascript">
   $(document).ready(function () {
     $(".like").click(function () {
@@ -137,7 +137,6 @@
   });
 </script>
 -->
-
 
 <!-- <script>
   $(document).on("click", '.like', function(){
