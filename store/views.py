@@ -23,7 +23,6 @@ def product_list(request, category_slug=None, product_slug=None):
     # End for printint only the parents
 
     # filter by product variation
-    # variations = Variation.objects.distinct().values('variation_value')
     colors = Variation.objects.distinct().values('color__name', 'color__id', 'color__colorCode')
     sizes = Variation.objects.distinct().values('size__size', 'size__id')
 
@@ -56,17 +55,22 @@ def product_list(request, category_slug=None, product_slug=None):
                 is_active=True).order_by('-product_price')
         product_count = products.count()
 
+
+    # Size filter
+    SizeId = request.GET.get('sizeID')
     ColorId = request.GET.get('colorID')
-    if ColorId:
+    if SizeId:
+        products = Product.objects.filter(variation__size__id__in=SizeId)
+    elif Color:
         products = Product.objects.filter(variation__color__id__in=ColorId)
     else:
         products = Product.objects.all()
     
-    SizeId = request.GET.get('sizeID')
-    if SizeId :
-        products = Product.objects.filter(variation__size__id__in=SizeId)
-    else:
-        products = Product.objects.all()
+    # End Size filter
+    
+    
+
+    
     return render(request,
                   'store/store.html',
                   {'category': category,
@@ -126,13 +130,11 @@ def search(request):
 
 def product_detail(request, category_slug, product_slug):
     try:
-        single_product = Product.objects.get(
-            category__slug=category_slug, product_slug=product_slug)
+        single_product = Product.objects.get(category__slug=category_slug, product_slug=product_slug)
         # details images
         images = Photo.objects.filter(product=single_product)
         # if item is already in the cart
-        in_cart = CartItem.objects.filter(
-            cart__cart_id=_cart_id(request), product=single_product)
+        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=single_product)
 
     except Exception as e:
         raise
