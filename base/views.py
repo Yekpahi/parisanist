@@ -10,3 +10,19 @@ def homepage(request):
 
 def about(request):
     return render(request, "base/about.html")
+
+def privacy(request):
+    return render(request, "base/privacy.html")
+
+def terms(request):
+    return render(request, "base/terms.html")
+
+def legalNotice(request):
+    return render(request, "base/legalNotice.html")
+
+def refund(request):
+    return render(request, "base/refund.html")
+def shipping(request):
+    return render(request, "base/shipping.html")
+
+

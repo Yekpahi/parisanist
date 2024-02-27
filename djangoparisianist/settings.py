@@ -91,7 +91,7 @@ WSGI_APPLICATION = 'djangoparisianist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'parisianistdb102',
+        'NAME': 'parisianist03',
         'USER': 'kouassi',
         'PASSWORD': 'azerty1234',
         'HOST': '127.0.0.1',

@@ -1,27 +1,14 @@
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
-
-.category-and-filter {
-  position: relative;
-  top: 100px;
+.categories-and-filters {
+  position: absolute;
+  width: 100%;
+  top: 200px;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .category-parents {
-  position: absolute;
-  left: 0;
   display: flex;
   margin-left: 15px;
 }
@@ -32,9 +19,33 @@ body {
   font-weight: lighter;
 }
 
+.category-parents > li > a {
+  text-decoration: none;
+  color: black;
+}
+
+.active-cat {
+  opacity: 0.4;
+  border-bottom: 1px solid black;
+  -youbkit-touch-callout: none; /* iOSSafari */
+  -youbkit-user-select: none; /* Chrome 6.0+, Safari 3.1+, Edge et Opera 15+ */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE 10+ et Edge */
+  user-select: none; /* Version sans préfixe,
+                                actuellement pris en charge par Chrome et Opera */
+}
+
+.active-all {
+  opacity: 0.4;
+  border-bottom: 1px solid rgb(0, 0, 0);
+  -youbkit-touch-callout: none; /* iOSSafari */
+  -youbkit-user-select: none; /* Chrome 6.0+, Safari 3.1+, Edge et Opera 15+ */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE 10+ et Edge */
+  user-select: none; /* Version sans préfixe,                          actuellement pris en charge par Chrome et Opera */
+}
+
 .filter-contents {
-  position: absolute;
-  right: 0;
   margin-right: 15px;
   display: flex;
 }
@@ -51,7 +62,7 @@ body {
 /* color filter */
 .color-modal-content {
   position: absolute;
-  right: 14.5%;
+  right: 12.8%;
   top: 235px;
   margin-top: 10px;
   padding: 6px;
@@ -80,9 +91,9 @@ body {
   display: none;
   position: absolute;
   top: -210px;
-  right: -22%;
-  width: 2050px;
-  height: 1500px;
+  right: 0%;
+  width: 100%;
+  height: 980px;
   z-index: 1111; /* Sit on top */
   overflow: hidden; /* Enable scroll if needed */
   padding-top: 250px;
@@ -100,19 +111,17 @@ body {
 
 /* End color Modal */
 
-
 /* Size Modal */
 
 .size-modal-content {
   position: absolute;
-  right: 10%;
+  right: 6.8%;
   top: 235px;
   margin-top: 10px;
   padding: 6px;
   border: none;
   background-color: white;
 }
-
 
 .size-modal-content > li > a {
   display: flex;
@@ -136,9 +145,9 @@ body {
   display: none;
   position: absolute;
   top: -210px;
-  right: -22%;
+  right: 0%;
   width: 2050px;
-  height: 1500px;
+  height: 980px;
   z-index: 1111; /* Sit on top */
   overflow: hidden; /* Enable scroll if needed */
   padding-top: 250px;
@@ -156,11 +165,10 @@ body {
 
 /* End size Modal */
 
-
 /* sortby Modal */
 .sortby-modal-content {
   position: absolute;
-  right: 4%;
+  right: 1%;
   top: 235px;
   margin-top: 10px;
   padding: 6px;
@@ -189,9 +197,9 @@ body {
   display: none;
   position: absolute;
   top: -210px;
-  right: -22%;
+  right: 0%;
   width: 2050px;
-  height: 1500px;
+  height: 980px;
   z-index: 1111; /* Sit on top */
   overflow: hidden; /* Enable scroll if needed */
   padding-top: 250px;
@@ -209,8 +217,6 @@ body {
 
 /* End sortby Modal */
 
-
-
 .filter-menu > li {
   margin-bottom: 15px;
 }
@@ -218,4 +224,46 @@ body {
 .filter-contents > li:hover .filter__dropdown__icon {
   transform: rotate(180deg);
   transition: all 0.3s ease;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 800px) {
+  .categories-and-filters {
+    top: 150px;
+    flex-direction: column;
+    justify-content: center;
+  flex-wrap: nowrap;
+  align-items: center;
+  }
+
+  .filter-modal-color {
+    top: -167px;
+  }
+
+  .color-modal-content {
+    right: 58.5%;
+    top: 240px;
+
+  }
+
+  .filter-modal-size {
+    top: -167px;
+  }
+
+  .size-modal-content {
+    position: absolute;
+    right: 17.2%;
+    top: 240px;
+  }
+
+  .filter-modal-sortby {
+    top: -167px;
+  }
+  .sortby-modal-content {
+    position: absolute;
+    right: 7.5%;
+    top: 235px;
+  }
+
 }

@@ -30,12 +30,15 @@
             </li>
         </ul>
         <ul class="header-cat-image">
+            
+            {% for cat in cat_parents %}
+                        
             <li class="">
-                <img src="{% static 'assets/imgs/catmen.jpg' %}" alt="" />
+                <img src="{{cat.cat_image.url}}" alt="" />
             </li>
-            <li class="">
-                <img src="{% static 'assets/imgs/catwomen.jpg' %}" alt="" />
-            </li>
+       
+            {% endfor %}
+        
         </ul>
     </div>
 </section>

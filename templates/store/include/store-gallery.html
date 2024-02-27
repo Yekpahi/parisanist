@@ -5,27 +5,12 @@
   href=" {% static 'assets/css/store/store-gallery.css' %}"
 />
 
-<!-- Swiper Link -->
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/css/swiper.min.css"
-/>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.5/js/swiper.min.js"></script>
-<!-- End Swiper Link -->
-
-<!-- Ajax link -->
-
-<!-- End Ajax link -->
 
 <div class="store-gallery" id="filteredProducts">
-  <p class="ajaxLoader">Loading ...</p>
   <!-- One slider -->
-  {% if products %} {% for product in products %}
+  {% if products %} 
+  {% for product in products %}
+
   <div class="swiper">
     <div class="swiper-wrapper">
       {% for image in product.photos.all %}
@@ -37,48 +22,41 @@
       {% endfor %}
     </div>
 
-    <div
-      class="gallery-swiper-buttons-and-infos"
-      onmouseover="chargeOpacity(this)"
-      onmouseout="removeOpacity(this)"
-    >
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="gallery-infos">
-        <a href="{{ product.get_url}}" class="title"
-          >{{product.product_name}}</a
-        >
-        <span class="price">{{product.product_price}}</span>
-      </div>
-      <!-- <form action="{% url 'add-to-wishlist' %}" method="POST">
+    <div class="gallery-swiper-buttons-and-infos" onmouseover="chargeOpacity(this)" onmouseout="removeOpacity(this)">
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="gallery-infos">
+          <a href="{{ product.get_url}}" class="title">{{product.product_name}}</a>
+          <span class="price">{{product.product_price}}</span>
+        </div>
+        <!-- <form action="{% url 'add-to-wishlist' %}" method="POST">
         {%csrf_token%}
         <input type="hidden" name="id" value="{{product.id}}">
         <input type="submit" value="Add to Wishlist">
       </form> -->
 
-      {% if product.pk in wishlisted_list %} {% for i in wishlisted_list %} 
-      {% if product.pk is i %}
-      <span
-        class="like heart"
-        id="id"
-        attr_id="{{product.pk}}"
-        action_url="{% url 'add-to-wishlist' %}"
-        ><img src="{% static 'assets/imgs/like.png' %}" alt=""
-      /></span>
-      {% endif %} 
-      {% endfor %} 
-      {% else %}
-      <span
-        class="like"
-        id="id"
-        attr_id="{{product.pk}}"
-        action_url="{% url 'add-to-wishlist' %}"
-      >
-        <img src="{% static 'assets/imgs/dislike.png' %}" alt=""
-      /></span>
-      {% endif %}
+        {% if product.pk in wishlisted_list %} 
+        {% for i in wishlisted_list %} 
+        {% if product.pk is i %}
+        <span
+          class="like heart"
+          id="id"
+          attr_id="{{product.pk}}"
+          action_url="{% url 'add-to-wishlist' %}"
+          ><img src="{% static 'assets/imgs/like.png' %}" alt=""
+        /></span>
+        {% endif %} {% endfor %} {% else %}
+        <span
+          class="like"
+          id="id"
+          attr_id="{{product.pk}}"
+          action_url="{% url 'add-to-wishlist' %}"
+        >
+          <img src="{% static 'assets/imgs/dislike.png' %}" alt=""
+        /></span>
+        {% endif %}
 
-      <!-- <a class="add-to-wishlist" href ="{% url 'add-to-wishlist' %}" data-product-item="{{product.id}}">
+        <!-- <a class="add-to-wishlist" href ="{% url 'add-to-wishlist' %}" data-product-item="{{product.id}}">
         <img  src="{% static 'assets/imgs/dislike.png' %}" alt="" />
       </a>  -->
     </div>

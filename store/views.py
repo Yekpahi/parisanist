@@ -24,8 +24,8 @@ def product_list(request, category_slug=None, product_slug=None):
 
     # filter by product variation
     # variations = Variation.objects.distinct().values('variation_value')
-    colors = Color.objects.all()
-    sizes = Size.objects.all().values('size').distinct()
+    colors = Variation.objects.distinct().values('color__name', 'color__id', 'color__colorCode')
+    sizes = Variation.objects.distinct().values('size__size', 'size__id')
 
     # sort by
     sort_by = request.GET.get("sort", "l2h")
@@ -56,11 +56,17 @@ def product_list(request, category_slug=None, product_slug=None):
                 is_active=True).order_by('-product_price')
         product_count = products.count()
 
-    varID = request.GET.get('varID')
-    if varID:
-        product = Product.objects.filter(variation=varID)
+    ColorId = request.GET.get('colorID')
+    if ColorId:
+        products = Product.objects.filter(variation__color__id__in=ColorId)
     else:
-        product = Product.objects.all()
+        products = Product.objects.all()
+    
+    SizeId = request.GET.get('sizeID')
+    if SizeId :
+        products = Product.objects.filter(variation__size__id__in=SizeId)
+    else:
+        products = Product.objects.all()
     return render(request,
                   'store/store.html',
                   {'category': category,
@@ -70,24 +76,38 @@ def product_list(request, category_slug=None, product_slug=None):
                    'parents': parents,
                    'sizes': sizes,
                    'colors': colors,
-                   'product': product,
                    'wishlisted_list': wishlisted_list
                    })
 # filter data
-
-
 def filter_data(request):
-    colors = request.GET.get('color[]')
-    sizes = request.GET.get('size[]')
-    allProducts = Product.objects.all().order_by('-id').distinct()
-    if len(colors) > 0:
-        allProducts = allProducts.filter(
-            variation__color__id__in=colors).distinct()
-    if len(sizes) > 0:
-        allProducts = allProducts.filter(
-            variation__size__id__in=sizes).distinct()
-    t = render_to_string('store/store.html', {'data': allProducts})
-    return JsonResponse({'data': t})
+	colors=request.GET.getlist('color[]')
+	sizes=request.GET.getlist('size[]')
+	allProducts=Product.objects.all().order_by('-id').distinct()
+	if len(colors)>0:
+		allProducts=allProducts.filter(variation__color__id__in=colors).distinct()
+	if len(sizes)>0:
+		allProducts=allProducts.filter(variation__size__id__in=sizes).distinct()
+	t=render_to_string('ajax/product-list.html',{'data':allProducts})
+	return JsonResponse({'data':t})
+
+
+
+
+
+
+# def filter_data(request):
+#     colors = request.GET.getlist('color[]')
+#     sizes = request.GET.getlist('size[]')
+#     allProducts = Product.objects.all().order_by('-id').distinct()
+#     if len(colors) > 0:
+#         allProducts = allProducts.filter(
+#             variation__color__id__in=colors).distinct()
+#     if len(sizes) > 0:
+#         allProducts = allProducts.filter(
+#             variation__size__id__in=sizes).distinct()
+#     t = render_to_string('store/store.html', {'data': allProducts})
+#     print(colors)
+#     return JsonResponse({'data': t})
 
 
 def search(request):

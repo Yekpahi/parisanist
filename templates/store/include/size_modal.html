@@ -4,10 +4,10 @@
       
       {% for size in sizes %}
       <li>
-        <a href="">
+        <a href="?sizeID={{size.size__id}}">
           <input
           data-filter="size" type="checkbox" name="size" value="{{size.size__id}}" class="filter-checkbox" />
-          <span>{{size.size}}</span>
+          <span>{{size.size__size}}</span>
         </a>
       </li>
       {% endfor %}

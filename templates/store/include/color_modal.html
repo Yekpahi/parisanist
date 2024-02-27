@@ -3,10 +3,13 @@
     <ul class="color-modal-content">
       {% for color in colors %}
       <li>
-        <a href="">
+        <a href="?colorID={{color.color__id}}"
+        attr_id="{{color.color__id}}"
+        action_url="{% url 'filter_data' %}"
+        >
           <input
            data-filter="color" type="checkbox" name="color" value="{{color.color__id}}" class="filter-checkbox"/>
-          <span>{{color.name}}</span>
+          <span>{{color.color__name}}</span>
         </a>
       </li>
       {% endfor %}
