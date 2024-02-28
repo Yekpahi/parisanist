@@ -23,54 +23,42 @@ def product_list(request, category_slug=None, product_slug=None):
     # End for printint only the parents
 
     # filter by product variation
-    colors = Variation.objects.distinct().values('color__name', 'color__id', 'color__colorCode')
+    colors = Variation.objects.distinct().values(
+        'color__name', 'color__id', 'color__colorCode')
     sizes = Variation.objects.distinct().values('size__size', 'size__id')
 
     # sort by
     sort_by = request.GET.get("sort", "l2h")
     if sort_by == "l2h":
-        products = Product.objects.filter(
-            is_active=True).order_by('product_price')
+        products = Product.objects.filter(is_active=True).order_by('product_price')
     elif sort_by == "h2l":
-        products = Product.objects.filter(
-            is_active=True).order_by('-product_price')
+        products = Product.objects.filter(is_active=True).order_by('-product_price')
     # end sort by
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         sub_categories = category.get_descendants(include_self=True)
         products = products.filter(category__in=sub_categories)
-        # paginator = Paginator(products, 2)
-        # page = request.GET.get('page')
-        # paged_products = paginator.get_page(page)
         product_count = products.count()
     else:
-
         # sort by
         sort_by = request.GET.get("sort", "l2h")
         if sort_by == "l2h":
-            products = Product.objects.filter(
-                is_active=True).order_by('product_price')
+            products = Product.objects.filter(is_active=True).order_by('product_price')
         elif sort_by == "h2l":
-            products = Product.objects.filter(
-                is_active=True).order_by('-product_price')
+            products = Product.objects.filter(is_active=True).order_by('-product_price')
         product_count = products.count()
 
-
-    # Size filter
+    # Size color and filter
     SizeId = request.GET.get('sizeID')
     ColorId = request.GET.get('colorID')
     if SizeId:
         products = Product.objects.filter(variation__size__id__in=SizeId)
-    elif Color:
+    elif ColorId:
         products = Product.objects.filter(variation__color__id__in=ColorId)
     else:
         products = Product.objects.all()
-    
-    # End Size filter
-    
-    
+    # End color and Size filter
 
-    
     return render(request,
                   'store/store.html',
                   {'category': category,
@@ -83,20 +71,20 @@ def product_list(request, category_slug=None, product_slug=None):
                    'wishlisted_list': wishlisted_list
                    })
 # filter data
+
+
 def filter_data(request):
-	colors=request.GET.getlist('color[]')
-	sizes=request.GET.getlist('size[]')
-	allProducts=Product.objects.all().order_by('-id').distinct()
-	if len(colors)>0:
-		allProducts=allProducts.filter(variation__color__id__in=colors).distinct()
-	if len(sizes)>0:
-		allProducts=allProducts.filter(variation__size__id__in=sizes).distinct()
-	t=render_to_string('ajax/product-list.html',{'data':allProducts})
-	return JsonResponse({'data':t})
-
-
-
-
+    colors = request.GET.getlist('color[]')
+    sizes = request.GET.getlist('size[]')
+    allProducts = Product.objects.all().order_by('-id').distinct()
+    if len(colors) > 0:
+        allProducts = allProducts.filter(
+            variation__color__id__in=colors).distinct()
+    if len(sizes) > 0:
+        allProducts = allProducts.filter(
+            variation__size__id__in=sizes).distinct()
+    t = render_to_string('ajax/product-list.html', {'data': allProducts})
+    return JsonResponse({'data': t})
 
 
 # def filter_data(request):
@@ -130,11 +118,13 @@ def search(request):
 
 def product_detail(request, category_slug, product_slug):
     try:
-        single_product = Product.objects.get(category__slug=category_slug, product_slug=product_slug)
+        single_product = Product.objects.get(
+            category__slug=category_slug, product_slug=product_slug)
         # details images
         images = Photo.objects.filter(product=single_product)
         # if item is already in the cart
-        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=single_product)
+        in_cart = CartItem.objects.filter(
+            cart__cart_id=_cart_id(request), product=single_product)
 
     except Exception as e:
         raise
@@ -145,32 +135,57 @@ def product_detail(request, category_slug, product_slug):
     }
     return render(request, 'store/product-details/product_details.html', context)
 
+# Wishlist
+@login_required
+def add_wishlist(request):
+    pid=request.GET['product']
+    product=Product.objects.get(pk=pid)
+    data = {}
+    checkw = Wishlist.objects.filter(product=product, user=request.user).count()
+    if checkw > 0:
+        data={
+            'bool':False
+        }
+    else :
+        wishlist=Wishlist.objects.create(
+            product=product,
+            user=request.user
+        )
+        data={
+            'bool':True
+        }
+    return JsonResponse(data)
+
 
 @login_required
+
+# My Wishlist
 def wishlist(request):
-    wishlist = Wishlist.objects.all()
+    wishlist = Wishlist.objects.filter(user=request.user).order_by('-id')
     context = {
-        "w": wishlist
+        "wishlist": wishlist
     }
-    return render(request, "store/wishlist.html", context)
+    return render(request, "user/dashboard/wishlist.html", context)
 
 
-@login_required
-def add_to_wishlist(request):
-    if request.accepts('text/html') and request.POST and 'attr_id' in request.POST:
-        if request.user.is_authenticated:
-            data = Wishlist.objects.filter(
-                user_id=request.user.pk, product_id=int(request.POST['attr_id']))
-            print(data)
-            if data.exists():
-                data.delete()
-            else:
-                Wishlist.objects.create(
-                    user_id=request.user.pk, product_id=int(request.POST['attr_id']))
-    else:
-        print("No Product is Found")
 
-    return redirect("home")
+
+
+# def add_to_wishlist(request):
+#     if request.accepts('text/html') and request.POST and 'attr_id' in request.POST:
+#         if request.user.is_authenticated:
+#             data = Wishlist.objects.filter(
+#                 user_id=request.user.pk, product_id=int(request.POST['attr_id']))
+#             print(data)
+#             if data.exists():
+#                 data.delete()
+#             else:
+#                 Wishlist.objects.create(
+#                     user_id=request.user.pk, product_id=int(request.POST['attr_id']))
+#     else:
+#         print("No Product is Found")
+
+#     return redirect("home")
 
 # def add_to_wishlist(request):
 #     if request.method == 'POST':
@@ -179,32 +194,31 @@ def add_to_wishlist(request):
 #         return HttpResponseRedirect(reverse('wishlist'))
 
 
-"""
-def add_to_wishlist(request):
 
-    product_id = request.GET['id']
-    # product = get_object_or_404(Product, id=request.Product.get('product_id'))
-    product = Product.objects.get(id = product_id)
-    print("product Id is :" + product_id)
+# def add_to_wishlist(request):
+
+#     product_id = request.GET['id']
+#     # product = get_object_or_404(Product, id=request.Product.get('product_id'))
+#     product = Product.objects.get(id = product_id)
+#     print("product Id is :" + product_id)
     
-    context = {}
-    wishlist_count = Wishlist.objects.filter(product=product, user=request.user).count()
-    if wishlist_count > 0 :
-        context = {
-            "bool": True
-        }
-    else:
-        new_wishlist = Wishlist.objects.create(
-            user=request.user,
-            product=product,
+#     context = {}
+#     wishlist_count = Wishlist.objects.filter(product=product, user=request.user).count()
+#     if wishlist_count > 0 :
+#         context = {
+#             "bool": True
+#         }
+#     else:
+#         new_wishlist = Wishlist.objects.create(
+#             user=request.user,
+#             product=product,
            
-        )
-        context = {
-            "bool": True,
-        }
+#         )
+#         context = {
+#             "bool": True,
+#         }
         
-    return JsonResponse(context)
-"""
+#     return JsonResponse(context)
 
 
 def remove_wishlist(request):

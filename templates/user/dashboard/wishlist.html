@@ -1,13 +1,22 @@
 {% load static %}
-<ul class="db_content wishlist-content">
+<ul class="db_content wishlist-content active">
   <li class="db-wishlist-infos">
     <span class="db-Wishlist-title">Wishlist</span>
     <span class="db-Wishlist-count"> 2 articles selected</span>
   </li>
 
   <li class="db-wishlist-store-gallery">
+    
+    {% for wl in wishlist %}
+      
+   
+      
     <div class="db-one-item">
-      <img src="{% static 'assets/imgs/Mq2.jpg' %}" alt="" />
+      {% for image in wl.product.photos.all %}
+      {% if image.is_feature %}
+      <img src="{{image.product_image.url}}" alt="" />
+      {% endif %}
+      {% endfor %}
       <div
         class="db-others-infos"
         onmouseover="chargeOpacity(this)"
@@ -16,7 +25,7 @@
         <ul>
           <li class="db-title-and-price">
             <ul>
-              <li>John Beno</li>
+              <li>{{wl.product.product_name}}</li>
               <li>2000 Euro</li>
             </ul>
           </li>
@@ -26,26 +35,7 @@
         </ul>
       </div>
     </div>
-    <div class="db-one-item">
-      <img src="{% static 'assets/imgs/MQ4.jpg' %}" alt="" />
-      <div
-        class="db-others-infos"
-        onmouseover="chargeOpacity(this)"
-        onmouseout="removeOpacity(this)"
-      >
-        <ul>
-          <li class="db-title-and-price">
-            <ul>
-              <li>John Beno</li>
-              <li>2000 Euro</li>
-            </ul>
-          </li>
-          <li class="db-favorite-img">
-            <img src="{% static 'assets/imgs/dislike.png' %}" alt="" />
-          </li>
-        </ul>
-      </div>
-    </div>
+    {% endfor %}
   </li>
 </ul>
 

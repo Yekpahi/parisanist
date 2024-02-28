@@ -1,4 +1,5 @@
-{% extends '../../main.html' %} {% load static %} 
+{% extends '../../main.html' %} 
+{% load static %} 
 {% block title %} {{ user.username}} | Dashboard {% endblock %} 
 
 {% block content %}
@@ -7,9 +8,9 @@
 <main class="dashboad-main">
   <aside class="dashboard-left-side">
     <ul>
-      <li><a class="tabs-link active" href="">My Account</a></li>
+      <li><a class="tabs-link" href="">My Account</a></li>
       <li><a class="tabs-link" href="">My orders</a></li>
-      <li><a class="tabs-link" href="">Wishlist</a></li>
+      <li><a class="tabs-link {% if request.path == '/wishlist' %} active {% endif %}" href="{% url 'wishlist' %}">Wishlist</a></li>
       <li><a class="tabs-link" href="">Address</a></li>
     </ul>
   </aside>

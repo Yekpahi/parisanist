@@ -23,7 +23,7 @@
       {% if user.is_superuser  %}
       <li class="users-elements"><a href="{% url 'admin:index' %}">ADMINISTRATOR ACCOUNT</a></li>
       {% endif %}
-      <li class="users-elements"><a href="">WISHLIST</a></li>
+      <li class="users-elements"><a href="{% url 'wishlist' %}">WISHLIST</a></li>
       <li class="users-elements"><a href="{% url 'logout' %}">SE DÉCONNECTER</a></li>
     </ul>
   </div>
