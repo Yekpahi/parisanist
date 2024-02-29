@@ -17,62 +17,59 @@ def product_list(request, category_slug=None, product_slug=None):
             'product_id', flat=True).order_by('product_id'))
 
     category = None
+    products = None
     categories = Category.objects.all()
     # for printint only the parents
     parents = Category.objects.filter(parent=None)
     # End for printint only the parents
 
-    # filter by product variation
+    # Start filter by product variation
     colors = Variation.objects.distinct().values(
         'color__name', 'color__id', 'color__colorCode')
     sizes = Variation.objects.distinct().values('size__size', 'size__id')
-
-    # sort by
+    # End filter by product variation
+       
+    # start Size color and filter
+    SizeId = request.GET.get('sizeID')
+    ColorId = request.GET.get('colorID')
+    # End Size color and filter
+    # Start sortby
     sort_by = request.GET.get("sort", "l2h")
-    if sort_by == "l2h":
-        products = Product.objects.filter(is_active=True).order_by('product_price')
-    elif sort_by == "h2l":
-        products = Product.objects.filter(is_active=True).order_by('-product_price')
-    # end sort by
+    # End sortby
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         sub_categories = category.get_descendants(include_self=True)
-        products = products.filter(category__in=sub_categories)
-        product_count = products.count()
-    else:
-        # sort by
-        sort_by = request.GET.get("sort", "l2h")
-        if sort_by == "l2h":
-            products = Product.objects.filter(is_active=True).order_by('product_price')
-        elif sort_by == "h2l":
-            products = Product.objects.filter(is_active=True).order_by('-product_price')
-        product_count = products.count()
-
-    # Size color and filter
-    SizeId = request.GET.get('sizeID')
-    ColorId = request.GET.get('colorID')
-    if SizeId:
+        products = Product.objects.filter(category__in=sub_categories)
+     # start Size color and filter
+    elif SizeId:
         products = Product.objects.filter(variation__size__id__in=SizeId)
     elif ColorId:
         products = Product.objects.filter(variation__color__id__in=ColorId)
+    # End Size color and filter
+    # Start sortby
+    elif sort_by == "l2h":
+         products = Product.objects.filter(is_active=True).order_by('product_price')
+    elif sort_by == "h2l":
+         products = Product.objects.filter(is_active=True).order_by('-product_price')
+    # end sort by
+    # start Size color and filter
     else:
-        products = Product.objects.all()
-    # End color and Size filter
+        products = Product.objects.all().filter(is_active=True)
+
 
     return render(request,
                   'store/store.html',
                   {'category': category,
                    'categories': categories,
                    'products': products,
-                   'product_count': product_count,
                    'parents': parents,
+                    # 'productx': productx,
                    'sizes': sizes,
                    'colors': colors,
                    'wishlisted_list': wishlisted_list
                    })
+    
 # filter data
-
-
 def filter_data(request):
     colors = request.GET.getlist('color[]')
     sizes = request.GET.getlist('size[]')
@@ -136,29 +133,31 @@ def product_detail(request, category_slug, product_slug):
     return render(request, 'store/product-details/product_details.html', context)
 
 # Wishlist
+
+
 @login_required
 def add_wishlist(request):
-    pid=request.GET['product']
-    product=Product.objects.get(pk=pid)
+    pid = request.GET['product']
+    product = Product.objects.get(pk=pid)
     data = {}
-    checkw = Wishlist.objects.filter(product=product, user=request.user).count()
+    checkw = Wishlist.objects.filter(
+        product=product, user=request.user).count()
     if checkw > 0:
-        data={
-            'bool':False
+        data = {
+            'bool': False
         }
-    else :
-        wishlist=Wishlist.objects.create(
+    else:
+        wishlist = Wishlist.objects.create(
             product=product,
             user=request.user
         )
-        data={
-            'bool':True
+        data = {
+            'bool': True
         }
     return JsonResponse(data)
 
 
 @login_required
-
 # My Wishlist
 def wishlist(request):
     wishlist = Wishlist.objects.filter(user=request.user).order_by('-id')
@@ -166,9 +165,6 @@ def wishlist(request):
         "wishlist": wishlist
     }
     return render(request, "user/dashboard/wishlist.html", context)
-
-
-
 
 
 # def add_to_wishlist(request):
@@ -194,14 +190,13 @@ def wishlist(request):
 #         return HttpResponseRedirect(reverse('wishlist'))
 
 
-
 # def add_to_wishlist(request):
 
 #     product_id = request.GET['id']
 #     # product = get_object_or_404(Product, id=request.Product.get('product_id'))
 #     product = Product.objects.get(id = product_id)
 #     print("product Id is :" + product_id)
-    
+
 #     context = {}
 #     wishlist_count = Wishlist.objects.filter(product=product, user=request.user).count()
 #     if wishlist_count > 0 :
@@ -212,12 +207,12 @@ def wishlist(request):
 #         new_wishlist = Wishlist.objects.create(
 #             user=request.user,
 #             product=product,
-           
+
 #         )
 #         context = {
 #             "bool": True,
 #         }
-        
+
 #     return JsonResponse(context)
 
 

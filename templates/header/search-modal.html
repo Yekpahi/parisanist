@@ -1,6 +1,6 @@
-<div class="search-modal" id="search-modal-Id">
-    <input type="text" placeholder="What are you looking for ?" />
-</div>
+<form class="search-modal" id="search-modal-Id" action="{% url 'search' %}" method="GET">
+    <input type="text" placeholder="What are you looking for ?" name="keyword"/>
+</form>
 
 <!-- Search input script -->
 

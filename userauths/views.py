@@ -47,11 +47,14 @@ def register(request):
                 # method will generate a hash value with user related data
                 'token': default_token_generator.make_token(user),
             })
+            
             to_email = email
             send_email = EmailMessage(mail_subject, message, to=[to_email])
+            send_email.content_subtype='html'
             send_email.send()
             # messages.success(request, "You are successfully registered!!")
-            return redirect('/user/login/?command=verification&email='+email)
+            # return redirect('/user/login/?command=verification&email='+email)
+            return render(request, "user/activation_sent.html", {"form": RegistrationForm})
     else:
         form = RegistrationForm()
     context = {

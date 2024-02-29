@@ -21,7 +21,7 @@
     <ul class="left-elements hideOnMobile">
       <!-- big menu store -->
       <li class="nav__item dropdown" id="storeId">
-        <a href="{% url 'store' %}">
+        <a class="store-link" href="{% url 'store' %}">
           Shop
           <i class="bx bxs-chevron-down dropdown__icon"></i>
         </a>
@@ -34,7 +34,7 @@
       <li class="about"><a href="{% url 'about' %}">About</a></li>
     </ul>
     <div class="centered-elements hideOnMobile">
-      <span class="center-logo"><a href="{% url 'home' %}">parisianist</a></span>
+      <span class="center-logo"><a href="{% url 'home' %}"><img src="{% static 'assets/imgs/logoParisianist.png' %}" alt=""></a></span>
     </div>
     <ul class="right-elements">
       <!-- Start search icon -->

@@ -1,4 +1,7 @@
-{% extends '../main.html' %} {% load static %} {% block content %}
+{% extends '../main.html' %} {% load static %} 
+
+{% block title %} Create your account {% endblock %} 
+{% block content %}
 <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -27,28 +30,38 @@
     </span>
   </div>
   <div class="register-elements">
-    {% include 'partials/alert.html' %}
-    <form action="{% url 'register' %}" method="POST">
+    <form action="{% url 'register' %}" method="post">
       {% csrf_token %}
+      {% if form.errors %}
+      <p>Please correct the following errors:</p>
+      {% for field in form %}
+      {% if field.errors %}
+      <div class="alert alert-primary" role="alert">
+        {{ field.label }}: {{ field.errors|striptags }}
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+
       <div class="inptx register-firstname">
-        <label for="">First name</label>
+        <label for="first_name">First name</label>
           {{form.first_name}}
       </div>
       <div class="inptx register-lastname">
-        <label for="">Last name</label>
+        <label for="last_name">Last name</label>
         {{form.last_name}}
       </div>
       <div class="inptx register-username">
-        <label for="">Username</label>
+        <label for="username">Username</label>
         {{form.username}}
       </div>
       <div class="inptx register-email">
-        <label for="">Email</label>
+        <label for="email">Email</label>
         {{form.email}}
       </div>
       <div class="register-password">
         <span class="passwordx">
-          <label for="">Password</label>
+          <label for="password1">Password</label>
           {{form.password}}
         </span>
 
@@ -60,8 +73,8 @@
 
       <div class="register-password">
         <span class="passwordx">
-          <label for="">Confirm Password</label>
-          {{form.confirm_password}}
+          <label for="password2">Confirm Password</label>
+          {{form.password2}}
         </span>
 
         <span id="cshowPass">
@@ -76,7 +89,7 @@
         </span>
         <span class="register-gle-conditions">
           By clicking on “create your account”, you accept
-          <a href=""
+          <a href="{% url 'terms' %}"
             >the general conditions of sale and the confidentiality policy</a
           >
           of PARISIANIST.
