@@ -1,33 +1,23 @@
 {% load static %}
+{% load mptt_tags %}
 <link rel="stylesheet" href=" {% static 'assets/css/header/bigmenu.css' %}" />
 
 <section class="megamenu">
     <div class="megamenu-content">
         <ul class="cats-content">
+            {% recursetree catlinks %}
             <li class="category-and-subcategory">
                 <ul class="">
                     <li class="header_megamenu megamenu_item">
-                        <a href="">Men</a>
+                        <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
                     </li>
-                    <li class="subcategory megamenu_item"><a href="">Jean</a></li>
-                    <li class="subcategory megamenu_item">
-                        <a href="">Jackets</a>
-                    </li>
-                    <li class="subcategory megamenu_item"><a href="">Skirts</a></li>
+                    {% if not node.is_leaf_node %}
+                    <li class="subcategory megamenu_item"><a href="">{{ children }}</a></li>
+                    {% endif %}
+         
                 </ul>
             </li>
-            <li class="category-and-subcategory">
-                <ul class="">
-                    <li class="header_megamenu">
-                        <a href="">Women</a>
-                    </li>
-                    <li class="subcategory"><a href="">Jean</a></li>
-                    <li class="subcategory">
-                        <a href="">Jackets</a>
-                    </li>
-                    <li class="subcategory"><a href="">Skirts</a></li>
-                </ul>
-            </li>
+            {% endrecursetree %}
         </ul>
         <ul class="header-cat-image">
             

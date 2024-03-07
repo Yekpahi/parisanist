@@ -52,14 +52,16 @@
 
       <!-- favorite icon -->
       <li class="right favorite hideOnMobile">
-        <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
-        <div class="favorite-counter"><span>10</span></div>
+        <a href="{% url 'wishlist' %}">
+          <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
+          <div class="favorite-counter"><span>{{wishlist.count}}</span></div>
+        </a>
       </li>
       <!-- End favorite icon -->
       <!-- basket icon -->
       <li class="right basket hideOnMobile">
         <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
-        <div class="basket-counter"><span>10</span></div>
+        <div class="basket-counter"><span>{{request.session.cartdata|length}}</span></div>
       </li>
         <!-- End basket icon -->
       {% else %}

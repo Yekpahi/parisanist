@@ -11,10 +11,9 @@ from django.template.loader import render_to_string
 
 
 def product_list(request, category_slug=None, product_slug=None):
-    wishlisted_list = []
+    wishlist_products = []
     if request.user.is_authenticated:
-        wishlisted_list = list(Wishlist.objects.filter(user_id=request.user).values_list('product_id', flat=True).order_by('product_id'))
-
+        wishlist_products = list(Wishlist.objects.filter(user_id=request.user).values_list('product_id', flat=True).order_by('product_id'))
     category = None
     products = None
     categories = Category.objects.all()
@@ -55,7 +54,7 @@ def product_list(request, category_slug=None, product_slug=None):
     else:
         products = Product.objects.all().filter(is_active=True)
 
-
+        
     return render(request,
                   'store/store.html',
                   {'category': category,
@@ -65,33 +64,8 @@ def product_list(request, category_slug=None, product_slug=None):
                     # 'productx': productx,
                    'sizes': sizes,
                    'colors': colors,
-                   'wishlisted_list': wishlisted_list
-    })
-
-#product details
-def product_detail(request, category_slug, id):
-    try:
-        product=Product.objects.get(id=id)
-        single_product = Product.objects.get(category=product.category, id=id)
-        # details images
-        images = Photo.objects.filter(product=single_product)
-        # if item is already in the cart
-        in_cart = CartItem.objects.filter(cart__cart_id=_cart_id(request), product=single_product)
-        #colors and sizes
-        colors=Variation.objects.filter(product=single_product).values('color__id','color__name','color__colorCode').distinct()
-        sizes=Variation.objects.filter(product=single_product).values('size__id','size__size', 'color__id').distinct()
-
-    except Exception as e:
-        raise
-    context = {
-        'single_product': single_product,
-        'images': images,
-        'in_cart': in_cart,
-        'colors':colors,
-        'sizes':sizes,
-        'data':product
-    }
-    return render(request, 'store/product-details/product_details.html', context)
+                   'wishlist_products': wishlist_products
+                   })
     
 # filter data
 def filter_data(request):
@@ -121,6 +95,52 @@ def search(request):
     }
     return render(request,  'store/store.html', context)
 
+
+def product_detail(request, category_slug, product_slug):
+    try:
+        single_product = Product.objects.get(
+            category__slug=category_slug, product_slug=product_slug)
+        # details images
+        images = Photo.objects.filter(product=single_product)
+        # if item is already in the cart
+        in_cart = CartItem.objects.filter(
+            cart__cart_id=_cart_id(request), product=single_product)
+
+    except Exception as e:
+        raise
+    context = {
+        'single_product': single_product,
+        'images': images,
+        'in_cart': in_cart
+    }
+    return render(request, 'store/product-details/product_details.html', context)
+
+# Wishlist
+@login_required
+def add_to_wishlist(request):
+    if request.method == 'POST':
+        product_id = request.POST.get('product_id')
+        product = Product.objects.get(id=product_id)
+        user = request.user
+        wishlist, created = Wishlist.objects.get_or_create(user=user)
+        
+        if product in wishlist.product.all():
+            wishlist.product.remove(product)
+            is_added = False
+        else:
+            wishlist.product.add(product)
+            is_added = True
+        
+        wishlist.save()
+
+        return JsonResponse({'is_added': is_added})
+
+    return JsonResponse({'error': 'Invalid request method'})
+
+
+# return JsonResponse(data)
+
+
 @login_required
 # My Wishlist
 def wishlist(request):
@@ -129,26 +149,6 @@ def wishlist(request):
         "wishlist": wishlist
     }
     return render(request, "user/dashboard/wishlist.html", context)
-
-
-def add_to_wishlist(request):
-    if request.accepts('text/html') and request.POST and 'attr_id' in request.POST:
-        if request.user.is_authenticated:
-            data = Wishlist.objects.filter(user_id=request.user.pk, product_id=int(request.POST['attr_id']))
-            print(data)
-            if data.exists():
-                data.delete()
-                liked = False
-            else:
-                Wishlist.objects.create(user_id=request.user.pk, product_id=int(request.POST['attr_id']))
-                liked = True
-            return JsonResponse({'liked': liked})
-        else:
-            return JsonResponse({'error': 'User is not authenticated'}, status=401)
-
-    return redirect("home")
-
-
 
 
 

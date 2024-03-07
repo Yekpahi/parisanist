@@ -1,73 +1,53 @@
-{% load static %}
-<ul class="db_content wishlist-content active">
-  <li class="db-wishlist-infos">
-    <span class="db-Wishlist-title">Wishlist</span>
-    <span class="db-Wishlist-count"> 2 articles selected</span>
-  </li>
-
-  <li class="db-wishlist-store-gallery">
+{% extends '../../main.html' %} {% load static %} {% block title %} {{
+    user.username}} | Dashboard {% endblock %} {% block content %}
+    <link rel="stylesheet" href=" {% static 'assets/css/user/dashboard.css' %}" />
     
-    {% for wl in wishlist %}
-      
-   
-      
-    <div class="db-one-item">
-      {% for image in wl.product.photos.all %}
-      {% if image.is_feature %}
-      <img src="{{image.product_image.url}}" alt="" />
-      {% endif %}
-      {% endfor %}
-      <div
-        class="db-others-infos"
-        onmouseover="chargeOpacity(this)"
-        onmouseout="removeOpacity(this)"
-      >
+    <main class="dashboad-main">
+      <aside class="dashboard-left-side">
         <ul>
-          <li class="db-title-and-price">
-            <ul>
-              <li>{{wl.product.product_name}}</li>
-              <li>2000 Euro</li>
-            </ul>
+          <li>
+            <a class="tab-link" data-tab="{% url 'dashboard' %}">My Account</a>
           </li>
-          <li class="db-favorite-img">
-            <img src="{% static 'assets/imgs/dislike.png' %}" alt="" />
+          <li>
+            <a class="tab-link" data-tab="{% url 'place_order' %}">My orders</a>
+          </li>
+          <li>
+            <a class="tab-link" href="#' %}" data-tab="{% url 'wishlist' %}">Wishlist</a
+            >
+          </li>
+          <!-- <li><a class="tabs-link tabs{% if request.path == '/wishlist' %} active {% endif %}" href="{% url 'wishlist' %}">Wishlist</a></li> -->
+          <li>
+            <a class="tab-link" href="#">Address</a>
           </li>
         </ul>
-      </div>
-    </div>
-    {% endfor %}
-  </li>
-</ul>
-
-<!-- Gallery infos scripts -->
-<script>
-  function chargeOpacity(x) {
-    x.style.opacity = "1";
-    x.style.transition = "all 0.9s ease-in-out";
-  }
-
-  function removeOpacity(x) {
-    x.style.opacity = "0";
-    x.style.transition = "all 0.9s ease-in-out";
-  }
-</script>
-
-<script>
-  console.log("salut");
-  const tabs = document.querySelectorAll(".tabs-link");
-  console.log(tabs);
-  const all_content = document.querySelectorAll(".db_content");
-  tabs.forEach((tab, index) => {
-    tab.addEventListener("click", (e) => {
-      tabs.forEach((tab) => {
-        tab.classList.remove("active");
+      </aside>
+      <aside class="dashboard-right-side">
+        <div class="dashboard-right-contents" id="dashboard-right-contents">
+          {% include './wishlist_content.html' %} 
+        </div>
+      </aside>
+    </main>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    // tabs.js
+    $(document).ready(function() {
+      $('.tab-link').click(function() {
+          var tabName = $(this).attr('id');
+          $.ajax({
+              url: '/' + tabName + '/',
+              success: function(data) {
+                  $('.db_content').html(data);
+                  $('.tab-link').removeClass('active');
+                  $('#' + tabName).addClass('active');
+              },
+              error: function(xhr, errmsg, err) {
+                  console.log(errmsg);
+              }
+          });
       });
-      tab.classList.add("active");
-      all_content.forEach((content) => {
-        content.classList.remove("active");
-      });
-      all_content['index'].classList.add("active");
     });
-  });
-</script>
-<!-- Gallery infos scripts -->
+    </script>
+    
+    {% endblock content %}
+    

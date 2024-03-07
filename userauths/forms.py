@@ -50,29 +50,3 @@ class RegistrationForm(forms.ModelForm):
                 'Please use another Email, that is already taken')
         return email
 
-    
-    
-
-
-
-
-# class UserRegisterForm(UserCreationForm):
-
-#     firstname = forms.CharField(required=True, widget=forms.TextInput(
-#         attrs={"placeholder": "First name"}))
-#     username = forms.CharField(required=True, widget=forms.TextInput(
-#         attrs={"placeholder": "Username"}))
-#     lastname = forms.CharField(required=True, widget=forms.TextInput(
-#         attrs={"placeholder": "Last name"}))
-#     email = forms.EmailField(required=True, widget=forms.TextInput(
-#         attrs={"placeholder": "Email"}))
-#     password1 = forms.CharField(required=True, widget=forms.PasswordInput(
-#         attrs={"placeholder": "Password"}))
-#     password2 = forms.CharField(required=True, widget=forms.PasswordInput(
-#         attrs={"placeholder": "Confirm password"}))
-
-#     class Meta:
-#         model = User
-#         # User = get_user_model()
-#         model = get_user_model()
-#         fields = ('username', 'firstname', 'lastname', 'email', 'password1', 'password2', )

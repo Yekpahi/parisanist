@@ -72,6 +72,8 @@ body {
 }
 
 .left-elements .about > a {
+  font-weight:inherit;
+  font-family: futura ptt, helvetica neue, arial, sans-serif;
   text-decoration: none;
   color: black;
 }
@@ -132,6 +134,10 @@ body {
 /* favorite and  counter */
 .favorite {
   cursor: pointer;
+}
+
+.right-elements .right > a > img {
+  width: 20px;
 }
 .favorite-counter {
   height: 18px;

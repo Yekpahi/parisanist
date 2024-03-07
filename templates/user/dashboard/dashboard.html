@@ -1,42 +1,34 @@
-{% extends '../../main.html' %} 
-{% load static %} 
-{% block title %} {{ user.username}} | Dashboard {% endblock %} 
-
-{% block content %}
+{% extends '../../main.html' %} {% load static %} {% block title %} {{
+user.username}} | Dashboard {% endblock %} {% block content %}
 <link rel="stylesheet" href=" {% static 'assets/css/user/dashboard.css' %}" />
 
 <main class="dashboad-main">
   <aside class="dashboard-left-side">
     <ul>
-      <li><a class="tabs-link" href="">My Account</a></li>
-      <li><a class="tabs-link" href="">My orders</a></li>
-      <li><a class="tabs-link {% if request.path == '/wishlist' %} active {% endif %}" href="{% url 'wishlist' %}">Wishlist</a></li>
-      <li><a class="tabs-link" href="">Address</a></li>
+      <li>
+        <a class="tab-link" href="{% url 'dashboard' %}">My Account</a>
+      </li>
+      <li>
+        <a class="tab-link" href="{% url 'place_order' %}">My orders</a>
+      </li>
+      <li>
+        <a class="tab-link" href="{% url 'wishlist' %}">Wishlist</a
+        >
+      </li>
+      <!-- <li><a class="tabs-link tabs{% if request.path == '/wishlist' %} active {% endif %}" href="{% url 'wishlist' %}">Wishlist</a></li> -->
+      <li>
+        <a class="tab-link" href="#">Address</a>
+      </li>
     </ul>
   </aside>
   <aside class="dashboard-right-side">
-    <div class="dashboard-right-contents">
-      {% include './personal_infos.html' %} 
-      {% include './orders.html' %} 
-      {% include './wishlist.html' %} 
-      {% include './address.html' %}
+    <div class="dashboard-right-contents" id="dashboard-right-contents">
+      {% include './personal_infos_content.html' %} 
     </div>
   </aside>
 </main>
 
-<script>
-  console.log("salut")
-  const tabs = document.querySelectorAll('.tabs-link');
-  console.log(tabs)
-  const all_content = document.querySelectorAll('.db_content');
-  tabs.forEach((tab, index) => {
-    tab.addEventListener('click', (e) => {
-      tabs.forEach(tab=>{tab.classList.remove("active")});
-      tab.classList.add('active');
-      all_content.forEach(content=>{content.classList.remove('active')});
-      all_content[index].classList.add('active');
-    })
-  })
-</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
 {% endblock content %}

@@ -18,6 +18,10 @@ body {
 }
 
 /* lEFT SIDE INFOS */
+.activate{
+color: red;
+}
+
 .dashboad-main .dashboard-left-side {
   margin-left: 20px;
 }
@@ -40,11 +44,6 @@ body {
   opacity: 0.7;
 }
 
-/* link active */
-.dashboad-main .dashboard-left-side > ul > li .tabs-link.active {
-  color: black;
-  opacity: 0.5;
-}
 
 /* END lEFT SIDE INFOS */
 
@@ -65,7 +64,7 @@ body {
 /* Contents common class */
 .dashboad-main .dashboard-right-side .dashboard-right-contents .db_content {
   width: 100%;
-  display: none;
+  display: flex;
   flex-direction: column;
   list-style: none;
   position: absolute;
@@ -76,12 +75,7 @@ body {
   from{transform : translate(50px); opacity:0;}
   to{transform: translateX(0px); opacity:1;}
 }
-
-.dashboad-main .dashboard-right-side .dashboard-right-contents .db_content.active {
-  display: flex;
-}
-
-
+/* END Right SIDE INFOS*/
 
 /* Personal informations */
 

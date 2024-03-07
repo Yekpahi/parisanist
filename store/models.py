@@ -20,12 +20,12 @@ class Product(models.Model):
     product_cleaning = models.TextField(null=True, blank=True)
     product_home_carousel_image = models.ImageField(upload_to='static/cover/')
     is_active = models.BooleanField(default=False)
-    is_active_active_on_home_carousel = models.BooleanField(default=False)
+    is_active_on_home_carousel = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
                     
     def get_url(self):
-        return reverse('product_detail', args=[self.category.slug, self.product_slug])
+        return reverse('product_detail', args=[self.category.slug, self.id])
 
     def price_with_tax(self):
         return str(self.product_price + self.product_price*20/100)
@@ -62,14 +62,14 @@ class Product(models.Model):
 
 
 class Color(models.Model):
-    name=models.CharField(max_length=100)
+    name=models.CharField(max_length=100, unique=True)
     colorCode=models.CharField(max_length=100)
     
     def __str__(self):
         return self.name
     
 class Size(models.Model):
-    size=models.CharField(max_length=100)
+    size=models.CharField(max_length=100, unique=True)
     
     def __str__(self):
         return str(self.size)
@@ -122,27 +122,4 @@ class Photo(models.Model):
         print('URL :', url)
         return
 
-# class VariationManager(models.Manager):
-#     def colors(self):
-#         return super(VariationManager, self).filter(variation_category='color', is_available=True)
 
-#     def sizes(self):
-#         return super(VariationManager, self).filter(variation_category='size', is_available=True)
-
-# variation_category_choice = (
-#     ('color', 'color'),
-#     ('size', 'size'),
-# )
-
-# class Variation(models.Model):
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     variation_category = models.CharField(
-#         max_length=100, choices=variation_category_choice)
-#     variation_value = models.CharField(max_length=100)
-#     is_available = models.BooleanField(default=True)
-#     created_date = models.DateField(auto_now=True)
-
-#     objects = VariationManager()
-#     def __str__(self):
-#         return self.variation_value
-    

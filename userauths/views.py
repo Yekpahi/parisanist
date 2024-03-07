@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
@@ -202,7 +202,7 @@ def resetpassword_validate(request, uidb64, token) :
 def resetPassword(request) :
     if request.method == "POST":
         password = request.POST['password']
-        confirm_password = request.POST['confirm_password']
+        confirm_password = request.POST['password2']
         
         if password == confirm_password :
             uid = request.session.get('uid')
@@ -216,5 +216,16 @@ def resetPassword(request) :
             return redirect('resetPassword')
     else:
         return render(request, 'user/resetPassword.html')
-        
+
+def tab_content(request):
+    # Handle AJAX request here and return data accordingly
+    tab_id = request.GET.get('tab_id')
+    # Sample data, you should replace this with your data retrieval logic
+    if tab_id == '1':
+        data = {'content': 'Content for Tab 1'}
+    elif tab_id == '2':
+        data = {'content': 'Content for Tab 2'}
+    else:
+        data = {'content': 'Invalid Tab ID'}
+    return JsonResponse(data)
     

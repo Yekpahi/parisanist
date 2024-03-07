@@ -1,3 +1,3 @@
 setTimeout(() => {
-    $('message').fadeOut('slow')
-}, 4000);
+    $('#message').fadeOut('slow')
+}, 3000);

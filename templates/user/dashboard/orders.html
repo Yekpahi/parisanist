@@ -1,91 +1,35 @@
-{% load static %}
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-/>
+{% extends '../../main.html' %} {% load static %} {% block title %} {{
+    user.username}} | Dashboard {% endblock %} {% block content %}
+    <link rel="stylesheet" href=" {% static 'assets/css/user/dashboard.css' %}" />
+    
+    <main class="dashboad-main">
+      <aside class="dashboard-left-side">
+        <ul>
+          <li>
+            <a class="tab-link" data-tab="{% url 'dashboard' %}">My Account</a>
+          </li>
+          <li>
+            <a class="tab-link" data-tab="{% url 'place_order' %}">My orders</a>
+          </li>
+          <li>
+            <a class="tab-link" href="#' %}" data-tab="{% url 'wishlist' %}">Wishlist</a
+            >
+          </li>
+          <!-- <li><a class="tabs-link tabs{% if request.path == '/wishlist' %} active {% endif %}" href="{% url 'wishlist' %}">Wishlist</a></li> -->
+          <li>
+            <a class="tab-link" href="#">Address</a>
+          </li>
+        </ul>
+      </aside>
+      <aside class="dashboard-right-side">
+        <div class="dashboard-right-contents" id="dashboard-right-contents">
+          {% include './orders_content.html' %} 
+        </div>
+      </aside>
+    </main>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<ul class="db_content orders-content" >
-  <li class="db-orders-infos">My orders</li>
-  <li class="db-orders-container">
-    <table>
-      <tr class="db-orders-header">
-        <th>Order ID</th>
-        <th>Product name</th>
-        <th>Address</th>
-        <th>Date</th>
-        <th>Price</th>
-        <th>Status</th>
-        <th>Details</th>
-      </tr>
-
-      <!-- One Product -->
-      <tr class="db-orders-contents">
-        <td>#A12365B452A</td>
-        <td class="db-product-name-and-image">
-          <ul>
-            <li class="db-product-image">
-              <img src="{% static 'assets/imgs/MQ14.jpg' %}" alt="" />
-            </li>
-            <li class="db-product-name">Rosa del Pack</li>
-          </ul>
-        </td>
-        <td>1 rue Ingres, Le Blanc-Mesnil - 93150</td>
-        <td>1 january 2024</td>
-        <td>1500 Eur</td>
-        <td>
-          <span class="db-status-td" style="color: rgb(7, 100, 7)"
-            >Complete</span
-          >
-        </td>
-        <td class="db-see-product">
-          <a href=""
-            ><span class="material-symbols-outlined"> visibility </span></a
-          >
-        </td>
-      </tr>
-      <!-- End One Product -->
-
-      <!-- One Product -->
-      <tr class="db-orders-contents">
-        <td>#B12165T45G</td>
-        <td class="db-product-name-and-image">
-          <ul>
-            <li class="db-product-image">
-              <img src="{% static 'assets/imgs/MQ4.jpg' %}" alt="" />
-            </li>
-            <li class="db-product-name">Binto Golo</li>
-          </ul>
-        </td>
-        <td>1 rue Ingres, Le Blanc-Mesnil - 93150</td>
-        <td>4 July 2024</td>
-        <td>8500 Eur</td>
-        <td>
-          <span class="db-status-td" style="color: rgb(23, 76, 248)"
-            >Pending</span
-          >
-        </td>
-        <td class="db-see-product">
-          <a href=""
-            ><span class="material-symbols-outlined"> visibility </span></a
-          >
-        </td>
-      </tr>
-      <!-- End One Product -->
-    </table>
-  </li>
-</ul>
-
-<script>
-  console.log("salut")
-  const tabs = document.querySelectorAll('.tabs-link');
-  console.log(tabs)
-  const all_content = document.querySelectorAll('.db_content');
-  tabs.forEach((tab, index) => {
-    tab.addEventListener('click', (e) => {
-      tabs.forEach(tab=>{tab.classList.remove("active")});
-      tab.classList.add('active');
-      all_content.forEach(content=>{content.classList.remove('active')});
-      all_content[index].classList.add('active');
-    })
-  })
-</script>
+    
+    {% endblock content %}
+    

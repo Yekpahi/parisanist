@@ -1,17 +1,13 @@
 {% extends '../../main.html' %} {% load static %} {% block content %}
-<link
-  rel="stylesheet"
-  href=" {% static 'assets/css/product-details/product-details.css' %}"
-/>
+
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
 <link
   rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+  href=" {% static 'assets/css/product-details/product-details.css' %}"
 />
-
 <!-- Jquery part -->
 <script
   src="https://code.jquery.com/jquery-3.7.1.js"
@@ -19,7 +15,8 @@
   crossorigin="anonymous"
 ></script>
 <!-- End Jquery part -->
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap-grid.min.css" integrity="sha512-i1b/nzkVo97VN5WbEtaPebBG8REvjWeqNclJ6AItj7msdVcaveKrlIIByDpvjk5nwHjXkIqGZscVxOrTb9tsMA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <section class="main-details-container">
   <!-- Start Left details elements -->
   <div class="left-details-container">
@@ -32,8 +29,8 @@
         />
         {% endif %} {% endfor %}
       </div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next swiper-arrow"></div>
+      <div class="swiper-button-prev swiper-arrow"></div>
     </div>
     <img
       class="add-to-favorite"
@@ -45,31 +42,31 @@
 
   <!-- Right details elements -->
   <div class="right-details-container">
-    <form action="{% url 'add_cart' single_product.id %}" method="POST">
+    <div>
       {% csrf_token %}
       <ul>
-        <li class="product-name">{{single_product.product_name }}</li>
+        <li class="product-name">{{data.product_name}}</li>
         <li class="variant-colors">
           <div class="color-choice">
-            {% for i in single_product.variation_set.all %}
-            <span>{{ i.color.name | capfirst }}</span>
+            {% for color in colors %}
+            <span>{{color.color__name | capfirst }}</span>
             {% endfor %}
           </div>
           <div class="color-container">
-            {% for i in single_product.variation_set.all %}
+            {% for color in colors %}
             <div class="colorbox">
-              <input
+              <!-- <input
                 required
-                class="blackinput"
+                class="blackinput choose-color"
                 type="radio"
                 name="color"
                 id="username3"
+                data-color="{{color.color__id}}"
                 value="{{ i.color.name | lower }}"
-              />
-              <label
-                style="background: {{i.color.colorCode}}; border : 1px solid black"
-                for=""
-              ></label>
+              /> -->
+     
+							<button type="button" class="choose-color" data-color="{{color.color__id}}" style="background-color: {{color.color__colorCode}}"></button>
+			
             </div>
             {% endfor %}
           </div>
@@ -79,40 +76,51 @@
 
         <li class="variant-size">
           <div class="size-container">
-            {% for i in single_product.variation_set.all %}
+            {% for size in sizes %}
             <div class="sizebox">
-              <input
+              <!-- <input
                 required
-                class="size_input"
+                class="size_input choose-size color{{size.color__id}}"
                 type="radio"
                 name="size"
                 id="username3"
                 value="{{ i.size.size | lower }}"
-              />
-              <label class="size_label"
-                >{{ i.size.size | capfirst }}</label
+              /> -->
+              <button
+                type="button"
+                class="choose-size color{{size.color__id}}"
               >
+                {{size.size__size | capfirst }}
+              </button>
             </div>
             {% endfor %}
           </div>
         </li>
 
-        <li class="submit-button">
-          <button type="submit">
+   <li class="submit-button">
+       
+          <div>
+            <input type="hidden" class="product-id" value="{{data.id}}" />
+            <input type="hidden" class="product-name" value="{{data.product_name}}" />
+          </div>
+         
+          <button class="add-to-cart" type="button" data-index="{{data.id}}" id="addToCartBtn">
             <div class="submit-left">
               <span class="material-symbols-outlined"> shopping_bag </span>
               <span class="add-button"> Add</span>
             </div>
+            <div>
+              <input type="number" value="1" class="product-qty" id="productQty" />
+            </div>
             <div class="submit-right">
               <span class="price-button">
-                <p class="price">{{single_product.product_price }}</p>
-                <!-- <p class="discount">200</p> -->
+                <p class="price product-price">{{data.product_price }}</p>
               </span>
             </div>
           </button>
         </li>
-      </ul>
-    </form>
+
+    </div>
     <div class="details-cleaning">
       <ul>
         <li id="details-linkId" onmouseover="openDetails()" class="details">
@@ -123,26 +131,79 @@
         </li>
       </ul>
       <div id="detailsId" class="details-cleaning-text" id="page_content">
-        <p class="details-text">
-          Les details Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Accusantium non aspernatur molestiae quis molestias tempora veritatis
-          praesentium, reiciendis mollitia? Officia repellendus hic minima
-          aliquid cum labore autem deserunt laboriosam? Velit?
-        </p>
+        <p class="details-text">{{single_product.product_description}}</p>
       </div>
 
       <div id="cleaningId" class="details-cleaning-text" id="page_content">
-        <p class="cleaning-text">
-          Les cleaning Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Accusantium non aspernatur molestiae quis molestias tempora veritatis
-          praesentium, reiciendis mollitia? Officia repellendus hic minima
-          aliquid cum labore autem deserunt laboriosam? Velit?
-        </p>
+        <p class="cleaning-text">{{single_product.product_cleaning}}</p>
       </div>
     </div>
   </div>
   <!-- End Right details elements -->
 </section>
+
+<!-- add to cart  -->
+
+<script>
+  $(document).ready(function(){
+    console.log("salut")
+    // Product Variation
+    $(".choose-size").hide();
+
+    //Show size according to selected color
+    $(".choose-color").on('click', function(){
+      $(".choose-size").removeClass('active');
+      $(".choose-color").removeClass('focused');
+      $(this).addClass("focused");
+
+      var _color = $(this).attr("data-color");
+
+      $(".choose-size").hide();
+      $(".color"+ _color).show();
+      $(".color"+ _color).first().addClass('activate');
+    });
+
+    // End
+
+    // Show the first selected color
+    $(".choose-color").first().addClass('focused');
+    var _color = $(".choose-color").first().attr('data-color');
+
+    $(".color"+ _color).show();
+    $(".color"+ _color).first().addClass('activate');
+
+    //Add to cart 
+
+  $(document).on('click', "#addToCartBtn", function(){
+    var _vm=$(this);
+    var _productId=$(".product-id").val();
+    var _productTitle=$(".product-name").val();
+    var _productPrice=$(".product-price").text();
+    console.log(_productId, _productTitle,_productPrice);
+    });
+		// Ajax
+  $.ajax({
+    url:'{% url "add_to_cart" %}',
+    data: {
+      'id':_productId,
+      'title':_productTitle,
+      'price':_productPrice
+    },
+    dataType:'json',
+    beforeSend:function(){
+      console.log("first")
+      _vm.attr('disabled', true);
+    },
+    success:function(res){
+      console.log("success");
+      _vm.attr('disabled', false);
+    }
+  });
+    //End
+
+  });
+</script>
+<!-- End add to cart  -->
 
 <!-- Start Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

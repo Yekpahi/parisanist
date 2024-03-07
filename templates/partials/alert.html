@@ -1,11 +1,15 @@
+{% load static %} 
+<link
+  rel="stylesheet"
+  href="{% static 'assets/css/user/alert.css' %}"
+/>
 {% if messages %}
-
     {% for message in messages %}
-    <div id="message" class="container">
+    <div id="message" class="alert_container">
     <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
-     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>   
     {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error: {% endif %}
-        {{ message }}
+    <p class="alert_message"> {{ message }}</p>
+       
     </div>
 </div>
     {% endfor %}

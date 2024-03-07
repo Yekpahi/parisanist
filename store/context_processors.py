@@ -1,5 +1,6 @@
 from stripe import Product
 from store.models import Variation, Wishlist
+from django.contrib import messages
 
 
 def get_filters(request):
@@ -10,3 +11,14 @@ def get_filters(request):
         'sizes':sizes,
     }
     return data
+
+def wishlist_context(request):
+    try:
+        wishlist= Wishlist.objects.filter(user=request.user)
+    except:
+        messages.warning(request, "You need to login before accessing your your wishlist.")
+        wishlist=0
+    return {
+        'wishlist' : wishlist,
+    }
+    

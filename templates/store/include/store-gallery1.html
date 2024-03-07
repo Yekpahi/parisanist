@@ -1,0 +1,114 @@
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
+
+
+
+<link
+  rel="stylesheet"
+  href=" {% static 'assets/css/store/store-gallery.css' %}"
+/>
+
+<div class="store-gallery" id="filteredProducts">
+  <!-- One slider -->
+  {% if products %} {% for product in products %}
+
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {% for image in product.photos.all %}
+      <img
+        class="swiper-slide"
+        src="{{ image.product_image.url }}"
+        alt="{{ product.product_name }}"
+      />
+      {% endfor %}
+    </div>
+
+    <div
+      class="gallery-swiper-buttons-and-infos"
+      onmouseover="chargeOpacity(this)"
+      onmouseout="removeOpacity(this)"
+    >
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="gallery-infos">
+        <a href="{{ product.get_url}}" class="title"
+          >{{product.product_name}}</a
+        >
+        <span class="price">{{product.product_price}}</span>
+      </div>
+      <!-- Heart wishlist -->
+      {% if product in wishlist_products %}
+      <span class="wishlist-toggle" data-product-id="{{ product.id }}">
+          <i class="fa fa-heart"></i> <!-- Full heart icon -->
+      </span>
+      {% else %}
+      <span class="wishlist-toggle" data-product-id="{{ product.id }}">
+          <i class="fa fa-heart"></i> <!-- Empty heart icon -->
+      </span>
+      {% endif %}
+    <!-- End Heart wishlist -->
+    </div>
+  </div>
+  {% endfor %} 
+  {% else %}
+  <p>No product found, try again..</p>
+  {% endif %}
+  <!-- End one slider -->
+</div>
+
+
+<script>
+  $(document).ready(function() {
+      $('.wishlist-toggle').click(function() {
+          var productId = $(this).data('product-id');
+
+          $.ajax({
+              type: 'POST',
+              url: '{% url "add_to_wishlist" %}',
+              data: {
+                  'product_id': productId,
+                  'csrfmiddlewaretoken': '{{ csrf_token }}'
+              },
+              success: function(response) {
+                  if (response.is_added) {
+                      $(this).html('<i class="fa fa-heart"></i>'); // Full heart
+                  } else {
+                      $(this).html('<i class="far fa-heart"></i>'); // Empty heart
+                  }
+              },
+              error: function(xhr, errmsg, err) {
+                  console.log(errmsg);
+              }
+          });
+      });
+  });
+</script>
+
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".swiper", {
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+</script>
+
+<!-- Gallery infos scripts -->
+<script>
+  function chargeOpacity(x) {
+    x.style.opacity = "0.8";
+    x.style.transition = "all 0.9s ease-in-out";
+  }
+
+  function removeOpacity(x) {
+    x.style.opacity = "0";
+    x.style.transition = "all 0.9s ease-in-out";
+  }
+</script>
+<!-- Gallery infos scripts -->

@@ -18,74 +18,54 @@
   <div class="swiper">
     <div class="swiper-wrapper">
       {% for image in product.photos.all %}
-
-      <img
+   
+        <img
         class="swiper-slide"
         src="{{ image.product_image.url }}"
         alt="{{ product.product_name }}"
       />
-
+    
+    
       {% endfor %}
     </div>
 
-    <!-- show and hide elements -->
-    <div
-      class="show_and_hide"
-      onmouseover="chargeOpacity(this)"
-      onmouseout="removeOpacity(this)"
-    >
-      <a href="" class="swiper-hidden-link">
-        <div class="swiper-button-next swiper-arrow"></div>
-        <div class="swiper-button-prev swiper-arrow"></div>
-        <div class="gallery-title-and-price">
-          <span>{{product.product_name}}</span>
-          <span>{{product.product_price}} Eur</span>
-        </div>
-      </a>
-      <!-- ADD TO WISHLIST -->
-      {% if user.is_authenticated %}
-      
-      {% if product.id in wishlisted_list %}
-      <span
-      class="like"
-      id="id"
-      attr_id="{{product.id}}"
-      action_url="{% url 'add_to_wishlist' %}"
-    >
-      <i class="fa fa-heart"></i>
-    </span>
-      {% else %}
-      <span
-      class="like"
-      id="id"
-      attr_id="{{product.id}}"
-      action_url="{% url 'add_to_wishlist' %}"
-    >
-      <i class="far fa-heart"></i>
-    </span>
-      {% endif %}
-        
-    
-      {% else %}
-      <span class="like">
-        <a href="{% url 'login' %}">
-          <i class="far fa-heart"></i>
-        </a>
-      </span>
+    <a href="{{ product.get_url}}" class="gallery-swiper-buttons-and-infos" onmouseover="chargeOpacity(this)" onmouseout="removeOpacity(this)">
+      <div class="swiper-button-next swiper-arrow"></div>
+      <div class="swiper-button-prev swiper-arrow"></div>
+      <div class="gallery-infos">
+        <a href="{{ product.get_url}}" class="title"
+          >{{product.product_name}}</a
+        >
+        <span class="price">{{product.product_price}}</span>
+      </div>
 
+      {% if product.pk in wishlisted_list %} 
+      {% for i in wishlisted_list %} 
+      {% if product.pk is i %}
+      <span
+        class="like"
+        id="id"
+        attr_id="{{product.pk}}"
+        action_url="{% url 'add_to_wishlist' %}"><i class="fa fa-heart"></i>
+      </span>
+      {% endif %} 
+      {% endfor %} 
+      {% else %}
+      <span class="like" id="id" attr_id="{{product.pk}}" action_url="{% url 'add_to_wishlist' %}">
+        <i class="far fa-heart"></i>
+      </span>
       {% endif %}
-      <!-- End ADD TO WISHLIST -->
-    </div>
-    <!-- show and hide elements -->
+    </a>
   </div>
-  {% endfor %} {% else %}
+  {% endfor %} 
+  {% else %}
   <p>No product found, try again..</p>
   {% endif %}
   <!-- End one slider -->
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function(){
+  $(document).ready(function () {
     $(".like").click(function () {
       var attr_id = $(this).attr("attr_id");
       var action_url = $(this).attr("action_url");
@@ -95,11 +75,11 @@
         type: "POST",
         data: { attr_id: attr_id },
         headers: { "X-CSRFToken": $.cookie("csrftoken") },
-        success: function (response) {
-          if (response.liked) {
-            that.html('<i class="far fa-heart"></i>');
-          } else {
+        success: function (result) {
+          if (result) {
             that.html('<i class="fa fa-heart"></i>');
+          } else {
+            that.html('<i class="far fa-heart"></i>');
           }
         },
         error: function () {

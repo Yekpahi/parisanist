@@ -77,6 +77,7 @@ TEMPLATES = [
                 'category.context_processors.catmenu_links',
                 'carts.context_processors.counter',
                 'store.context_processors.get_filters',
+                'store.context_processors.wishlist_context',
             ],
         },
     },
@@ -91,9 +92,9 @@ WSGI_APPLICATION = 'djangoparisianist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'parisianist03',
-        'USER': 'kouassi',
-        'PASSWORD': 'azerty1234',
+        'NAME': 'parisianistdb111',
+        'USER': 'Kouassi',
+        'PASSWORD': 'Azerty1234?',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {

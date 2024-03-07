@@ -16,19 +16,23 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!--SLIDER-->
 <div class="carousel-images-container">
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper {% if forloop.counter0 == 0 %} active {% endif %}">
+  <div class="swiper mySwiper" >
+    <div class="owl-carousel owl-theme">
         {% for product in products %} 
         {% if product.is_active_on_home_carousel == True %}
-      <img
-        class="swiper-slide"
-        src="{{product.product_home_carousel_image.url}}"
-        alt="{{product.product_name}}"
-      />
-      {% endif %} {% endfor %}
+        <div class="item">
+          <img
+          class="swiper-slide"
+          src="{{product.product_home_carousel_image.url}}"
+          alt="{{product.product_name}}"
+        />
+        </div>
+    
+      {% endif %} 
+      {% endfor %}
     </div>
-    <div class="swiper-button-next swiper-arrow"></div>
-    <div class="swiper-button-prev swiper-arrow"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
   </div>
 </div>
 <!--END OF SLIDER-->
@@ -41,11 +45,32 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <!-- Owl carousel -->
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" 
 integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" 
 crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  $('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:1
+        },
+        1000:{
+            items:2
+        }
+    }
+})
+</script>
 <!-- Owl carousel -->
 <!-- Start Swiper JS -->
 <script>
