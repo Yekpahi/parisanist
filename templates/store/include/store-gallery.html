@@ -43,30 +43,25 @@
         </div>
       </a>
       <!-- ADD TO WISHLIST -->
-      {% if user.is_authenticated %}
-      
-      {% if product.id in wishlisted_list %}
+      {% if user.is_authenticated %} {% if product.id in wishlisted_list %}
       <span
-      class="like"
-      id="id"
-      attr_id="{{product.id}}"
-      action_url="{% url 'add_to_wishlist' %}"
-    >
-      <i class="fa fa-heart"></i>
-    </span>
+        class="like"
+        id="id"
+        attr_id="{{product.id}}"
+        action_url="{% url 'add_to_wishlist' %}"
+      >
+        <i class="fa fa-heart"></i>
+      </span>
       {% else %}
       <span
-      class="like"
-      id="id"
-      attr_id="{{product.id}}"
-      action_url="{% url 'add_to_wishlist' %}"
-    >
-      <i class="far fa-heart"></i>
-    </span>
-      {% endif %}
-        
-    
-      {% else %}
+        class="like"
+        id="id"
+        attr_id="{{product.id}}"
+        action_url="{% url 'add_to_wishlist' %}"
+      >
+        <i class="far fa-heart"></i>
+      </span>
+      {% endif %} {% else %}
       <span class="like">
         <a href="{% url 'login' %}">
           <i class="far fa-heart"></i>
@@ -85,7 +80,12 @@
 </div>
 
 <script type="text/javascript">
-  $(document).ready(function(){
+  $(document).ready(function () {
+    // Function to update wishlist count in header
+    function updateWishlistCount(count) {
+      $("#wishlist-count").text(count);
+    }
+
     $(".like").click(function () {
       var attr_id = $(this).attr("attr_id");
       var action_url = $(this).attr("action_url");
@@ -98,8 +98,10 @@
         success: function (response) {
           if (response.liked) {
             that.html('<i class="far fa-heart"></i>');
+            that.text(updateWishlistCount(response.wishlist_count));
           } else {
             that.html('<i class="fa fa-heart"></i>');
+            that.text(updateWishlistCount(response.wishlist_count));
           }
         },
         error: function () {

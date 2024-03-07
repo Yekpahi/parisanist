@@ -5,19 +5,24 @@
 <section class="megamenu">
     <div class="megamenu-content">
         <ul class="cats-content">
-            {% recursetree catlinks %}
-            <li class="category-and-subcategory">
-                <ul class="">
-                    <li class="header_megamenu megamenu_item">
-                        <a href="{{ node.get_absolute_url }}">{{ node.name }}</a>
-                    </li>
-                    {% if not node.is_leaf_node %}
-                    <li class="subcategory megamenu_item"><a href="">{{ children }}</a></li>
-                    {% endif %}
-         
-                </ul>
-            </li>
-            {% endrecursetree %}
+            <li class="all-cats"><a href="{% url 'store' %}">All</a></li>
+            <ul class="category-and-subcategory-elements">
+                {% recursetree catlinks %}
+                <li class="category-and-subcategory">
+                    <ul class="">
+                        <li class="category-and-subcategory-items">
+                            <a href="{{ node.get_absolute_url }}" style="color: black; font-size: 0.9em;">{{ node.name}}</a>
+                            {% if not node.is_leaf_node %}
+                                <ul class="children {% if node.level == 1 %}class_1{% elif node.level == 2 %}class_2{% endif %}">
+                                    <li class="children_elts">{{ children }}</li>
+                                </ul>             
+                            {% endif %}
+                        </li>
+                    </ul>
+                </li>
+                {% endrecursetree %}
+            </ul>
+  
         </ul>
         <ul class="header-cat-image">
             

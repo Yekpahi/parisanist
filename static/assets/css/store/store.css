@@ -7,15 +7,15 @@
   justify-content: space-between;
   flex-wrap: wrap;
 }
-
+/* Categories side */
 .category-parents {
   display: flex;
-  margin-left: 15px;
+  margin-left: 150px;
 }
 
 .category-parents > li {
   margin-right: 20px;
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: lighter;
 }
 
@@ -45,14 +45,18 @@
   user-select: none; /* Version sans préfixe,                          actuellement pris en charge par Chrome et Opera */
 }
 
+/* End Categories side */
+
+/* Filter side */
+
 .filter-contents {
-  margin-right: 15px;
+  margin-right: 150px;
   display: flex;
 }
 
 .filter-contents > li {
   margin-right: 30px;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .filter-element .filter-modal-link {
@@ -62,7 +66,7 @@
 /* color filter */
 .color-modal-content {
   position: absolute;
-  right: 12.8%;
+  right: 18.4%;
   top: 235px;
   margin-top: 10px;
   padding: 6px;
@@ -115,7 +119,7 @@
 
 .size-modal-content {
   position: absolute;
-  right: 6.8%;
+  right: 12.3%;
   top: 235px;
   margin-top: 10px;
   padding: 6px;
@@ -168,7 +172,7 @@
 /* sortby Modal */
 .sortby-modal-content {
   position: absolute;
-  right: 1%;
+  right: 3%;
   top: 235px;
   margin-top: 10px;
   padding: 6px;

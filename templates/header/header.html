@@ -54,7 +54,7 @@
       <li class="right favorite hideOnMobile">
         <a href="{% url 'wishlist' %}">
           <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
-          <div class="favorite-counter"><span>{{wishlist.count}}</span></div>
+          <div id="wishlist-count" class="favorite-counter"><span>{{wishlist_count}}</span></div>
         </a>
       </li>
       <!-- End favorite icon -->

@@ -14,11 +14,14 @@ def get_filters(request):
 
 def wishlist_context(request):
     try:
-        wishlist= Wishlist.objects.filter(user=request.user)
+        wishlist_count = Wishlist.objects.filter(user=request.user).count()
+        # wishlist= Wishlist.objects.filter(user=request.user)
     except:
         messages.warning(request, "You need to login before accessing your your wishlist.")
-        wishlist=0
+        wishlist_count=0
     return {
-        'wishlist' : wishlist,
+        # 'wishlist' : wishlist,
+        'wishlist_count':wishlist_count
+        
     }
     
