@@ -41,9 +41,9 @@ def product_list(request, category_slug=None, product_slug=None):
         products = Product.objects.filter(category__in=sub_categories)
      # start Size color and filter
     elif SizeId:
-        products = Product.objects.filter(variation__size__id__in=SizeId)
+        products = Product.objects.filter(variation__size__id__in=SizeId).distinct()
     elif ColorId:
-        products = Product.objects.filter(variation__color__id__in=ColorId)
+        products = Product.objects.filter(variation__color__id__in=ColorId).distinct()
     # End Size color and filter
     # Start sortby
     elif sort_by == "l2h":

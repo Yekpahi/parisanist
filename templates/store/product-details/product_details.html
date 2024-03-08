@@ -100,8 +100,8 @@
    <li class="submit-button">
        
           <div>
-            <input type="hidden" class="product-id" value="{{data.id}}" />
-            <input type="hidden" class="product-name" value="{{data.product_name}}" />
+            <input type="hidden" class="product-id-{{data.id}}" value="{{data.id}}" />
+            <input type="hidden" class="product-title-{{data.id}}" value="{{data.product_name}}" />
           </div>
          
           <button class="add-to-cart" type="button" data-index="{{data.id}}" id="addToCartBtn">
@@ -110,11 +110,11 @@
               <span class="add-button"> Add</span>
             </div>
             <div>
-              <input type="number" value="1" class="product-qty" id="productQty" />
+              <input type="number" value="1" class="product-qty-{{data.id}}" id="productQty" />
             </div>
             <div class="submit-right">
               <span class="price-button">
-                <p class="price product-price">{{data.product_price }}</p>
+                <p class="price product-price-{{data.id}}">{{data.product_price }}</p>
               </span>
             </div>
           </button>
@@ -172,33 +172,37 @@
     $(".color"+ _color).show();
     $(".color"+ _color).first().addClass('activate');
 
-    //Add to cart 
-
-  $(document).on('click', "#addToCartBtn", function(){
+  // Add to cart
+	$(document).on('click',".add-to-cart",function(){
     var _vm=$(this);
-    var _productId=$(".product-id").val();
-    var _productTitle=$(".product-name").val();
-    var _productPrice=$(".product-price").text();
-    console.log(_productId, _productTitle,_productPrice);
-    });
+		var _index=_vm.attr('data-index');
+		var _qty=$(".product-qty-"+_index).val();
+		var _productId=$(".product-id-"+_index).val();
+		var _productTitle=$(".product-title-"+_index).val();
+		var _productPrice=$(".product-price-"+_index).text();
+		// AjaxuctPrice=$(".product-price-"+_index).text();
 		// Ajax
-  $.ajax({
-    url:'{% url "add_to_cart" %}',
-    data: {
-      'id':_productId,
-      'title':_productTitle,
-      'price':_productPrice
-    },
-    dataType:'json',
-    beforeSend:function(){
-      console.log("first")
-      _vm.attr('disabled', true);
-    },
-    success:function(res){
-      console.log("success");
-      _vm.attr('disabled', false);
-    }
-  });
+		$.ajax({
+			url:'{% url "add_to_cart" %}',
+			data:{
+				'id':_productId,
+				'qty':_qty,
+				'title':_productTitle,
+				'price':_productPrice
+			},
+			dataType:'json',
+			beforeSend:function(){
+				_vm.attr('disabled',true);
+			},
+			success:function(res){
+        console.log(res)
+				$(".cart-list").text(res.totalitems);
+				_vm.attr('disabled',false);
+			}
+		});
+		// End
+	});
+	// End
     //End
 
   });

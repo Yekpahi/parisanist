@@ -63,6 +63,10 @@
   border: none;
   border-bottom: 1px solid rgb(11, 11, 11, 0.5);
 }
+
+.all-cats > a {
+ color: black;
+}
 .category-and-subcategory-elements {
   display: flex;
   justify-content: space-between;

@@ -99,3 +99,10 @@ body {
   text-decoration: none;
 }
 
+.go_to_login > a{
+  text-decoration: none;
+}
+
+.go_to_home > a{
+  text-decoration: none;
+}

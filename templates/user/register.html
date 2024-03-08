@@ -1,8 +1,10 @@
-{% extends '../main.html' %} {% load static %} 
-
-{% block title %} Create your account {% endblock %} 
-{% block content %}
-<link
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
   rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
 />
@@ -18,15 +20,18 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
 />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <title>Create your account</title>
+</head>
+<body>
 
 <div class="register-container">
   <div class="register-header">
     <span> <h2>Create your account</h2></span>
     <span>
-      <h6>
+   
         Create your account and benefit from the best shopping services from
         PARISIANIST.
-      </h6>
+    
     </span>
   </div>
   <div class="register-elements">
@@ -95,12 +100,21 @@
           of PARISIANIST.
         </span>
       </div>
+      <div>
+        <span class="go_to_login">Have you already a account ? <a href="{% url 'home' %}">Login</a></span>
+      </div>
+      <div>
+        <span class="go_to_home"><a href="{% url 'home' %}">Go to home</a></span>
+      </div>
+    
       {{ form.email.errors }}
       {{ form.non_field_errors }}
     </form>
   </div>
 </div>
 
+
+</body>
 <script>
   $(document).ready(function () {
     $("#showPass").click(function () {
@@ -130,4 +144,4 @@
     });
   });
 </script>
-{% endblock content %}
+</html>

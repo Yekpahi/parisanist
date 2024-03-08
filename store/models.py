@@ -36,7 +36,7 @@ class Product(models.Model):
     @property
     def photoURL(self):
         try:
-            url = self.product_cover_image.url
+            url = self.product_home_carousel_image
         except:
             url = ''
         print('URL :', url)
