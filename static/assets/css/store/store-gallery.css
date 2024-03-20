@@ -51,7 +51,12 @@
 .swiper-hidden-link .gallery-title-and-price > span {
   opacity: 0.8;
 }
-
+.refresh{
+color: black;
+background-color: bisque;
+height: 100px;
+width: 100px;
+}
 .like {
   position: absolute;
   right: 0;

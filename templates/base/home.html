@@ -1,31 +1,37 @@
-{% extends '../main.html' %} {% load static %} 
-{% block title %} Parisianist | Site officiel {% endblock %} 
-{% block content %}
+{% extends '../main.html' %} {% load static %} {% block title %} Parisianist |
+Site officiel {% endblock %} {% block content %}
 
 <link rel="stylesheet" href=" {% static 'assets/css/home/home.css' %}" />
 
-
-
 <!-- Owl carousel -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" 
-integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" 
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+  integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
 <!-- Owl carousel -->
 
 <!--SLIDER-->
 <div class="carousel-images-container">
   <div class="swiper mySwiper">
     <div class="swiper-wrapper {% if forloop.counter0 == 0 %} active {% endif %}">
-        {% for product in products %} 
-        {% if product.is_active_on_home_carousel == True %}
-      <img
-        class="swiper-slide"
-        src="{{product.product_home_carousel_image.url}}"
+      {% for cat in catlinks %}
+      <a class="swiper-slide" href="{{cat.get_absolute_url}}">
+        <img
+       
+        src="{{cat.cat_image.url}}"
         alt="{{product.product_name}}"
       />
-      {% endif %} {% endfor %}
+      </a>
+  
+      {% endfor %}
     </div>
     <div class="swiper-button-next swiper-arrow"></div>
     <div class="swiper-button-prev swiper-arrow"></div>
@@ -35,24 +41,26 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- Start FOOTER -->
 <!-- End FOOTER -->
 
-
-
-
-
-
 <!-- Owl carousel -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" 
-integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" 
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+  integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+></script>
 <!-- Owl carousel -->
 <!-- Start Swiper JS -->
 <script>
   var swiper = new Swiper(".mySwiper", {
     autoplay: {
-    delay: 5000,
-  },
+      delay: 5000,
+    },
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",

@@ -9,11 +9,13 @@
 }
 
 body {
-  width: 100vw;
+  width: 100%;
+  height: 100%;
+ 
 }
 
 .main {
-  position: relative;
+  height: 100%;
   width: 100%;
 }
 
@@ -21,8 +23,8 @@ body {
 .main .right-side {
   position: absolute;
   right: 2%;
-  top: 0;
-  width: 50%;
+  top: 17%;
+  width: 45%;
 }
 
 .main .right-side .shopping-cart-title {
@@ -169,7 +171,7 @@ body {
 
 /* payment informations */
 
-.payment-infos ul {
+.payment-infos  ul {
   margin-top: 20px;
   display: flex;
   list-style: none;
@@ -564,6 +566,7 @@ body {
 }
 
 /* Summary payments methods*/
+  
 
 .summary-payment-method > ul {
   display: flex;
@@ -586,14 +589,14 @@ body {
   border: 1px solid black;
 }
 
-.summary-payment-method > ul .one-payment-method > ul .one-card-x > ul {
+.summary-payment-method  > ul .one-payment-method > ul .one-card-x > ul {
   margin-bottom: 15px;
   display: flex;
   align-items: center;
   padding: 35px 20px;
 }
 
-.summary-payment-method > ul .one-payment-method > ul .one-card-x > ul > li {
+.summary-payment-method  > ul .one-payment-method > ul .one-card-x > ul > li {
   margin-right: 15px;
 }
 

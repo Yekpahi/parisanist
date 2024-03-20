@@ -1,21 +1,26 @@
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-
-html,
 body {
+  width: 100%;
+  height: 100vh;
   position: relative;
-  height: 100%;
-}
-
-body {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #000;
   margin: 0;
   padding: 0;
+}
+
+/* End swiper part */
+
+.main-details-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Lef detail container */
+.main-details-container .left-details-container {
+  width: 50%;
+  height: 100%;
 }
 
 /* Swiper carousel part */
@@ -54,21 +59,6 @@ body {
 
 /* End swiper carousel */
 
-/* End swiper part */
-
-.main-details-container {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-}
-
-.main-details-container .left-details-container {
-  width: 50%;
-  height: 100%;
-  position: absolute;
-  bottom: 0;
-}
-
 .add-to-favorite {
   position: sticky;
   bottom: 8%;
@@ -81,13 +71,17 @@ body {
 /* Right detail elements */
 
 .right-details-container {
-  position: absolute;
-  right: 0;
   width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 100px 300px 10px 200px;
+  align-items: center;
+}
+
+.form-container > form > ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .product-name {
@@ -100,7 +94,6 @@ body {
 .size-container {
   display: flex;
   margin-bottom: 50px;
-  margin-left: 15px;
 }
 
 .size-container .sizebox {
@@ -109,7 +102,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 50px;
 }
 
 .size-container .sizebox > .choose-size {
@@ -128,8 +120,6 @@ body {
   cursor: pointer;
   opacity: 0;
 }
-
-
 
 /* End input radio design (Size) */
 
@@ -193,13 +183,17 @@ body {
 }
 
 /* Submit button */
+.submit-button {
+  width: 100%;
+  background-color: red;
+}
 .submit-button > button {
   background-color: rgb(253, 247, 247);
   border: 1px solid black;
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  width: 460px;
+  width: 100%;
   align-items: center;
   cursor: pointer;
 }
@@ -232,46 +226,55 @@ body {
 /* Details cleaning*/
 
 .details-cleaning {
+  width: 50%;
   margin-top: 50px;
-  overflow: hidden;
-}
-
-.details-cleaning > ul {
   display: flex;
-  margin-bottom: 15px;
-}
-.details-cleaning > ul .details {
-  font-size: 1.2em;
-  padding-bottom: 2px;
-  border-bottom: 2px solid rgb(0, 0, 0);
-  transition: all 0.5s ease-in-out;
-  cursor: pointer;
+  flex-direction: column;
+  /* overflow: hidden; */
 }
 
-.details-cleaning > ul .cleaning {
-  transition: all 0.5s ease-in-out;
-  cursor: pointer;
-  font-size: 1.2em;
+.details-cleaning .tabs {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* overflow: hidden; */
 }
 
-.details-cleaning > ul > li {
-  margin-right: 25px;
+.details-cleaning .tabs li {
+  margin-right: 50px;
+  /* overflow: hidden; */
 }
 
-.details-cleaning .details-cleaning-text {
-  text-align: justify;
+.tabs-contents {
+  position: relative;
+  width: 100%;
+  background-color: bisque;
+}
+.tabs-details-text {
   position: absolute;
-  width: 48%;
+}
+
+.tabs-cleaning-text {
+  position: absolute;
 }
 
 #detailsId {
   opacity: 1;
+ 
 }
 
 #cleaningId {
   opacity: 0;
 }
+#details-linkId{
+cursor: pointer;
+margin-bottom: 15px;
+}
 
+#cleaning-linkId{
+cursor: pointer;
+margin-bottom: 15px;
+}
 /* Add to cart */
 
 .focused {
@@ -284,3 +287,22 @@ body {
 }
 
 /* En add to cart */
+
+/* responsive */
+
+@media (max-width: 800px) {
+  .main-details-container {
+    flex-direction: column;
+  }
+
+  .main-details-container .left-details-container {
+    width: 100%;
+    height: 100%;
+    background-color: aqua;
+  }
+
+  .right-details-container {
+    width: 100%;
+    padding: 50px 20px 10px 50px;
+  }
+}

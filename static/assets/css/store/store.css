@@ -232,13 +232,25 @@
 
 /* Responsive */
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 869px) {
   .categories-and-filters {
     top: 150px;
     flex-direction: column;
+ 
+  }
+
+  .category-parents {
+    margin-left: 0;
     justify-content: center;
-  flex-wrap: nowrap;
-  align-items: center;
+    align-items: center;
+
+  }
+
+  .filter-contents {
+    margin-top: 25px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0;
   }
 
   .filter-modal-color {

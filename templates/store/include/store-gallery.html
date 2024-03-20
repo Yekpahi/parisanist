@@ -13,7 +13,8 @@
 
 <div class="store-gallery" id="filteredProducts">
   <!-- One slider -->
-  {% if products %} {% for product in products %}
+  {% if products %} 
+  {% for product in products %}
 
   <div class="swiper">
     <div class="swiper-wrapper">
@@ -44,23 +45,24 @@
       </a>
       <!-- ADD TO WISHLIST -->
       {% if user.is_authenticated %} {% if product.id in wishlisted_list %}
-      <span
-        class="like"
+      <a
+      href="#"
+        class="like refresh"
         id="id"
         attr_id="{{product.id}}"
         action_url="{% url 'add_to_wishlist' %}"
       >
         <i class="fa fa-heart"></i>
-      </span>
+      </a>
       {% else %}
-      <span
-        class="like"
+      <a href="{% url 'store' %}"
+        class="like refresh"
         id="id"
         attr_id="{{product.id}}"
         action_url="{% url 'add_to_wishlist' %}"
       >
         <i class="far fa-heart"></i>
-      </span>
+      </a>
       {% endif %} {% else %}
       <span class="like">
         <a href="{% url 'login' %}">

@@ -1,52 +1,84 @@
 {% extends '../../main.html' %} {% load static %} {% block content %}
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<link rel="stylesheet" href=" {% static 'assets/css/product-details/product-details.css' %}" />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+<link
+  rel="stylesheet"
+  href=" {% static 'assets/css/product-details/product-details.css' %}"
+/>
 <!-- Jquery part -->
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"
+></script>
 <!-- End Jquery part -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap-grid.min.css"
-  integrity="sha512-i1b/nzkVo97VN5WbEtaPebBG8REvjWeqNclJ6AItj7msdVcaveKrlIIByDpvjk5nwHjXkIqGZscVxOrTb9tsMA=="
-  crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js"
-  integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ=="
-  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap-grid.min.css" integrity="sha512-i1b/nzkVo97VN5WbEtaPebBG8REvjWeqNclJ6AItj7msdVcaveKrlIIByDpvjk5nwHjXkIqGZscVxOrTb9tsMA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.min.js" integrity="sha512-ykZ1QQr0Jy/4ZkvKuqWn4iF3lqPZyij9iRv6sGqLRdTPkY69YX6+7wvVGmsdBbiIfN/8OdsI7HABjvEok6ZopQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <section class="main-details-container">
   <!-- Start Left details elements -->
   <div class="left-details-container">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        {% for img in images %}
+        {% for img in images %} 
         {% if img.product_image %}
-        <img class="swiper-slide {% if forloop.counter0 == 0 %} active {% endif %}" src="{{img.product_image.url}}" />
+        <img
+          class="swiper-slide {% if forloop.counter0 == 0 %} active {% endif %}"
+          src="{{img.product_image.url}}"
+        />
         {% endif %} {% endfor %}
       </div>
       <div class="swiper-button-next swiper-arrow"></div>
       <div class="swiper-button-prev swiper-arrow"></div>
     </div>
-    <img class="add-to-favorite" src="{% static 'assets/imgs/dislike.png' %}" alt="" />
+    <img
+      class="add-to-favorite"
+      src="{% static 'assets/imgs/dislike.png' %}"
+      alt=""
+    />
   </div>
   <!-- End Left details elements -->
 
   <!-- Right details elements -->
   <div class="right-details-container">
     <div>
-
+      {% csrf_token %}
       <ul>
         <li class="product-name">{{data.product_name}}</li>
-        <li>
-          <select name="color" class="color-select">
+        <li class="variant-colors">
+          <div class="color-choice">
             {% for color in colors %}
-                <option class="choose-color"  data-color="{{color.color__id}}" value="{{ color.color__name }}">{{ color.color__name }}</option>
+            <span>{{color.color__name | capfirst }}</span>
             {% endfor %}
-        </select>
+          </div>
+          <div class="color-container">
+            {% for color in colors %}
+            <div class="colorbox">
+              <!-- <input
+                required
+                class="blackinput choose-color"
+                type="radio"
+                name="color"
+                id="username3"
+                data-color="{{color.color__id}}"
+                value="{{ i.color.name | lower }}"
+              /> -->
+     
+							<button type="button" class="choose-color" data-color="{{color.color__id}}" style="background-color: {{color.color__colorCode}}"></button>
+			
+            </div>
+            {% endfor %}
+          </div>
         </li>
-      
+
+        <!-- Size -->
+
         <li class="variant-size">
-          <section class="size-container">
+          <div class="size-container">
             {% for size in sizes %}
-  
+            <div class="sizebox">
               <!-- <input
                 required
                 class="size_input choose-size color{{size.color__id}}"
@@ -55,31 +87,27 @@
                 id="username3"
                 value="{{ i.size.size | lower }}"
               /> -->
-              <option
+              <button
+                type="button"
                 class="choose-size color{{size.color__id}}"
               >
                 {{size.size__size | capfirst }}
-              </option>
-           
+              </button>
+            </div>
             {% endfor %}
-          </section>
+          </div>
         </li>
-        <!-- Size -->
 
-     
-      <input type="hidden" name="product_attribute_id" id="product-attribute-id" value="">
-
-
-        <li class="submit-button">
-
+   <li class="submit-button">
+       
           <div>
             <input type="hidden" class="product-image-{{data.id}}" value="{{images.first.product_image.url}}" />
             <input type="hidden" class="product-id-{{data.id}}" value="{{data.id}}" />
             <input type="hidden" class="product-color-{{data.id}}" value="{{color.color__name}}" />
             <input type="hidden" class="product-size-{{data.id}}" value="{{data.size__size}}" />
-            <input type="hidden" class="product-title-{{data.id}}" value="{{data.product_name}}" />
+            <input type="hidden" class="product-title-{{data.id}}" value="{{data.product_name}}"/>
           </div>
-
+         
           <button class="add-to-cart" type="button" data-index="{{data.id}}" id="addToCartBtn">
             <div class="submit-left">
               <span class="material-symbols-outlined"> shopping_bag </span>
@@ -95,7 +123,7 @@
             </div>
           </button>
         </li>
-      </ul>
+
     </div>
     <div class="details-cleaning">
       <ul>
@@ -121,13 +149,13 @@
 <!-- add to cart  -->
 
 <script>
-  $(document).ready(function () {
+  $(document).ready(function(){
     console.log("salut")
     // Product Variation
     $(".choose-size").hide();
 
     //Show size according to selected color
-    $(".choose-color").on('click', function () {
+    $(".choose-color").on('click', function(){
       $(".choose-size").removeClass('active');
       $(".choose-color").removeClass('focused');
       $(this).addClass("focused");
@@ -135,8 +163,8 @@
       var _color = $(this).attr("data-color");
 
       $(".choose-size").hide();
-      $(".color" + _color).show();
-      $(".color" + _color).first().addClass('activate');
+      $(".color"+ _color).show();
+      $(".color"+ _color).first().addClass('activate');
     });
 
     // End
@@ -145,96 +173,93 @@
     $(".choose-color").first().addClass('focused');
     var _color = $(".choose-color").first().attr('data-color');
 
-    $(".color" + _color).show();
-    $(".color" + _color).first().addClass('activate');
+    $(".color"+ _color).show();
+    $(".color"+ _color).first().addClass('activate');
 
-    // Add to cart
-    $(document).on('click', ".add-to-cart", function () {
-      var _vm = $(this);
-      var _index = _vm.attr('data-index');
-      var _qty = $(".product-qty-" + _index).val();
-      var _productImage = $(".product-image-" + _index).val();
-      var _productColor = $(".color-select").val();
-      var _productSize = $(".size-select").val();
-      var _productId = $(".product-id-" + _index).val();
-      var _productTitle = $(".product-title-" + _index).val();
-      var _productPrice = $(".product-price-" + _index).text();
-      console.log(_productImage,_productTitle, _productColor, _productSize)
-      // AjaxuctPrice=$(".product-price-"+_index).text();
-      // Ajax
-      $.ajax({
-        url: '{% url "add_to_cart" %}',
-        data: {
-          'id': _productId,
-          'image': _productImage,
-          'qty': _qty,
-          'title': _productTitle,
-          'price': _productPrice,
-          'color': _productColor,
-          'size': _productSize,
+  // Add to cart
+	$(document).on('click',".add-to-cart",function(){
+    var _vm=$(this);
+		var _index=_vm.attr('data-index');
+		var _qty=$(".product-qty-"+_index).val();
+    var _productImage=$(".product-image-"+_index).val();
+    var _productColor=$(".product-color-"+_index).val();
+		var _productId=$(".product-id-"+_index).val();
+		var _productTitle=$(".product-title-"+_index).val();
+		var _productPrice=$(".product-price-"+_index).text();
+    console.log(_productImage,_productTitle, _productColor, _productSize)
+		// AjaxuctPrice=$(".product-price-"+_index).text();
+		// Ajax
+		$.ajax({
+			url:'{% url "add_to_cart" %}',
+			data:{
+				'id':_productId,
+        'image':_productImage,
+				'qty':_qty,
+				'title':_productTitle,
+				'price':_productPrice, 
+        'color':_productColor
+			},
+			dataType:'json',
+			beforeSend:function(){
+				_vm.attr('disabled',true);
+			},
+			success:function(res){
+        console.log("succes")
+				$(".cart-list").text(res.totalitems);
+				_vm.attr('disabled',false);
+			}
+		});
+		// End
+	});
+	// End
+  
+	// Delete item from cart
+	$(document).on('click','.delete-item',function(){
+		var _pId=$(this).attr('data-item');
+		var _vm=$(this);
+		// Ajax
+		$.ajax({
+			url:'{% url "delete_from_cart" %}',
+			data:{
+				'id':_pId,
+			},
+			dataType:'json',
+			beforeSend:function(){
+				_vm.attr('disabled',true);
+			},
+			success:function(res){
+				$(".cart-list").text(res.totalitems);
+				_vm.attr('disabled',false);
+				$("#cartList").html(res.data);
+			}
+		});
+		// End
+	});
 
-        },
-        dataType: 'json',
-        beforeSend: function () {
-          _vm.attr('disabled', true);
-        },
-        success: function (res) {
-          console.log("succes")
-          $(".cart-list").text(res.totalitems);
-          _vm.attr('disabled', false);
-        }
-      });
-      // End
-    });
-    // End
-
-    // Delete item from cart
-    $(document).on('click', '.delete-item', function () {
-      var _pId = $(this).attr('data-item');
-      var _vm = $(this);
-      // Ajax
-      $.ajax({
-        url: '{% url "delete_from_cart" %}',
-        data: {
-          'id': _pId,
-        },
-        dataType: 'json',
-        beforeSend: function () {
-          _vm.attr('disabled', true);
-        },
-        success: function (res) {
-          $(".cart-list").text(res.totalitems);
-          _vm.attr('disabled', false);
-          $("#cartList").html(res.data);
-        }
-      });
-      // End
-    });
-
-    // Update item from cart
-    $(document).on('click', '.update-item', function () {
-      var _pId = $(this).attr('data-item');
-      var _pQty = $(".product-qty-" + _pId).val();
-      var _vm = $(this);
-      // Ajax
-      $.ajax({
-        url: '{% url "update_cart" %}',
-        data: {
-          'id': _pId,
-          'qty': _pQty
-        },
-        dataType: 'json',
-        beforeSend: function () {
-          _vm.attr('disabled', true);
-        },
-        success: function (res) {
-          // $(".cart-list").text(res.totalitems);
-          _vm.attr('disabled', false);
-          $("#cartList").html(res.data);
-        }
-      });
-      // End
-    });
+	// Update item from cart
+	$(document).on('click','.update-item',function(){
+		var _pId=$(this).attr('data-item');
+		var _pQty=$(".product-qty-"+_pId).val();
+		var _vm=$(this);
+		// Ajax
+		$.ajax({
+			url:'{% url "update_cart" %}',
+			data:{
+				'id':_pId,
+				'qty':_pQty
+			},
+			dataType:'json',
+			beforeSend:function(){
+				_vm.attr('disabled',true);
+			},
+			success:function(res){
+				// $(".cart-list").text(res.totalitems);
+				_vm.attr('disabled',false);
+				$("#cartList").html(res.data);
+			}
+		});
+		// End
+	});
     //End
 
   });

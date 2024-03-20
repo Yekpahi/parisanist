@@ -9,7 +9,7 @@ class PhotoAdmin(admin.StackedInline):
 
 class ProductAdmin(admin.ModelAdmin):
     inlines = [PhotoAdmin]
-    list_display = ['id', 'product_name', 'product_price', 'product_discountprice', 'product_stock', 'is_active', 'is_active_on_home_carousel', 'updated',]
+    list_display = ['id', 'product_name', 'product_price', 'product_stock', 'is_active', 'updated',]
     prepopulated_fields = {'product_slug': ('product_name',),}
     
     # def subcategories(self, obj):

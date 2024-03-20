@@ -205,3 +205,89 @@ text-decoration: none;
 .payment-infos > ul > .credit-cart > img {
   width: 30px;
 }
+
+/* Responsive */
+
+@media screen and (max-width:1500px){
+  .main .scroll .main-cart .card-container .right-infos {
+    width: 75%;
+  }
+  
+}
+
+
+@media screen and (max-width:1200px){
+  .main .scroll .main-cart .card-container .right-infos {
+    width: 70%;
+  }
+  
+}
+
+@media screen and (max-width:980px){
+  .main .scroll .main-cart .card-container .right-infos {
+    width: 62%;
+  }
+  
+}
+
+@media screen and (max-width:800px){
+  .main .scroll .main-cart .card-container .right-infos {
+    width:63%;
+  }
+
+  /* image */
+.image-container {
+  width: 130px;
+  height: 100%;
+}
+
+  
+}
+
+@media screen and (max-width:800px){
+  body {
+    font-size: 0.8em ;
+  }
+  .main .scroll .main-cart .card-container .right-infos {
+    width:55%;
+  }
+
+  /* image */
+.image-container {
+  width: 110px;
+  height: 80%;
+}
+  
+}
+
+@media screen and (max-width:492px){
+  body {
+    font-size: 0.6em ;
+  }
+  .main .scroll .main-cart .card-container .right-infos {
+    width:55%;
+  }
+
+  /* image */
+.image-container {
+  width: 90px;
+  height: 80%;
+}
+  
+}
+
+@media screen and (max-width:388px){
+  body {
+    font-size: 0.6em ;
+  }
+  .main .scroll .main-cart .card-container .right-infos {
+    width:50%;
+  }
+
+  /* image */
+.image-container {
+  width: 68px;
+  height: 70%;
+}
+  
+}

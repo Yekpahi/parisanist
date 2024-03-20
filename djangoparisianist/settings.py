@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #Paypal
+    'paypal.standard.ipn',
     # custom app
     'store.apps.StoreConfig',
     'category.apps.CategoryConfig',
@@ -92,7 +94,7 @@ WSGI_APPLICATION = 'djangoparisianist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'parisianistdb111',
+        'NAME': 'parisianistdb102',
         'USER': 'Kouassi',
         'PASSWORD': 'Azerty1234?',
         'HOST': '127.0.0.1',
@@ -184,6 +186,10 @@ MESSAGE_TAGS = {
     messages.ERROR: "danger",
     50: "critical",
 }
+
+#Paypal
+PAYPAL_RECEIVER_EMAIL = "info@parisianist.fr"
+PAYPAL_TEST = False
 
 # Stripe setting
 

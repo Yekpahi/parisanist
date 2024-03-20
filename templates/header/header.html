@@ -33,7 +33,7 @@
       <!-- big menu store -->
       <li class="about"><a href="{% url 'about' %}">About</a></li>
     </ul>
-    <div class="centered-elements hideOnMobile">
+    <div class="centered-elements">
       <span class="center-logo"><a href="{% url 'home' %}"><img src="{% static 'assets/imgs/logoParisianist.png' %}" alt=""></a></span>
     </div>
     <ul class="right-elements">
@@ -61,7 +61,7 @@
       <!-- basket icon -->
       <li class="right basket hideOnMobile">
         <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
-        <div class="basket-counter"><span>{{request.session.cartdata|length}}</span></div>
+        <div class="basket-counter"><a href="{% url 'cart' %}" class="cart-list">{{cart_count}}</a></div>
       </li>
         <!-- End basket icon -->
       {% else %}
@@ -83,9 +83,9 @@
       <li id ="showsidebarIcon" class="showsidebarIcon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          height="24"
+          height="20"
           viewBox="0 -960 960 960"
-          width="24"
+          width="20"
         >
           <path
             d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"

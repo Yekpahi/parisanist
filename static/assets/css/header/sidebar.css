@@ -223,3 +223,38 @@
 /* End sidebar basket and  counter */
 
 /* Sidebar search */
+
+/* Responsive  */
+
+@media screen and (min-width:800px) {
+  
+  .sidebar-modal {
+    height: 0;
+    width: 0;
+    opacity: 0;
+
+    /* Full height */
+    /* Enable scroll if needed */
+  }
+  .header-sidebar {
+    display: none;
+
+  }
+  .all-cats-content {
+    display: none;
+  }
+
+  .sidebar-cats-container {
+    display: none;
+  }
+  .sidebar-about{
+    display: none;
+  }
+
+  .sidebar-right-content {
+    display: none;
+  }
+  .sidebar-search-modal {
+    display: none;
+  }
+}

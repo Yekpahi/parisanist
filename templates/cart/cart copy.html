@@ -1,12 +1,16 @@
-{% extends '../main.html' %} {% load static %} {% block title %} 
-{% for cart_item in cart_items %} {{cart_item.product.product_name}} - {% endfor %} 
-{% endblock %} {% block content %}
+{% extends '../main.html' %} 
+{% load static %} 
+{% block title %}
+
+{% for cart_item in cart_items %} 
+{{cart_item.product.product_name}} - {% endfor %}
+
+{% endblock %}
+
+{% block content %}
 <link rel="stylesheet" href=" {% static 'assets/css/cart/cart.css' %}" />
 
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <section class="main">
   <!-- cart label -->
   <p class="shopping-cart-title">Shopping cart</p>
@@ -43,10 +47,10 @@
 
         <div class="image-container">
           <!-- Selection the one image which is feature -->
-          {% for image in cart_item.product.photos.all %} 
+          {% for image in cart_item.product.photos.all %}
           {% if image.is_feature %}
           <img src="{{ image.product_image.url }}" alt="" />
-          {% endif %} 
+          {% endif %}
           {% endfor %}
           <!-- Selection the one image which is feature -->
         </div>
@@ -66,11 +70,12 @@
           <!-- End Price and product name -->
           <!-- color and size -->
           <ul class="color-and-size">
-            {% if cart_item.variations.all %} {% for item in cart_item.variations.all %}
-            <li>
-              {{ item.color.name | capfirst }} : {{ item.size.size | capfirst }}
+            {% if cart_item.variations.all %} 
+            {% for item in cart_item.variations.all %}
+            <li>{{ item.color.name | capfirst }} : {{ item.size.size | capfirst }}
             </li>
-            {% endfor %} {% endif %}
+            {% endfor %} 
+            {% endif %}
           </ul>
           <!-- End color and size -->
           <!-- Quantity remove add and delete cart -->
@@ -78,33 +83,23 @@
             <li class="remove-cart">
               <a
                 href="{% url 'remove_cart' cart_item.product.id cart_item.id %}"
-                ><span class="material-symbols-outlined"> remove </span></a
-              >
+                ><span class="material-symbols-outlined">
+                  remove
+                  </span></a>
             </li>
             <li class="quantity">qty : {{ cart_item.quantity }}</li>
             <li class="add-cart">
-              <form
-                class="form"
-                action="{% url 'add_to_cart' cart_item.product.id %}"
-                method="POST"
-              >
+              <form class="form" action="{% url 'add_to_cart' cart_item.product.id %}" method="POST">
                 {% csrf_token %} 
                 {% for item in cart_item.variations.all %}
                 <input
                   type="hidden"
-                  name="size"
-                  value="{{ item.size.id }}"
-                  id="size"
-                />
-                <input
-                  type="hidden"
-                  name="color"
-                  value="{{ item.color.id }}"
-                  id="color"
+                  name="{{ item.variation_category | lower }}"
+                  value="{{ item.variation_value | capfirst }}"
                 />
                 {% endfor %}
                 <button type="submit">
-                  <span class="material-symbols-outlined">add</span>
+                  <span class="material-symbols-outlined"> add </span>
                 </button>
               </form>
             </li>
@@ -122,8 +117,8 @@
       </div>
     </div>
     <!-- End One cart informations -->
-    {% endfor %}
-  </div>
+  {% endfor %}
+</div>
   <!-- cart others informations -->
   <div class="others-infos-main">
     <div class="others-infos-container">

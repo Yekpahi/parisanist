@@ -67,12 +67,15 @@ def product_list(request, category_slug=None, product_slug=None):
                    'colors': colors,
                    'wishlisted_list': wishlisted_list
     })
+    
+
 
 #product details
-def product_detail(request, category_slug, id):
+def product_detail(request, category_slug, product_slug):
     try:
-        product=Product.objects.get(id=id)
-        single_product = Product.objects.get(category=product.category, id=id)
+        # product=Product.objects.get(id=id)
+         # Retrieve the single product instance
+        single_product = Product.objects.get(category__slug=category_slug, product_slug=product_slug)
         # details images
         images = Photo.objects.filter(product=single_product)
         # if item is already in the cart
@@ -89,9 +92,9 @@ def product_detail(request, category_slug, id):
         'in_cart': in_cart,
         'colors':colors,
         'sizes':sizes,
-        'data':product
+        # 'data':product
     }
-    return render(request, 'store/product-details/product_details.html', context)
+    return render(request, 'store//product_detail.html', context)
     
 # filter data
 def filter_data(request):
