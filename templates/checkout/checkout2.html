@@ -1,0 +1,25 @@
+{% load static %} {% block content %}
+<link rel="stylesheet" href=" {% static 'assets/css/checkout/checkout.css' %}" />
+
+<main class="main">
+  <section class="logo">
+    <a href="{% url 'home' %}">Parisianist</a>
+  </section>
+
+  <!-- Start all checkout element-->
+  <section class="checkout-container">
+    <form action="{% url 'place_order' %}" method="POST">
+      {% csrf_token %}
+    <!-- Start left elements-->
+    {{ form.as_p }}
+    <!-- End left elements-->
+    <!-- End Right elements-->
+    <button type='submit'>Order</button>
+    <a href="{% url 'store' %}">Continue shopping ...</a>
+   
+  </form>
+  </section>
+  <!-- End all checkout element-->
+</main>
+
+{% endblock %}

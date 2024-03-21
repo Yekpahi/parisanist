@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #GEOip2
+    'geoip2',
     #Paypal
     'paypal.standard.ipn',
     # custom app
@@ -50,6 +52,7 @@ INSTALLED_APPS = [
     'userauths.apps.UserauthsConfig',
     'carts.apps.CartsConfig',
     'orders.apps.OrdersConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -94,7 +97,7 @@ WSGI_APPLICATION = 'djangoparisianist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'parisianistdb102',
+        'NAME': 'database_of_parisianist',
         'USER': 'Kouassi',
         'PASSWORD': 'Azerty1234?',
         'HOST': '127.0.0.1',
@@ -196,3 +199,7 @@ PAYPAL_TEST = False
 STRIPE_PUBLIC_KEY = ""
 STRIPE_SECRET_KEY = ""
 STRIPE_WEBHOOK_SECRET = ""
+
+
+#GeoIP setting
+GEOIP_PATH =os.path.join('geoip')

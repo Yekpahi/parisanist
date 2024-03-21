@@ -27,10 +27,10 @@ class Order(models.Model):
         ('Cancelled', 'Cancelled'),
     )
     DELIVERY_METHOD = (
+        ("DHL", "DHL"),
         ("Colissimo", "Colissimo"),
-        ("Chronopost", "Chronopost"),
     )
-    
+
     PAYMENT_METHOD = (
         ("Card", "Card"),
         ("Paypal", "Paypal"),
@@ -47,14 +47,13 @@ class Order(models.Model):
     address_line_2 = models.CharField(max_length=50, blank=True)
     country = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=20)
-    state = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     postcode = models.CharField(max_length=50)
     order_note = models.CharField(max_length=100, blank=True)
     order_total = models.FloatField()
     tax = models.FloatField()
     status = models.CharField(max_length=10, choices=STATUS, default='New')
-    derivery_method = models.CharField(
+    delivery_method  = models.CharField(
         max_length=10, choices=DELIVERY_METHOD, default='Colissimo')
     payment_method = models.CharField(
         max_length=10, choices=PAYMENT_METHOD, default='Card')

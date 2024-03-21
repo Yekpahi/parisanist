@@ -81,7 +81,42 @@
   <!-- End one slider -->
 </div>
 
-<script type="text/javascript">
+<script>
+$(document).ready(function () {
+  // Function to update wishlist count in header
+  function updateWishlistCount(count) {
+    $("#wishlist-count").text(count);
+  }
+
+  $(".like").click(function (event) {
+    event.preventDefault(); // Prevent default action of anchor tag
+    var attr_id = $(this).attr("attr_id");
+    var action_url = $(this).attr("action_url");
+    var that = $(this);
+    $.ajax({
+      url: action_url,
+      type: "POST",
+      data: { attr_id: attr_id },
+      headers: { "X-CSRFToken": $.cookie("csrftoken") },
+      success: function (response) {
+        if (response.liked) {
+          that.find('i').removeClass('fa-heart').addClass('far fa-heart'); // Change to empty heart icon
+          updateWishlistCount(response.wishlist_count);
+        } else {
+          that.find('i').removeClass('far fa-heart').addClass('fa-heart'); // Change to full heart icon
+          updateWishlistCount(response.wishlist_count);
+        }
+      },
+      error: function () {
+        console.log("Please login");
+      },
+    });
+  });
+})
+
+</script>
+
+<!-- <script type="text/javascript">
   $(document).ready(function () {
     // Function to update wishlist count in header
     function updateWishlistCount(count) {
@@ -112,7 +147,7 @@
       });
     });
   });
-</script>
+</script> -->
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

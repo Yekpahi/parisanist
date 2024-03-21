@@ -6,7 +6,7 @@
 
 <div class="main">
   <!-- Left informations -->
-  <div class="left-side">
+  <form class="left-side" action ="{% url 'place_order' %}" method="post">
     {% csrf_token %}
    
     <div class="tab-header">
@@ -46,11 +46,11 @@
       >
         <ul class="civility">
           <li class="form">
-            <input class="inputText" type="text" placeholder="" />
+            <input class="inputText" type="text" name="first_name" placeholder="" />
             <span class="floating-label">First name</span>
           </li>
           <li class="form">
-            <input class="inputText" type="text" placeholder="" />
+            <input class="inputText" type="text" name="last_name" placeholder="" />
             <span class="floating-label">Last name</span>
           </li>
         </ul>
@@ -359,27 +359,28 @@
               <option value="Zimbabwe">Zimbabwe</option>
             </select>
           </li>
+          
           <li class="life-infos">
             <label class="life-label" for="address 1">Address 1</label>
-            <input type="text" placeholder="" />
+            <input type="text" placeholder="" name="address_line_1"/>
           </li>
           <li class="life-infos">
             <label for="address2">Address 2</label>
-            <input type="text" placeholder="" />
+            <input type="text" name="address_line_2" placeholder="" />
           </li>
           <li class="life-infos">
-            <label for="zipcode">Zip code</label>
-            <input type="text" placeholder="" />
+            <label for="postalcode">Postal code</label>
+            <input type="text" name="postcode" placeholder="" />
           </li>
           <li class="life-infos">
             <label for="city">City</label>
-            <input type="text" placeholder="" />
+            <input type="text" name="city" placeholder="" />
           </li>
           <li class="phone-number">
             <label for="phone-number">Phone number</label>
             <ul class="list-code-phone">
               <li class="code">
-                <select class="code-phone" id="phone" name="">
+                <select class="code-phone" id="phone" name="zip_code">
                   <option value="93">Afghanistan +93</option>
                   <option value="358">Aland Islands +358</option>
                   <option value="355">Albania +355</option>
@@ -655,8 +656,8 @@
                   <option value="263">Zimbabwe +263</option>
                 </select>
               </li>
-              <li class="phone">
-                <input class="number" type="text" placeholder="" />
+              <li class="phone" >
+                <input class="number" type="text" placeholder="" name="phone" />
               </li>
             </ul>
           </li>
@@ -664,38 +665,46 @@
         <!-- Delivery Method -->
         <ul class="delivery-method">
           <li class="deliv-title">Delivery method</li>
+
           <li class="xmethod">
             <ul>
               <li class="method">
                 <input
                   type="radio"
                   id="huey"
-                  name="drone"
-                  value="huey"
+                  name="derivery_method"
+                  value="dhl"
+                  {% if form.derivery_method.value == "DHL" %}
                   checked
+                {% endif %}
                 />
-                <label for="huey">COLISSIMO</label>
+                <label for="huey">DHL</label>
               </li>
               <li>FREE</li>
             </ul>
             <p>Delivery within 3 - 8 days</p>
           </li>
+
           <li class="xmethod">
             <ul>
               <li class="method">
                 <input
                   type="radio"
-                  id="huey"
-                  name="drone"
-                  value="huey"
+                  id="chronopost"
+                  name="derivery_method"
+                  value="chronopost"
+                  {% if form.derivery_method.value == "Colissimo" %}
                   checked
+                {% endif %}
                 />
-                <label for="huey">CHRONOPOST</label>
+                <label for="huey">Colissimo</label>
               </li>
               <li>FREE</li>
             </ul>
             <p>Delivery within 2 - 5 days</p>
           </li>
+
+
         </ul>
       </div>
       <!-- End of Delivery informations -->
@@ -781,9 +790,9 @@
                         <li class="s-method-input">
                           <input
                             type="radio"
-                            id="html"
-                            name="fav_language"
-                            value="HTML"
+                            id="paypal"
+                            name="payment_method"
+                            value="paypal"
                           />
                         </li>
                         <li class="s-method-image">
@@ -798,7 +807,7 @@
                       </ul>
                     </li>
                     <li class="link-paypal">
-                      <a href="">{{form2.render}}</a>
+                      <a href="">Paypal</a>
                     </li>
                   </ul>
                 </li>
@@ -811,9 +820,9 @@
                         <li class="s-method-input">
                           <input
                             type="radio"
-                            id="html"
-                            name="fav_language"
-                            value="HTML"
+                            id="paypal"
+                            name="payment_method"
+                            value="card"
                           />
                         </li>
                         <li class="s-method-image">
@@ -852,6 +861,7 @@
                   </ul>
                 </li>
                 <!-- End credit card -->
+                <li><button type="submit" name="submit" class="btn btn-primary btn-block">Place order</button></li>
               </ul>
 
           </li>
@@ -861,7 +871,8 @@
       <!-- End of summary and payment contents -->
     </div>
     <!-- End of The content -->
-  </div>
+    
+  </form>
   <!-- End of left informations -->
 
   <!-- Start of Right informations -->
