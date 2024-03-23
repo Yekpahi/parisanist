@@ -159,8 +159,13 @@ def place_order(request, total=0, quantity=0):
     # return render(request, 'orders/payments.html', {'orderform': orderform})
     else:
         orderform = OrderForm() 
+    
     context = {
-        'orderform': orderform
+        'orderform': orderform,
+        'cart_items': cart_items,
+        'total': total,
+        'tax': tax,
+        'grand_total': grand_total
     }
     return render(request, 'checkout/checkout.html', context)
 
