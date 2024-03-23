@@ -97,21 +97,23 @@ def place_order(request, total=0, quantity=0):
     grand_total = round((total + tax), 2)
 
     if request.method == 'POST':
-        form = OrderForm(request.POST)
-        if form.is_valid():
-            data = Order()
+        orderform = OrderForm(request.POST)
+        if orderform.is_valid():
+            # data = Order()
+            data = orderform.save(commit=False)
             data.user = current_user
-            data.first_name = form.cleaned_data['first_name']
-            data.last_name = form.cleaned_data['last_name']
-            data.phone = form.cleaned_data['phone']
-            data.email = form.cleaned_data['email']
-            data.address_line_1 = form.cleaned_data['address_line_1']
-            data.address_line_2 = form.cleaned_data['address_line_2']
-            data.country = form.cleaned_data['country']
-            data.city = form.cleaned_data['city']
-            data.order_note = form.cleaned_data['order_note']
-            data.delivery_method = form.cleaned_data['delivery_method']
-            data.payment_method = form.cleaned_data['payment_method']
+            data.first_name = orderform.cleaned_data['first_name']
+            data.last_name = orderform.cleaned_data['last_name']
+            data.zip_code = orderform.cleaned_data['zip_code']
+            data.phone = orderform.cleaned_data['phone']
+            data.email = orderform.cleaned_data['email']
+            data.address_line_1 = orderform.cleaned_data['address_line_1']
+            data.address_line_2 = orderform.cleaned_data['address_line_2']
+            data.postcode = orderform.cleaned_data['postcode']
+            data.country = orderform.cleaned_data['country']
+            data.city = orderform.cleaned_data['city']
+            data.delivery_method = orderform.cleaned_data['delivery_method']
+            data.payment_method = orderform.cleaned_data['payment_method']
             data.order_total = grand_total
             data.tax = tax
             data.ip = request.META.get('REMOTE_ADDR')
@@ -137,14 +139,31 @@ def place_order(request, total=0, quantity=0):
             order_number = current_date + str(data.id)
             data.order_number = order_number
             data.save()
+            
+            order = Order.objects.get(user=current_user, is_ordered=False, order_number=order_number)
+            context = {
+                'order': order,
+                'cart_items': cart_items,
+                'total': total,
+                'tax': tax,
+                'grand_total': grand_total
+            }
 
-            return render(request, 'checkout/checkout.html', {'form': form})
+            return render(request, 'orders/payments.html', context)
+    # else:
+    #     orderform = OrderForm()  # Instantiate an empty form if method is GET
+    #     return (request, 'checkout/checkout', {'orderform': orderform})
+
+    # # Always return a response
+    # # Render the form template
+    # return render(request, 'orders/payments.html', {'orderform': orderform})
     else:
-        form = OrderForm()  # Instantiate an empty form if method is GET
+        orderform = OrderForm() 
+    context = {
+        'orderform': orderform
+    }
+    return render(request, 'checkout/checkout.html', context)
 
-    # Always return a response
-    # Render the form template
-    return render(request, 'checkout/checkout.html', {'form': form})
 
 
 def place_orderx(request, total=0, quantity=0):

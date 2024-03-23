@@ -1,17 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-*,
-*:before,
-*:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
 body {
+  position: relative;
   width: 100%;
   height: 100%;
- 
 }
 
 .main {
@@ -171,7 +164,7 @@ body {
 
 /* payment informations */
 
-.payment-infos  ul {
+.payment-infos ul {
   margin-top: 20px;
   display: flex;
   list-style: none;
@@ -219,53 +212,12 @@ body {
   flex-direction: column;
 }
 
-.personal-infos {
-  cursor: pointer;
-}
-
 .delivery-infos {
   cursor: pointer;
 }
 
 .summary-and-payment {
   cursor: pointer;
-}
-
-/* Personal informations */
-
-.tab-contents .personal-infos-contents {
-  display: flex;
-  flex-direction: column;
-}
-
-.tab-contents .personal-infos-contents > span {
-  margin-bottom: 25px;
-}
-
-.tab-contents .personal-infos-contents .delivery-link {
-  margin-bottom: 25px;
-  width: 100%;
-  background-color: black;
-}
-
-.tab-contents .personal-infos-contents .delivery-link > a {
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2em;
-  width: 100%;
-  color: white;
-}
-
-.personal-infos-title {
-  font-size: 1em;
-  opacity: 0.6;
-}
-
-.email {
-  font-size: 0.9em;
-  opacity: 0.4;
 }
 
 /* Delivery informations */
@@ -566,7 +518,6 @@ body {
 }
 
 /* Summary payments methods*/
-  
 
 .summary-payment-method > ul {
   display: flex;
@@ -589,14 +540,14 @@ body {
   border: 1px solid black;
 }
 
-.summary-payment-method  > ul .one-payment-method > ul .one-card-x > ul {
+.summary-payment-method > ul .one-payment-method > ul .one-card-x > ul {
   margin-bottom: 15px;
   display: flex;
   align-items: center;
   padding: 35px 20px;
 }
 
-.summary-payment-method  > ul .one-payment-method > ul .one-card-x > ul > li {
+.summary-payment-method > ul .one-payment-method > ul .one-card-x > ul > li {
   margin-right: 15px;
 }
 
@@ -624,7 +575,7 @@ body {
   width: 33.33%;
 }
 
-.fill-credit-card > ul .card-number-and-type > input{
+.fill-credit-card > ul .card-number-and-type > input {
   height: 100%;
   width: 100%;
   border: none;
@@ -632,22 +583,21 @@ body {
   outline: none !important;
 }
 
-.fill-credit-card > ul .card-number-and-type > div  {
-
+.fill-credit-card > ul .card-number-and-type > div {
   display: flex;
- transform: translateX(-50px);
+  transform: translateX(-50px);
 }
 .fill-credit-card > ul .card-number-and-type > div > img {
   width: 20px;
 }
 
-.fill-credit-card > ul .expiration{
+.fill-credit-card > ul .expiration {
   width: 33.33%;
   height: 25px;
   margin-right: 15px;
 }
 
-.fill-credit-card > ul .expiration > input{
+.fill-credit-card > ul .expiration > input {
   height: 100%;
   width: 100%;
   border: none;
@@ -655,21 +605,19 @@ body {
   outline: none !important;
 }
 
-.fill-credit-card > ul .cvc{
+.fill-credit-card > ul .cvc {
   width: 33.33%;
   height: 25px;
   margin-left: 15px;
 }
 
-.fill-credit-card > ul .cvc > input{
+.fill-credit-card > ul .cvc > input {
   height: 100%;
   width: 100%;
   border: none;
   border-bottom: 1px solid black;
   outline: none !important;
-
 }
-
 
 /* paypal */
 
@@ -699,5 +647,12 @@ body {
   color: white;
   padding-top: 15px;
   padding-bottom: 15px;
- 
+}
+
+.btn_place_order{
+  width: 100%;
+  padding: 5px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
 }

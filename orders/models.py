@@ -49,7 +49,6 @@ class Order(models.Model):
     zip_code = models.CharField(max_length=20)
     city = models.CharField(max_length=50)
     postcode = models.CharField(max_length=50)
-    order_note = models.CharField(max_length=100, blank=True)
     order_total = models.FloatField()
     tax = models.FloatField()
     status = models.CharField(max_length=10, choices=STATUS, default='New')

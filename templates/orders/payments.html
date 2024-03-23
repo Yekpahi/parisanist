@@ -1,189 +1,118 @@
-{% extends 'main.html' %}
-{% load static %}
+{% extends '../main.html' %} {% load static %} 
+{% block title %}Checkout{%endblock %} {% block content %}
+<link
+  rel="stylesheet"
+  href=" {% static 'assets/css/checkout/checkout.css' %}"
+/>
 
-{% block content %}
+<div class="main">
+  <!-- Left informations -->
+  <div class="left-side">
 
-<section class="section-content padding-y bg">
-    <div class="container">
-        <h4 class="text-center mb-10">Review your Order and Make Payment</h4>
-        <div class="row">
-            <aside class="col-lg-8">
-                <div class="card">
-                    <h5 class="card-header">Billing Address</h5>
-                    <div class="card-body">
-                        <p class="card-text mb-0">{{ order.full_name }}</p>
-                        <p class="card-text mb-0">{{ order.full_address }}</p>
-                        <p class="card-text mb-0">{{ order.city }}, {{ order.state }}</p>
-                        <p class="card-text mb-0">{{ order.country }}</p>
-                        <p class="card-text mb-0">{{ order.email}}</p>
-                        <p class="card-text mb-0">{{ order.phone}}</p>
-                        <!-- {% if order.order_note %}
-                        <b>Order note: </b>{{ order.order_note }}
-                        {% endif %} -->
-                    </div>
-                </div>
-                <div class="card">
-                    <h5 class="card-header">Payment Method</h5>
-                    <div class="card-body">
-                        <p class="card-text">PayPal</p>
-                    </div>
-                </div>
-                <div class="card">
-                    <h5 class="card-header">Review Products</h5>
-                    <div class="card-body">
-                        <table class="table table-borderless table-shopping-cart">
-                            <thead class="text-muted">
-                            <tr class="small text-uppercase">
-                                <th scope="col">Product</th>
-                                <th scope="col" width="120">Quantity</th>
-                                <th scope="col" width="120">Price</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+    <!-- Tab header -->
 
-                            {% for cart_item in cart_items %}
-                            <tr>
-                                <td>
-                                    <figure class="itemside align-items-center">
-                                        <div class="aside">
-                                       <!-- <img src="{{ cart_item.product.product_cover_image.url }}" class="img-sm"> -->
-                                        </div>
-                                        <figcaption class="info">
-                                            <a href="{{ cart_item.product.get_url }}" class="title text-dark">
-                                                {{ cart_item.product.product_name }}</a>
-                                            <p class="text-muted small">
-                                                {% if cart_item.variations.all %}
-                                                {% for item in cart_item.variations.all %}
-                                                {{ item.variation_category | capfirst }} :
-                                                {{ item.variation_value | capfirst}}<br>
-                                                {% endfor %}
-                                                {% endif %}
-                                            </p>
-                                        </figcaption>
-                                    </figure>
-                                </td>
-                                <td>
-                                    <!-- col.// -->
-                                    <label for="">{{ cart_item.quantity }}</label>
-                                </td>
-                                <td>
-                                    <div class="price-wrap">
-                                        <var class="price">${{ cart_item.sub_total }}</var>
-                                        <small class="text-muted"> ${{ cart_item.product.product_price }} each </small>
-                                    </div> <!-- price-wrap .// -->
-                                </td>
-                            </tr>
-                            {% endfor %}
+    <div class="tab-header">
+      <ul>
+        <li class="delivery-infos">
+          <span>Delivery informations</span>
+        </li>
+        <li class="summary-and-payment">
+          <span>Summary and payment</span>
+        </li>
+      </ul>
+    </div>
+    <!-- End Tab header -->
+    <!-- Start The content -->
+    <div class="tab-contents">
+      <!-- Start of summary and payment contents -->
+{% include './summary-and-payment.html' %}
+      <!-- End of summary and payment contents -->
+    </div>
+    <!-- End of The content -->
+  </div>
+  <!-- End of left informations -->
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </aside> <!-- col.// -->
-            <aside class="col-lg-4">
+  <!-- Start of Right informations -->
+  <div class="right-side">
+    <!-- cart label -->
+    <p class="shopping-cart-title">Shopping cart</p>
 
-                <div class="card">
-                    <div class="card-body">
-                        <dl class="dlist-align">
-                            <dt>Total price:</dt>
-                            <dd class="text-right">${{ total }}</dd>
-                        </dl>
-                        <dl class="dlist-align">
-                            <dt>Tax:</dt>
-                            <dd class="text-right"> ${{ tax }}</dd>
-                        </dl>
-                        <dl class="dlist-align">
-                            <dt>Total:</dt>
-                            <dd class="text-right text-dark b"><strong>${{ grand_total }}</strong></dd>
-                        </dl>
-                        <hr>
-                        <div id="paypal-button-container">
-                            <!--                            paypal button will load here-->
-                                                    </div>
-                    </div> <!-- card-body.// -->
-                </div> <!-- card.// -->
-            </aside> <!-- col.// -->
-        </div> <!-- row.// -->
-    </div> <!-- container .//  -->
-</section>
+    <!-- One cart informations -->
+    <div class="scroll">
+      {% for item in cart_items %}
+      <div class="main-cart">
+        <div class="card-container">
+          <!-- cart image -->
 
+          <div class="image-container">
+            <!-- Selection the one image which is feature -->
+            {% for image in item.product.photos.all %} {% if image.is_feature %}
+            <img src="{{ image.product_image.url }}" alt="" />
+            {% endif %} {% endfor %}
+            <!-- Selection the one image which is feature -->
+          </div>
+          <!-- End cart image -->
 
-<script>
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    var amount = "{{ grand_total }}"
-    var url = "{% url 'payments' %}"
-    var csrftoken = getCookie('csrftoken');
-    var orderID = "{{ order.order_number }}"
-    var payment_method = 'PayPal'
-    var redirect_url = "{% url 'order_complete' %}"
-
-    // Render the PayPal button into #paypal-button-container
-    paypal.Buttons({
-
-        style: {
-            color:  'blue',
-            shape:  'rect',
-            label:  'pay',
-            height: 40
-        },
-
-        // Set up the transaction
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: amount,
-                    }
-                }]
-            });
-        },
-
-        // Finalize the transaction
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                // Show a success message to the buyer
-                console.log(details);
-                sendData();
-                function sendData(){
-                    fetch(url,{
-                        method: "POST",
-                        headers: {
-                            "content-type":"application/json",
-                            "X-CSRFToken": csrftoken,
-                        },
-                        body: JSON.stringify({
-                            orderID: orderID,
-                            transID: details.id,
-                            payment_method: payment_method,
-                            status: details.status,
-                        }),
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
-                    });
-                }
-            });
-        }
+          <!-- Right informations -->
+          <div class="right-infos">
+            <!-- Price and product name -->
+            <ul class="name-and-price">
+              <li class="product-name">
+                <a href="#">{{ item.product.product_name }}</a>
+              </li>
+              <li class="product-price">{{total_amt}}Eur</li>
+            </ul>
+            <!-- End Price and product name -->
+            <!-- color and size -->
+            <ul class="color-and-size">
+              {% for v in item.variations.all %}
+              <li>{{v.color.name}}</li>
+              <li>{{v.size.size}}</li>
+              {% endfor %}
+            </ul>
+            <!-- End color and size -->
+            <!-- Quantity remove add and delete cart -->
+            <ul class="qty-remove-add-delete">
+              <li class="quantity">qty : {{item.qty}}</li>
+            </ul>
+            <!-- End Quantity remove add and delete cart -->
+          </div>
+          <!-- End Right informations -->
+        </div>
+      </div>
+      <!-- End One cart informations -->
+      {% endfor %}
+    </div>
+    <!-- cart others informations -->
+    <div class="others-infos-main">
+      <div class="others-infos-container">
+        <div class="total-and-tva">
+          <ul>
+            <li class="total-text">Total</li>
+            <li class="" the-total>{{ grand_total }} Eu</li>
+          </ul>
+          <p class="tva-infos">
+            A VAT of {{tax}} Eur is included in the total price
+          </p>
+        </div>
+        <div class="continue-shop">
+          <a href="{% url 'store' %}"><span>Continue to shop</span></a>
+        </div>
+        <div class="payment-infos">
+          <p>Secure payment</p>
+          <ul>
+            <li class="credit-cart">
+              <img src="{% static 'assets/imgs/credit-cart.png' %}" alt="" />
+            </li>
+            <li class="paypal">
+              <img src="{% static 'assets/imgs/paypal.png' %}" alt="" />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-    }).render('#paypal-button-container');
-</script>
-
-
-{% endblock %}
+{% endblock content %}
