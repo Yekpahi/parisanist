@@ -1,25 +1,28 @@
-from email.message import EmailMessage
 import json
+from django.urls import reverse
+import requests
+from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render
 import datetime
-from django.template.loader import render_to_string
 from django.shortcuts import render, redirect
+import stripe
 from carts.models import CartItem
 from store.models import Product
 from .forms import OrderForm
 from .models import Order, OrderProduct, Payment
 from django.contrib.gis.geoip2 import GeoIP2
+from django.contrib import messages
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 
-# Create your views here.
-
-# Payment views for paypal
 def payments(request):
     body = json.loads(request.body)
     order = Order.objects.get(
         user=request.user, is_ordered=False, order_number=body['orderID'])
-    # armazena os detalhes da transação na tabela Payments
+
+    # Store transaction details inside Payment model
     payment = Payment(
         user=request.user,
         payment_id=body['transID'],
@@ -28,12 +31,14 @@ def payments(request):
         status=body['status'],
     )
     payment.save()
+
     order.payment = payment
     order.is_ordered = True
     order.save()
 
-    # insere cart itens na tabela OrderProduct
+    # Move the cart items to Order Product table
     cart_items = CartItem.objects.filter(user=request.user)
+
     for item in cart_items:
         orderproduct = OrderProduct()
         orderproduct.order_id = order.id
@@ -45,23 +50,22 @@ def payments(request):
         orderproduct.ordered = True
         orderproduct.save()
 
-        # pega as variações de cada produto em CartItem
         cart_item = CartItem.objects.get(id=item.id)
         product_variation = cart_item.variations.all()
         orderproduct = OrderProduct.objects.get(id=orderproduct.id)
         orderproduct.variations.set(product_variation)
         orderproduct.save()
 
-        # reduz a quantidade dos produtos vendidos
+        # Reduce the quantity of the sold products
         product = Product.objects.get(id=item.product_id)
         product.product_stock -= item.quantity
         product.save()
 
-    # reseta o carrinho
+    # Clear cart
     CartItem.objects.filter(user=request.user).delete()
 
-    # envia recibo da ordem para o cliente para o email registrado no cadastro de usuario
-    mail_subject = 'Thank you with your Order!'
+    # Send order recieved email to customer
+    mail_subject = 'Thank you for your order!'
     message = render_to_string('orders/order_received_email.html', {
         'user': request.user,
         'order': order,
@@ -70,14 +74,12 @@ def payments(request):
     send_email = EmailMessage(mail_subject, message, to=[to_email])
     send_email.send()
 
-    # envia order_number e transaction_id para sendData usando jsonResponse
+    # Send order number and transaction id back to sendData method via JsonResponse
     data = {
         'order_number': order.order_number,
-        'transID': payment.payment_id
+        'transID': payment.payment_id,
     }
     return JsonResponse(data)
-
-# orders views
 
 
 def place_order(request, total=0, quantity=0):
@@ -118,18 +120,49 @@ def place_order(request, total=0, quantity=0):
             data.tax = tax
             data.ip = request.META.get('REMOTE_ADDR')
 
-            user_ip = request.META.get('REMOTE_ADDR')
+            # Utilisez une adresse IP spécifique pour simuler la localisation
+            if settings.DEBUG:
+                # Utilisation de l'API ipify pour obtenir une adresse IP publique
+                response = requests.get('https://api.ipify.org?format=json')
+                if response.status_code == 200:
+                    ip_data = response.json()
+                    user_ip = ip_data.get('ip')
+                else:
+                    # Fallback à une adresse IP locale si l'appel à l'API échoue
+                    user_ip = '127.0.0.1'
+            else:
+                user_ip = request.META.get('REMOTE_ADDR')
+
             g = GeoIP2()
             try:
                 user_country = g.country_code(user_ip)
+                print(user_country)
                 if user_country == 'FR':
-                    data.delivery_method = 'Colissimo'
+                    orderform.fields['delivery_method'].initial = 'Colissimo'
                 else:
-                    data.delivery_method = 'DHL'
+                    orderform.fields['delivery_method'].initial = 'DHL'
             except Exception as e:
                 print("Error determining user location:", e)
 
+            # Déterminer le service de livraison en fonction de la localisation de l'utilisateur
+            # user_ip = request.META.get('REMOTE_ADDR')
+            # g = GeoIP2()
+            # try:
+            #     user_country = g.country_code(user_ip)
+            #     print(user_country)
+            #     if user_country == 'FR':
+            #         orderform.fields['delivery_method'].initial = 'Colissimo'
+            #     else:
+            #         orderform.fields['delivery_method'].initial = 'DHL'
+            # except Exception as e:
+            #     print("Error determining user location:", e)
+
             data.save()
+
+            # if orderform.cleaned_data['payment_method'] == "Card":
+            #     return redirect('paypal_payment')
+            # elif orderform.cleaned_data['payment_method'] == "Paypal":
+            #     return redirect('stripe_payment')
 
             yr = int(datetime.date.today().strftime('%y'))
             dt = int(datetime.date.today().strftime('%d'))
@@ -139,8 +172,10 @@ def place_order(request, total=0, quantity=0):
             order_number = current_date + str(data.id)
             data.order_number = order_number
             data.save()
-            
-            order = Order.objects.get(user=current_user, is_ordered=False, order_number=order_number)
+
+            order = Order.objects.get(
+                user=current_user, is_ordered=False, order_number=order_number)
+
             context = {
                 'order': order,
                 'cart_items': cart_items,
@@ -150,16 +185,10 @@ def place_order(request, total=0, quantity=0):
             }
 
             return render(request, 'orders/payments.html', context)
-    # else:
-    #     orderform = OrderForm()  # Instantiate an empty form if method is GET
-    #     return (request, 'checkout/checkout', {'orderform': orderform})
 
-    # # Always return a response
-    # # Render the form template
-    # return render(request, 'orders/payments.html', {'orderform': orderform})
     else:
-        orderform = OrderForm() 
-    
+        orderform = OrderForm()
+
     context = {
         'orderform': orderform,
         'cart_items': cart_items,
@@ -167,75 +196,7 @@ def place_order(request, total=0, quantity=0):
         'tax': tax,
         'grand_total': grand_total
     }
-    return render(request, 'checkout/checkout.html', context)
-
-
-
-def place_orderx(request, total=0, quantity=0):
-    current_user = request.user
-    cart_items = CartItem.objects.filter(user=current_user)
-    cart_count = cart_items.count()
-
-    if cart_count <= 0:
-        return redirect('store')
-    grand_total = 0
-    tax = 0
-    for cart_item in cart_items:
-        total += (cart_item.product.product_price*cart_item.quantity)
-        quantity += cart_item.quantity
-    tax = (20*total)/100
-    grand_total = round((total + tax), 2)
-    if request.method == 'POST':
-        form = OrderForm(request.POST)
-        if form.is_valid():
-
-            # armazena todos os dados da ordem de pagamento em Order
-            data = Order()
-            data.user = current_user
-            data.first_name = form.cleaned_data['first_name']
-            data.last_name = form.cleaned_data['last_name']
-            data.phone = form.cleaned_data['phone']
-            data.email = form.cleaned_data['email']
-            data.address_line_1 = form.cleaned_data['address_line_1']
-            data.address_line_2 = form.cleaned_data['address_line_2']
-            data.country = form.cleaned_data['country']
-            data.city = form.cleaned_data['city']
-            data.order_note = form.cleaned_data['order_note']
-            data.derivery_method = form.cleaned_data['derivery_method']
-            data.derivery_method = form.cleaned_data['payment_method']
-            data.order_total = grand_total
-            data.tax = tax
-            data.ip = request.META.get('REMOTE_ADDR')
-
-            # Determine la méthode de livraison en fonction de la localisation de l'utilisateur
-            user_ip = request.META.get('REMOTE_ADDR')
-            g = GeoIP2()
-            try:
-                user_country = g.country_code(user_ip)
-                print(user_country)
-                if user_country == 'FR':  # Si l'utilisateur est en France
-                    data.delivery_method = 'Colissimo'  # Définit la livraison par Colissimo
-                else:
-                    data.delivery_method = 'DHL'  # Sinon, défini la livraison par DHL
-            except Exception as e:
-                print(
-                    "Erreur lors de la détermination de la localisation de l'utilisateur:", e)
-
-            data.save()
-
-            # order_number generator
-            yr = int(datetime.date.today().strftime('%y'))
-            dt = int(datetime.date.today().strftime('%d'))
-            mt = int(datetime.date.today().strftime('%m'))
-            d = datetime.date(yr, mt, dt)
-            current_date = d.strftime('%Y-%m-%d')  # 20210615
-            order_number = current_date + str(data.id)  # 20210615+id
-            data.order_number = order_number
-            data.save()
-
-            return render('checkout/checkout.html', {'form': form})
-    else:
-        return redirect('checkout')
+    return render(request, 'orders/place-order.html', context)
 
 
 def order_complete(request):
@@ -264,4 +225,12 @@ def order_complete(request):
         }
         return render(request, 'orders/order_complete.html', context)
     except (Payment.DoesNotExist, Order.DoesNotExist):
-        return redirect('home')
+        return redirect('order_complete')
+
+# def stripe_payment(request):
+#     return render(request, 'orders/payments.html')
+
+# def paypal_payment(request):
+#     return render(request, 'orders/payments.html')
+
+# orders views

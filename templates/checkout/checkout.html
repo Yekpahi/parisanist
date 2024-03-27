@@ -17,7 +17,10 @@
           <a href="{% url 'checkout' %}" >Delivery informations</a>
         </li>
         <li class="summary-and-payment">
-          <a href="{% url 'place_order' %}">Summary and payment</a>
+          <a href="{% url 'place_order' %}">Order page</a>
+        </li>
+        <li class="summary-and-payment">
+          <button type="button" disabled>Summary and payment</button>
         </li>
       </ul>
     </div>
@@ -25,8 +28,9 @@
     <!-- Start The content -->
     <div class="tab-contents">
       <!-- Start place order-->
-{% include './include/place-order-content.html' %}
-      
+      <p class="user-full-name">{{user.first_name}}{{user.last_name}}</p>
+      <p class="user-full-name">{{user.email}}</p>
+      <a href="{% url 'place_order' %}">Go to order page</a>
       <!-- End of place order -->
     </div>
     <!-- End of The content -->

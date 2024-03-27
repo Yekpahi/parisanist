@@ -8,24 +8,29 @@
 <div class="main">
   <!-- Left informations -->
   <div class="left-side">
+
     <!-- Tab header -->
 
     <div class="tab-header">
       <ul>
         <li class="delivery-infos">
-          <span>Delivery informations</span>
+          <a href="{% url 'checkout' %}" >Delivery informations</a>
         </li>
         <li class="summary-and-payment">
-          <span>Summary and payment</span>
+          <a href="#">Order page</a>
+        </li>
+        <li class="summary-and-payment">
+          <button type="button" disabled>Summary and payment</button>
         </li>
       </ul>
     </div>
     <!-- End Tab header -->
     <!-- Start The content -->
     <div class="tab-contents">
-      <!-- Start of summary and payment contents -->
-      {% include './include/summary-and-payment.html' %}
-      <!-- End of summary and payment contents -->
+      <!-- Start place order-->
+{% include './include/place-order-content.html' %}
+      
+      <!-- End of place order -->
     </div>
     <!-- End of The content -->
   </div>
@@ -113,84 +118,5 @@
   </div>
 </div>
 
-
-  <script>
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-
-    var amount = "{{grand_total}}"
-    amount = amount.replace(',', '.');
-    console.log(amount)
-    var url = "{% url 'payments' %}"
-    var csrftoken = getCookie('csrftoken');
-    var orderID = "{{ order.order_number }}"
-    var payment_method = 'PayPal'
-    var redirect_url = "{% url 'order_complete' %}"
-
-    // Render the PayPal button into #paypal-button-container
-    paypal.Buttons({
-
-        style: {
-            color:  'blue',
-            shape:  'rect',
-            label:  'pay',
-            height: 40
-        },
-
-        // Set up the transaction
-        createOrder: function(data, actions) {
-            return actions.order.create({
-                purchase_units: [{
-                    amount: {
-                        value: amount,
-                    }
-                }]
-            });
-        },
-
-        // Finalize the transaction
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                // Show a success message to the buyer
-                console.log(details);
-                sendData();
-                function sendData(){
-                    fetch(url,{
-                        method: "POST",
-                        headers: {
-                            "content-type":"application/json",
-                            "X-CSRFToken": csrftoken,
-                        },
-                        body: JSON.stringify({
-                            orderID: orderID,
-                            transID: details.id,
-                            payment_method: payment_method,
-                            status: details.status,
-                        }),
-                    })
-                    .then((response) => response.json())
-                    .then((data) => {
-                      window.location.href = redirect_url + '?order_number='+data.order_number+'&payment_id='+data.transID;
-                    });
-                }
-            });
-        }
-
-
-    }).render('#paypal-button-container');
-</script>
 
 {% endblock content %}

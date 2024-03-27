@@ -471,50 +471,50 @@ def checkout(request, total=0, quantity=0, cart_items=None):
     return render(request, 'checkout/checkout.html', context)
 
 
-@login_required(login_url='login')
-def checkoutt(request, total=0, quantity=0, cart_items=None):
-    try:
-        order_id = '123'
-        host = request.get_host()
-        paypal_dict = {
-            'business': settings.PAYPAL_RECEIVER_EMAIL,
-            'amount': '123',
-            'item_name': 'Item Name',
-            'currency_code': 'USD',
-            'notify_url': 'http://{}{}'.format(host, reverse('paypal-ipn')),
-            'return_url': 'http://{}{}'.format(host, reverse('payment_done')),
-            'cancel_return': 'http://{}{}'.format(host, reverse('payment_cancelled')),
-        }
-        form = PayPalPaymentsForm(initial=paypal_dict)
+# @login_required(login_url='login')
+# def checkoutt(request, total=0, quantity=0, cart_items=None):
+#     try:
+#         order_id = '123'
+#         host = request.get_host()
+#         paypal_dict = {
+#             'business': settings.PAYPAL_RECEIVER_EMAIL,
+#             'amount': '123',
+#             'item_name': 'Item Name',
+#             'currency_code': 'USD',
+#             'notify_url': 'http://{}{}'.format(host, reverse('paypal-ipn')),
+#             'return_url': 'http://{}{}'.format(host, reverse('payment_done')),
+#             'cancel_return': 'http://{}{}'.format(host, reverse('payment_cancelled')),
+#         }
+#         form = PayPalPaymentsForm(initial=paypal_dict)
 
-        tax = 0
-        grand_total = 0
-        if request.user.is_authenticated:
-            cart_items = CartItem.objects.filter(
-                user=request.user, is_active=True)
-        else:
-            cart = Cart.objects.get(cart_id=_cart_id(request))
-            cart_items = CartItem.objects.filter(cart=cart, is_active=True)
-        # cart = Cart.objects.get(cart_id=_cart_id(request))
-        # cart_items = CartItem.objects.filter(cart=cart, is_active=True)
-        for cart_item in cart_items:
-            total += (cart_item.product.product_price*cart_item.quantity)
-            quantity += cart_item.quantity
-        tax = (20*total)/100
-        grand_total = round((total + tax), 2)
+#         tax = 0
+#         grand_total = 0
+#         if request.user.is_authenticated:
+#             cart_items = CartItem.objects.filter(
+#                 user=request.user, is_active=True)
+#         else:
+#             cart = Cart.objects.get(cart_id=_cart_id(request))
+#             cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+#         # cart = Cart.objects.get(cart_id=_cart_id(request))
+#         # cart_items = CartItem.objects.filter(cart=cart, is_active=True)
+#         for cart_item in cart_items:
+#             total += (cart_item.product.product_price*cart_item.quantity)
+#             quantity += cart_item.quantity
+#         tax = (20*total)/100
+#         grand_total = round((total + tax), 2)
 
-    except ObjectDoesNotExist:
-        pass
-    context = {
-        'total': total,
-        'quantity': quantity,
-        'cart_items': cart_items,
-        'tax': tax,
-        'grand_total': grand_total,
-        'form': form
-    }
+#     except ObjectDoesNotExist:
+#         pass
+#     context = {
+#         'total': total,
+#         'quantity': quantity,
+#         'cart_items': cart_items,
+#         'tax': tax,
+#         'grand_total': grand_total,
+#         'form': form
+#     }
 
-    return render(request, 'checkout/checkout.html', context)
+#     return render(request, 'checkout/checkout.html', context)
 
 
 @csrf_exempt

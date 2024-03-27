@@ -58,6 +58,16 @@ class OrderForm(forms.ModelForm):
             'delivery_method': forms.RadioSelect(),
             'payment_method': forms.RadioSelect(),
         }
+    def __init__(self, *args, **kwargs):
+        super(OrderForm, self).__init__(*args, **kwargs)
+        # Si le pays est France, définissez Colissimo comme méthode de livraison par défaut
+        if self.instance.country == 'FR':
+            self.fields['delivery_method'].initial = 'Colissimo'
+
+        # Cochez les méthodes de paiement et de livraison par défaut
+        self.fields['payment_method'].initial = 'Card'
+        self.fields['delivery_method'].initial = 'Colissimo'  # Peut-être redondant si déjà défini ci-dessus
+
         
 # class PaymentMethodForm(forms.ModelForm):
 #     class Meta:

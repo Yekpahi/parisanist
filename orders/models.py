@@ -53,7 +53,7 @@ class Order(models.Model):
     tax = models.FloatField()
     status = models.CharField(max_length=10, choices=STATUS, default='New')
     delivery_method  = models.CharField(
-        max_length=10, choices=DELIVERY_METHOD, default='Colissimo')
+        max_length=10, choices=DELIVERY_METHOD)
     payment_method = models.CharField(
         max_length=10, choices=PAYMENT_METHOD, default='Card')
     ip = models.CharField(max_length=20, blank=True)
@@ -69,6 +69,12 @@ class Order(models.Model):
 
     def __str__(self):
         return self.first_name
+    def save(self, *args, **kwargs):
+        # Vérifier si l'utilisateur est en France
+        if self.country == 'France':
+            # Si l'utilisateur est en France, définir automatiquement la méthode de livraison comme Colissimo
+            self.delivery_method = 'Colissimo'
+        super().save(*args, **kwargs)
 
 
 class OrderProduct(models.Model):

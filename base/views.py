@@ -1,14 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from store.models import Product
-from django.contrib.gis.geoip2 import GeoIP2
-
-# Create your views here.
+from .forms import LaunchCountdownForm
 
 
 def homepage(request):
+    if request.method == 'POST':
+        form = LaunchCountdownForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirection ou autre logique après avoir enregistré la date de lancement
+    else:
+        form = LaunchCountdownForm()
     products = Product.objects.all()[0:5]
     context = {
         'products': products,
+        'form' : form
         
         }
     return render(request, "base/home.html", context)

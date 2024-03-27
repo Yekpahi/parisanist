@@ -1,4 +1,5 @@
 {% load static %} 
+
 <div class="summary-and-payment-contents" id="sap">
     <ul>
       <!-- Personal informations -->
@@ -74,7 +75,6 @@
       <!-- End Billing address -->
 <!-- start of payments methods -->
 <li class="summary-payment-method">
-            
     <ul>
         <li class="summary-payment-title">Payment methods</li>
   
@@ -82,32 +82,10 @@
         {% if order.payment_method == 'Paypal' %}
  <!-- Paypal-->
  <li class="one-payment-method">
-  <ul>
-    <li class="one-card-x">
-      <ul class="first-infos">
-        <li class="s-method-input">
-          <input
-            type="radio"
-            id="paypal"
-            name="payment_method"
-            value="paypal"
-          />
-        </li>
-        <li class="s-method-image">
-          <img
-            src="{% static 'assets/imgs/paypal.png' %}"
-            alt=""
-          />
-        </li>
-        <li class="s-method-label">
-          <label for="html">Paypal</label><br />
-        </li>
-      </ul>
-    </li>
-    <li class="link-paypal">
-      <a href="">Paypal</a>
-    </li>
-  </ul>
+  <!-- Set up a container element for the button -->
+	<div id="paypal-button-container">
+    <!-- PayPal Button Will Load -->
+  </div>
 </li>
 <!-- Paypal -->
           {% elif order.payment_method == 'Card' %}
@@ -175,8 +153,7 @@
           {% else %}
           No payment method selected
         {% endif %}
-          
-       
-        
+               
     </ul>
   </div>
+

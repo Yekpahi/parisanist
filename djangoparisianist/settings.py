@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from django.contrib.messages import constants as messages
 import os
+from environs import Env
+env = Env()
+env.read_env()
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -196,8 +200,8 @@ PAYPAL_TEST = False
 
 # Stripe setting
 
-STRIPE_PUBLIC_KEY = ""
-STRIPE_SECRET_KEY = ""
+STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
 STRIPE_WEBHOOK_SECRET = ""
 
 
