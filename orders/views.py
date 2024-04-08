@@ -30,7 +30,7 @@ def stripe_config(request):
     
     
 stripe.api_key = settings.STRIPE_SECRET_KEY
-def stripe_payment(request):
+def stripe_payment11(request):
     if request.method == 'GET':
         domain_url = settings.DOMAIN_URL
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -121,7 +121,7 @@ def stripe_payment(request):
         except Exception as e:
             return JsonResponse({'error': str(e)})
 
-def stripe_paymentsss(request):
+def stripe_payment(request):
     if request.method == 'GET':
         domain_url = settings.DOMAIN_URL
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -192,9 +192,54 @@ def stripe_paymentsss(request):
 
             # Enregistrez la commande dans la base de données
             order.save()
+            # Move the cart items to Order Product table
+            cart_items = CartItem.objects.filter(user=request.user)
+
+            for item in cart_items:
+                orderproduct = OrderProduct()
+                orderproduct.order_id = order.id
+                orderproduct.payment = payment
+                orderproduct.user_id = request.user.id
+                orderproduct.product_id = item.product_id
+                orderproduct.quantity = item.quantity
+                orderproduct.product_price = item.product.product_price
+                orderproduct.ordered = True
+                orderproduct.save()
+
+                cart_item = CartItem.objects.get(id=item.id)
+                product_variation = cart_item.variations.all()
+                orderproduct = OrderProduct.objects.get(id=orderproduct.id)
+                orderproduct.variations.set(product_variation)
+                orderproduct.save()
+
+                # Reduce the quantity of the sold products
+                product = Product.objects.get(id=item.product_id)
+                product.product_stock -= item.quantity
+                product.save()
+
+            # Clear cart
+            CartItem.objects.filter(user=request.user).delete()
+
+            # Send order received email to customer
+            mail_subject = 'Thank you for your order!'
+            message = render_to_string('orders/order_received_email.html', {
+                'user': request.user,
+                'order': order,
+            })
+            to_email = request.user.email
+            send_email = EmailMessage(mail_subject, message, to=[to_email])
+            send_email.send()
+
+            # Send order number and transaction id back to sendData method via JsonResponse
+            data = {
+                'order_number': order.order_number,
+                'transID': payment.payment_id,
+                'sessionId': checkout_session['id']
+            }
+            
 
             # Autres actions...
-            return JsonResponse({'sessionId': checkout_session['id']})
+            return JsonResponse(data)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)  # Retournez une réponse JSON avec l'erreur et un statut 500 en cas d'erreur
 # Stripe payment
