@@ -91,62 +91,26 @@
           {% elif order.payment_method == 'Card' %}
           <!-- Credit card -->
         <li class="one-payment-method">
-          <ul>
-            <li class="one-card-x">
-              <ul class="first-infos">
-                <li class="s-method-input">
-                  <input
-                    type="radio"
-                    id="paypal"
-                    name="payment_method"
-                    value="card"
-                  />
-                </li>
-                <li class="s-method-image">
-                  <span class="material-symbols-outlined">
-                    credit_card
-                  </span>
-                </li>
-                <li class="s-method-label">
-                  <label for="html">Card</label><br />
-                </li>
-              </ul>
-            </li>
-            <li class="fill-credit-card">
-              <ul>
-                <li class="card-number-and-type">
-                  <input type="text" placeholder="Card number" />
-                  <div>
-                    <img
-                      src="{% static 'assets/imgs/credit-cart.png'%}"
-                      alt=""
-                    />
-                    <img
-                      src="{% static 'assets/imgs/visa.png'%}"
-                      alt=""
-                    />
-                  </div>
-                </li>
-                <li class="expiration">
-                  <input type="text" placeholder="Expiration : MM/YY" />
-                </li>
-                <li class="cvc">
-                  <input type="text" placeholder="CVC" />
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <input name="first_name" type="hidden" class="w-full p-5 rounded-xl" value="{{order.first_name}}">
+          <input name="last_name" type="hidden" class="w-full p-5 rounded-xl" value="{{order.last_name}}">
+          <input name="city" type="hidden" class="w-full p-5 rounded-xl" value="{{order.city}}">
+          <input name="country" type="hidden" class="w-full p-5 rounded-xl" value="{{order.country}}">
+          <input name="phone" type="hidden" class="w-full p-5 rounded-xl" value="{{order.phone}}">
+          <input name="address_line_1" type="hidden" class="w-full p-5 rounded-xl" value="{{order.address_line_1}}">
+          <input name="address_line_2" type="hidden" class="w-full p-5 rounded-xl" value="{{order.address_line_2}}">
+          <input name="zip_code" type="hidden" class="w-full p-5 rounded-xl" value="{{order.zip_code}}">
+          <input name="postcode" type="hidden" class="w-full p-5 rounded-xl" value="{{order.postcode}}">
+          <input name="payment_method" type="hidden" class="w-full p-5 rounded-xl" value="{{order.payment_method}}">
+          <input name="delivery_method" type="hidden" class="w-full p-5 rounded-xl" value="{{order.delivery_method}}">
+          <input name="order_number" type="hidden" class="w-full p-5 rounded-xl" value="{{order.dorder_number}}">
+
+          <button onclick="buy(event)" class="inline-block px-8 py-4 rounded-xl bg-red-600 hover:bg-red-700 text-white">Pay now</button>
+        </li>
+        <li>
+          <div class="mb-6 p-6 bg-gray-100 rounded-xl" id="errors">
+          </div>
         </li>
         <!-- End credit card -->
-        <li>
-          <button
-            type="submit"
-            name="submit"
-            class="btn btn-primary btn-block"
-          >
-            Place order
-          </button>
-        </li>
       </ul>
           </li>
           <!-- End of payments methods -->
@@ -156,4 +120,3 @@
                
     </ul>
   </div>
-

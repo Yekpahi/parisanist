@@ -1,7 +1,7 @@
 {% load static %}
 <form class="delivery-infos-contents" id="dinfos" action="{% url 'place_order' %}" method="POST">
   {% csrf_token %}
-        <ul class="civility">
+    <ul class="civility">
           <li class="form">
            {{orderform.first_name}}
             <span class="floating-label">First name</span>
@@ -15,8 +15,8 @@
              
             <span class="floating-label">Email</span>
           </li>
-        </ul>
-        <ul class="others-delivery-infos">
+    </ul>
+    <ul class="others-delivery-infos">
           <li class="countries">
             <label for="country">Pays/Région</label>
            {{ orderform.country}}
@@ -49,123 +49,22 @@
               </li>
             </ul>
           </li>
-        </ul>
-        <!-- Delivery Method -->
-        <ul class="delivery-method">
-          <li class="deliv-title">Delivery method</li>
+    </ul>
 
-          <li class="xmethod">
-            {{orderform.delivery_method}}
-          </li>
+   <ul class="delivery-methods">
+    <li class="delivery_title">Delivery Methods</li>
+    <li class="delivery_orderform">
+      {{orderform.delivery_method}}
+    </li>
+   </ul>
+   <ul class="payment-methods">
+    <li class="payment_title">Payment Methods</li>
+    <li class="payment_orderform">
+      {{orderform.payment_method}}
+    </li>
+   </ul>
+   <ul>
+       <button type="submit" name="submit" class="btn_place_order">Place order</button>
+   </ul>
 
-          <!-- <li class="xmethod">
-            <ul>
-              <li class="method">
-               <input type="radio" id="colissimo" name="delivery_method"
-                value="Colissimo" {% if form.derilery_method.value == "Colissimo" %} checked {% endif %} /> 
-                <label for="colissimo" >Colissimo</label>
-              </li>
-              <li>FREE</li>
-            </ul>
-            <p>Delivery within 2 - 5 days</p>
-          </li> -->
-
-          <!-- <li>
-            <label>
-              Delivery Method: {% for value, label in form.delivery_method.field.choices %} 
-              <input type="radio" name="delivery_method" value="{{ value }}" id="id_delivery_method_{{ forloop.counter }}" {% if value == order.delivery_method %}checked{% endif %}>
-              <label for="id_delivery_method_{{ forloop.counter }}"
-                >{{ label }}</label
-              ><br />
-              {% endfor %} </label
-            ><br />
-            <label>
-              Payment Method: {% for value, label in form.payment_method.field.choices %} 
-              <input type="radio"
-              name="payment_method" value="{{ value }}" id="id_payment_method_{{ forloop.counter }}" {% if value == order.payment_method %}checked{% endif %}>
-              <label for="id_payment_method_{{ forloop.counter }}"
-                >{{ label }}</label
-              ><br />
-              {% endfor %} </label
-            ><br />
-
-          </li> -->
-          
-           <!-- start of payments methods -->
-          <li class="summary-payment-method">
-            
-    <ul>
-        <li class="summary-payment-title">Payment methods</li>
-  
-        <!-- Paypal-->
-        <li class="one-payment-method">
-          <ul>
-            <li class="one-card-x">
-              {{ orderform.payment_method }}
-            </li>
-          </ul>
-        </li>
-        <!-- Paypal -->
-        <!-- Credit card -->
-        <!-- <li class="one-payment-method">
-          <ul>
-            <li class="one-card-x">
-              <ul class="first-infos">
-                <li class="s-method-input">
-                  <input
-                    type="radio"
-                    id="card"
-                    name="payment_method"
-                    value="card"
-                  />
-                </li>
-                <li class="s-method-image">
-                  <span class="material-symbols-outlined">
-                    credit_card
-                  </span>
-                </li>
-                <li class="s-method-label">
-                  <label for="html">Card</label><br />
-                </li>
-              </ul>
-            </li>
-            <li class="fill-credit-card">
-              <ul>
-                <li class="card-number-and-type">
-                  <input type="text" placeholder="Card number" />
-                  <div>
-                    <img
-                      src="{% static 'assets/imgs/credit-cart.png'%}"
-                      alt=""
-                    />
-                    <img
-                      src="{% static 'assets/imgs/visa.png'%}"
-                      alt=""
-                    />
-                  </div>
-                </li>
-                <li class="expiration">
-                  <input type="text" placeholder="Expiration : MM/YY" />
-                </li>
-                <li class="cvc">
-                  <input type="text" placeholder="CVC" />
-                </li>
-              </ul>
-            </li>
-          </ul> -->
-        </li>
-        <!-- End credit card -->
-        <li>
-          <button
-            type="submit"
-            name="submit"
-            class="btn_place_order"
-          >
-            Place order
-          </button>
-        </li>
-      </ul>
-          </li>
-          <!-- End of payments methods -->
-       </ul>
 </form>

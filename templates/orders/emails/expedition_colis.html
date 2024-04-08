@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Votre commande a été expédiée</title>
+</head>
+<body>
+    <p>Bonjour {{ order.full_name }},</p>
+    <p>Votre commande {{ order.order_number }} a été expédiée.</p>
+    <p>Vous pouvez suivre votre colis en utilisant le numéro de suivi suivant : {{ order.delivery_tracking_number }}</p>
+    <p>Merci de faire affaire avec nous !</p>
+    <p>Cordialement,<br>Votre équipe de vente</p>
+</body>
+</html>

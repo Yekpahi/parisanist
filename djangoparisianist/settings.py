@@ -101,7 +101,7 @@ WSGI_APPLICATION = 'djangoparisianist.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'database_of_parisianist',
+        'NAME': 'database_parisianist',
         'USER': 'Kouassi',
         'PASSWORD': 'Azerty1234?',
         'HOST': '127.0.0.1',
@@ -202,7 +202,8 @@ PAYPAL_TEST = False
 
 STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
-STRIPE_WEBHOOK_SECRET = ""
+DOMAIN_URL =  env("DOMAIN_URL")
+STRIPE_ENDPOINT_SECRET = "whsec_7f5bae7cdd6f6d11bf8d18fd2f9e8d6ff2bff780edab0592c971ee6b06cf151e"
 
 
 #GeoIP setting

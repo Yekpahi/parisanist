@@ -10,6 +10,9 @@ class Cart(models.Model):
     
     def __str__(self):
         return self.cart_id
+    def get_items(self):
+        return CartItem.objects.filter(cart=self)
+
 
 class CartItem(models.Model):
     user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)

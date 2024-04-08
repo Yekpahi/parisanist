@@ -1,5 +1,5 @@
 {% extends '../main.html' %} {% load static %} 
-{% block title %}Checkout{%endblock %} {% block content %}
+{% block title %}Summary and payment{%endblock %} {% block content %}
 <link
   rel="stylesheet"
   href=" {% static 'assets/css/checkout/checkout.css' %}"
@@ -13,10 +13,13 @@
     <div class="tab-header">
       <ul>
         <li class="delivery-infos">
-          <span>Delivery informations</span>
+          <a href="{% url 'checkout' %}" >Delivery informations</a>
         </li>
         <li class="summary-and-payment">
-          <span>Summary and payment</span>
+          <a class="order_page_link" href="{% url 'place_order' %}">Order page</a>
+        </li>
+        <li class="summary-and-payment">
+          <a href = "#" class="summary-and-payment_order_ckeckout_button activated_link">Summary and payment</a>
         </li>
       </ul>
     </div>
@@ -35,7 +38,6 @@
   <div class="right-side">
     <!-- cart label -->
     <p class="shopping-cart-title">Shopping cart</p>
-
     <!-- One cart informations -->
     <div class="scroll">
       {% for item in cart_items %}
@@ -57,9 +59,9 @@
             <!-- Price and product name -->
             <ul class="name-and-price">
               <li class="product-name">
-                <a href="#">{{ item.product.product_name }}</a>
+                <a class="order_product_name_link" href="#">{{ item.product.product_name }}</a>
               </li>
-              <li class="product-price">{{total_amt}}Eur</li>
+              <li class="product-price">{{item.sub_total}}Eur</li>
             </ul>
             <!-- End Price and product name -->
             <!-- color and size -->
@@ -72,7 +74,7 @@
             <!-- End color and size -->
             <!-- Quantity remove add and delete cart -->
             <ul class="qty-remove-add-delete">
-              <li class="quantity">qty : {{item.qty}}</li>
+              <li class="quantity">qty : {{item.quantity}}</li>
             </ul>
             <!-- End Quantity remove add and delete cart -->
           </div>
@@ -85,7 +87,20 @@
     <!-- cart others informations -->
     <div class="others-infos-main">
       <div class="others-infos-container">
+        {% if order.delivery_method == 'DHL' %}
         <div class="total-and-tva">
+         
+          <ul>
+            <li class="total-text">Total</li>
+            <li class="" the-total>{{ grand_total_dhl }} Eu</li>
+          </ul>
+          <p class="tva-infos">
+            A VAT of {{tax}} Eur is included in the total price + 50 Eu for DHL delivery
+          </p>
+        </div>
+        {% else %}
+        <div class="total-and-tva">
+         
           <ul>
             <li class="total-text">Total</li>
             <li class="" the-total>{{ grand_total }} Eu</li>
@@ -94,6 +109,7 @@
             A VAT of {{tax}} Eur is included in the total price
           </p>
         </div>
+        {% endif %}
         <div class="continue-shop">
           <a href="{% url 'store' %}"><span>Continue to shop</span></a>
         </div>
@@ -134,10 +150,10 @@
     var amount = "{{grand_total}}"
     amount = amount.replace(',', '.');
     console.log(amount)
-    var url = "{% url 'payments' %}"
     var csrftoken = getCookie('csrftoken');
     var orderID = "{{ order.order_number }}"
     var payment_method = 'PayPal'
+    var url = "{% url 'paypal_payment' %}"
     var redirect_url = "{% url 'order_complete' %}"
 
     // Render the PayPal button into #paypal-button-container

@@ -17,9 +17,11 @@
   <div class="left-details-container">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
-        {% for img in images %} {% if img.product_image %}
-        <img class="swiper-slide {% if forloop.counter0 == 0 %} active {% endif %}" src="{{img.product_image.url}}" />
-        {% endif %} {% endfor %}
+        {% for variation in variations %}
+          {% for image in variation.variationimages_set.all %}
+            <img class="swiper-slide {% if forloop.parentloop.first and forloop.first %} active {% endif %}" src="{{ image.variation_image.url }}" alt="{{ image.title }}">
+          {% endfor %}
+        {% endfor %}
       </div>
       <div class="swiper-button-next swiper-arrow"></div>
       <div class="swiper-button-prev swiper-arrow"></div>

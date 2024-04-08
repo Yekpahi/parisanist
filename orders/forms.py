@@ -46,9 +46,8 @@ class OrderForm(forms.ModelForm):
     postcode = forms.CharField(widget=forms.TextInput(attrs={"class": "", "id":"postcode", "name":"postcode"}))
     city = forms.CharField(widget=forms.TextInput(attrs={"class": "", "id":"city", "name":"city"}))
     zip_code = forms.ChoiceField(choices=ZIP_CHOICES, widget=forms.Select(attrs={"class": "code-phone", "id":"zip_code", "name":"zip_code"}))
-    delivery_method = forms.ChoiceField(choices=DELIVERY_METHOD, widget=forms.RadioSelect(attrs={"class": "delivery-method", "name": "delivery_method"}))
-    payment_method = forms.ChoiceField(choices=PAYMENT_METHOD, widget=forms.RadioSelect(attrs={"class": "payment-method", "name": "payment_method"}))
-
+    delivery_method = forms.ChoiceField(choices=DELIVERY_METHOD, widget=forms.RadioSelect(attrs={"name": "delivery_method", "class": "delivery_method_inputs"}))
+    payment_method = forms.ChoiceField(choices=PAYMENT_METHOD, widget=forms.RadioSelect(attrs={"name": "payment_method", "class": "payment_method_inputs"}))
 
     class Meta:
         model = Order

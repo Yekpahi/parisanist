@@ -1,5 +1,5 @@
 {% extends '../main.html' %} {% load static %} 
-{% block title %}Checkout{%endblock %} {% block content %}
+{% block title %}Summary and stripe payment{%endblock %} {% block content %}
 <link
   rel="stylesheet"
   href=" {% static 'assets/css/checkout/checkout.css' %}"
@@ -8,33 +8,27 @@
 <div class="main">
   <!-- Left informations -->
   <div class="left-side">
-
     <!-- Tab header -->
 
     <div class="tab-header">
       <ul>
         <li class="delivery-infos">
-          <a class="activated_link" href="{% url 'checkout' %}" >Delivery informations</a>
+          <a href="{% url 'checkout' %}" >Delivery informations</a>
         </li>
         <li class="summary-and-payment">
           <a class="order_page_link" href="{% url 'place_order' %}">Order page</a>
         </li>
         <li class="summary-and-payment">
-          <button class="summary-and-payment_order_ckeckout_button" type="button" disabled>Summary and payment</button>
+          <a href = "#" class="summary-and-payment_order_ckeckout_button activated_link">Summary and payment</a>
         </li>
       </ul>
     </div>
     <!-- End Tab header -->
     <!-- Start The content -->
-    <div class="users_infos">
-      <!-- Start place order-->
-      <span class="user-full-name">{{user.first_name}}{{user.last_name}}</span>
-      <span class="user-full-email">{{user.email}}</span>
-      <span class="go_to_order">
-        <a href="{% url 'place_order' %}">Go to order page</a>
-      </span>
-      
-      <!-- End of place order -->
+    <div class="tab-contents">
+      <!-- Start of summary and payment contents -->
+      {% include './include/stripe-summary-and-payment.html' %}
+      <!-- End of summary and payment contents -->
     </div>
     <!-- End of The content -->
   </div>
@@ -44,7 +38,6 @@
   <div class="right-side">
     <!-- cart label -->
     <p class="shopping-cart-title">Shopping cart</p>
-
     <!-- One cart informations -->
     <div class="scroll">
       {% for item in cart_items %}
@@ -66,9 +59,9 @@
             <!-- Price and product name -->
             <ul class="name-and-price">
               <li class="product-name">
-                <a href="#">{{ item.product.product_name }}</a>
+                <a class="order_product_name_link" href="#">{{ item.product.product_name }}</a>
               </li>
-              <li class="product-price">{{item.sub_total}} Eur</li>
+              <li class="product-price">{{item.sub_total}}Eur</li>
             </ul>
             <!-- End Price and product name -->
             <!-- color and size -->
@@ -94,7 +87,20 @@
     <!-- cart others informations -->
     <div class="others-infos-main">
       <div class="others-infos-container">
+        {% if order.delivery_method == 'DHL' %}
         <div class="total-and-tva">
+         
+          <ul>
+            <li class="total-text">Total</li>
+            <li class="" the-total>{{ grand_total_dhl }} Eu</li>
+          </ul>
+          <p class="tva-infos">
+            A VAT of {{tax}} Eur is included in the total price + 50 Eu for DHL delivery
+          </p>
+        </div>
+        {% else %}
+        <div class="total-and-tva">
+         
           <ul>
             <li class="total-text">Total</li>
             <li class="" the-total>{{ grand_total }} Eu</li>
@@ -103,6 +109,7 @@
             A VAT of {{tax}} Eur is included in the total price
           </p>
         </div>
+        {% endif %}
         <div class="continue-shop">
           <a href="{% url 'store' %}"><span>Continue to shop</span></a>
         </div>

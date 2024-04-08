@@ -2,12 +2,11 @@ import json
 from django.urls import reverse
 import requests
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed, HttpResponseServerError, JsonResponse
 from django.shortcuts import render
 import datetime
 from django.shortcuts import render, redirect
-import stripe
-from carts.models import CartItem
+from carts.models import Cart, CartItem
 from store.models import Product
 from .forms import OrderForm
 from .models import Order, OrderProduct, Payment
@@ -15,9 +14,234 @@ from django.contrib.gis.geoip2 import GeoIP2
 from django.contrib import messages
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.core.mail import send_mail
+import stripe
+import uuid
+from django.views.decorators.csrf import csrf_exempt
+from django.views import View
+from django.views.generic import TemplateView
 
 
-def payments(request):
+@csrf_exempt
+def stripe_config(request):
+    if request.method == 'GET':
+        stripe_config = {'publicKey': settings.STRIPE_PUBLIC_KEY}
+        return JsonResponse(stripe_config, safe=False)
+    
+    
+stripe.api_key = settings.STRIPE_SECRET_KEY
+def stripe_payment(request):
+    if request.method == 'GET':
+        domain_url = settings.DOMAIN_URL
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        # Create or retrieve order
+        order = Order.objects.get(user=request.user, is_ordered=False)
+        try:
+            # Créez une nouvelle session de paiement Stripe
+            checkout_session = stripe.checkout.Session.create(
+                success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=domain_url + 'cancelled/',
+                payment_method_types=['card'],
+                mode='payment',
+                line_items=[
+                    {
+                        'price_data': {
+                            'currency': 'usd',
+                            'unit_amount': int(order.order_total * 100),  # Vous pouvez remplacer cela par le montant réel de la commande
+                            'product_data': {
+                                'name': 'T-shirt',  # Vous pouvez remplacer cela par le nom réel du produit
+                            },
+                        },
+                        'quantity': 1,
+                    }
+                ]
+            )
+            
+            # Créez un nouvel objet Payment associé à la commande
+            payment = Payment.objects.create(
+                user=request.user,  # Assurez-vous d'avoir accès à l'utilisateur approprié ici
+                payment_id=checkout_session['id'],  # Utilisez l'ID de session Stripe comme ID de paiement
+                payment_method='Card',  # Vous pouvez ajuster cela en fonction de la méthode de paiement réelle
+                amount_paid=20.00,  # Remplacez cela par le montant réel payé
+                status='Completed'  # Vous pouvez ajuster cela en fonction de l'état réel du paiement
+            )
+            
+            # Sauvegardez l'objet Payment dans la base de données
+            payment.save()
+            order.payment = payment
+            order.is_ordered = True
+            order.save()
+
+            # Move the cart items to Order Product table
+            cart_items = CartItem.objects.filter(user=request.user)
+
+            for item in cart_items:
+                orderproduct = OrderProduct()
+                orderproduct.order_id = order.id
+                orderproduct.payment = payment
+                orderproduct.user_id = request.user.id
+                orderproduct.product_id = item.product_id
+                orderproduct.quantity = item.quantity
+                orderproduct.product_price = item.product.product_price
+                orderproduct.ordered = True
+                orderproduct.save()
+
+                cart_item = CartItem.objects.get(id=item.id)
+                product_variation = cart_item.variations.all()
+                orderproduct = OrderProduct.objects.get(id=orderproduct.id)
+                orderproduct.variations.set(product_variation)
+                orderproduct.save()
+
+                # Reduce the quantity of the sold products
+                product = Product.objects.get(id=item.product_id)
+                product.product_stock -= item.quantity
+                product.save()
+
+            # Clear cart
+            CartItem.objects.filter(user=request.user).delete()
+
+            # Send order received email to customer
+            mail_subject = 'Thank you for your order!'
+            message = render_to_string('orders/order_received_email.html', {
+                'user': request.user,
+                'order': order,
+            })
+            to_email = request.user.email
+            send_email = EmailMessage(mail_subject, message, to=[to_email])
+            send_email.send()
+
+            # Send order number and transaction id back to sendData method via JsonResponse
+            data = {
+                'order_number': order.order_number,
+                'transID': payment.payment_id,
+            }
+            
+            # Retournez la session ID de Stripe dans la réponse JSON
+            return JsonResponse({'sessionId': checkout_session['id']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
+
+def stripe_paymentsss(request):
+    if request.method == 'GET':
+        domain_url = settings.DOMAIN_URL
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        
+        try:
+            # Créez ou récupérez la commande
+            order = Order.objects.get(user=request.user, is_ordered=False)
+            
+            # Créez une nouvelle session de paiement Stripe
+            checkout_session = stripe.checkout.Session.create(
+                success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=domain_url + 'cancelled/',
+                payment_method_types=['card'],
+                mode='payment',
+                line_items=[
+                    {
+                        'price_data': {
+                            'currency': 'usd',
+                            'unit_amount': int(order.order_total * 100),
+                            'product_data': {
+                                'name': 'T-shirt',  # Nom par défaut, sera remplacé ci-dessous
+                            },
+                        },
+                        'quantity': 1,
+                    }
+                ]
+            )
+            
+            # Récupérez les produits de la commande
+            order_products = order.orderproduct_set.all()
+            line_items = []
+
+            for order_product in order_products:
+                line_item = {
+                    'price_data': {
+                        'currency': 'usd',
+                        'unit_amount': int(order_product.product_price * 100),
+                        'product_data': {
+                            'name': order_product.product.product_name,  # Utilisez le vrai nom du produit
+                        },
+                    },
+                    'quantity': order_product.quantity,
+                }
+                line_items.append(line_item)
+
+            # Mettez à jour les éléments de la ligne avec les vrais produits
+            checkout_session.update({
+                'line_items': line_items
+            })
+
+            # Générez un numéro de commande unique
+            order.order_number = str(uuid.uuid4()).replace('-', '')[:20]
+
+            # Créez un nouvel objet Payment associé à la commande
+            payment = Payment.objects.create(
+                user=request.user,
+                payment_id=checkout_session['id'],
+                payment_method='Card',
+                amount_paid=order.order_total,
+                status='Completed'
+            )
+            payment.save()
+
+            # Associez le paiement à la commande et marquez-la comme commandée
+            order.payment = payment
+            order.is_ordered = True
+            order.save()
+
+            # Enregistrez la commande dans la base de données
+            order.save()
+
+            # Autres actions...
+            return JsonResponse({'sessionId': checkout_session['id']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)  # Retournez une réponse JSON avec l'erreur et un statut 500 en cas d'erreur
+# Stripe payment
+class SuccessView(TemplateView):
+    template_name = 'success.html'
+
+
+class CancelledView(TemplateView):
+    template_name = 'cancelled.html'
+
+
+def stripe_success(request):
+    return render(request, 'orders/success.html')
+
+
+def stripe_cancel(request):
+    return render(request, 'orders/cancel.html')
+
+# payments/views.py
+
+@csrf_exempt
+def stripe_webhook(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    endpoint_secret = settings.STRIPE_ENDPOINT_SECRET
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+    event = None
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, endpoint_secret
+        )
+    except ValueError as e:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return HttpResponse(status=400)
+
+    # Handle the checkout.session.completed event
+    if event['type'] == 'checkout.session.completed':
+        print("Payment was successful.")
+        # TODO: run some custom code here
+
+    return HttpResponse(status=200)
+
+def paypal_payment(request):
     body = json.loads(request.body)
     order = Order.objects.get(
         user=request.user, is_ordered=False, order_number=body['orderID'])
@@ -82,7 +306,13 @@ def payments(request):
     return JsonResponse(data)
 
 
+
+
+# Orders
+
+
 def place_order(request, total=0, quantity=0):
+    pub_key = settings.STRIPE_PUBLIC_KEY
     current_user = request.user
     cart_items = CartItem.objects.filter(user=current_user)
     cart_count = cart_items.count()
@@ -91,12 +321,17 @@ def place_order(request, total=0, quantity=0):
         return redirect('store')
 
     grand_total = 0
+    grand_total_dhl = 0
+    taxdhl = 0
     tax = 0
+
     for cart_item in cart_items:
         total += (cart_item.product.product_price * cart_item.quantity)
         quantity += cart_item.quantity
     tax = (20 * total) / 100
+    taxdhl = 50
     grand_total = round((total + tax), 2)
+    grand_total_dhl += grand_total + taxdhl
 
     if request.method == 'POST':
         orderform = OrderForm(request.POST)
@@ -114,12 +349,12 @@ def place_order(request, total=0, quantity=0):
             data.postcode = orderform.cleaned_data['postcode']
             data.country = orderform.cleaned_data['country']
             data.city = orderform.cleaned_data['city']
+            payment_method = orderform.cleaned_data.get('payment_method')
             data.delivery_method = orderform.cleaned_data['delivery_method']
-            data.payment_method = orderform.cleaned_data['payment_method']
+            # data.payment_method = orderform.cleaned_data['payment_method']
             data.order_total = grand_total
             data.tax = tax
             data.ip = request.META.get('REMOTE_ADDR')
-
             # Utilisez une adresse IP spécifique pour simuler la localisation
             if settings.DEBUG:
                 # Utilisation de l'API ipify pour obtenir une adresse IP publique
@@ -159,10 +394,13 @@ def place_order(request, total=0, quantity=0):
 
             data.save()
 
-            # if orderform.cleaned_data['payment_method'] == "Card":
-            #     return redirect('paypal_payment')
-            # elif orderform.cleaned_data['payment_method'] == "Paypal":
+            # if payment_method == "Card":
             #     return redirect('stripe_payment')
+
+            # elif  payment_method == "Paypal":
+            #     return redirect('paypal_payment')
+            # else :
+            #     pass
 
             yr = int(datetime.date.today().strftime('%y'))
             dt = int(datetime.date.today().strftime('%d'))
@@ -181,10 +419,15 @@ def place_order(request, total=0, quantity=0):
                 'cart_items': cart_items,
                 'total': total,
                 'tax': tax,
-                'grand_total': grand_total
+                'taxdhl': taxdhl,
+                'grand_total': grand_total,
+                'grand_total_dhl': grand_total_dhl,
+                'pub_key': pub_key
             }
-
-            return render(request, 'orders/payments.html', context)
+            if payment_method == "Card":
+                return render(request, 'orders/stripe_payments.html', context)
+            if payment_method == "Paypal":
+                return render(request, 'orders/payments.html', context)
 
     else:
         orderform = OrderForm()
@@ -194,9 +437,11 @@ def place_order(request, total=0, quantity=0):
         'cart_items': cart_items,
         'total': total,
         'tax': tax,
-        'grand_total': grand_total
+        'taxdhl': taxdhl,
+        'grand_total': grand_total,
+        'grand_total_dhl': grand_total_dhl
     }
-    return render(request, 'orders/place-order.html', context)
+    return render(request, 'orders/place_order.html', context)
 
 
 def order_complete(request):
@@ -206,12 +451,17 @@ def order_complete(request):
         order = Order.objects.get(order_number=order_number, is_ordered=True)
         ordered_products = OrderProduct.objects.filter(order_id=order.id)
         subtotal = 0
-        # tax = 0
-        # grand_total = 0
+        tax = 0
+        grand_total = 0
+        grand_total_dhl = 0
+
         for i in ordered_products:
             subtotal += i.product_price * i.quantity
-            # tax += (2*subtotal)/100
-            # grand_total += subtotal + tax
+            tax += (2*subtotal)/100
+            taxdhl = 50
+            grand_total += subtotal + tax
+            grand_total_dhl += grand_total + taxdhl
+
         payment = Payment.objects.get(payment_id=transID)
         context = {
             'order': order,
@@ -220,17 +470,11 @@ def order_complete(request):
             'transID': payment.payment_id,
             'payment': payment,
             'subtotal': subtotal,
-            # 'tax': tax,
-            # 'grand_total': grand_total,
+            'tax': tax,
+            'taxdhl': taxdhl,
+            'grand_total': grand_total,
+            'grand_total_dhl': grand_total_dhl
         }
         return render(request, 'orders/order_complete.html', context)
     except (Payment.DoesNotExist, Order.DoesNotExist):
         return redirect('order_complete')
-
-# def stripe_payment(request):
-#     return render(request, 'orders/payments.html')
-
-# def paypal_payment(request):
-#     return render(request, 'orders/payments.html')
-
-# orders views

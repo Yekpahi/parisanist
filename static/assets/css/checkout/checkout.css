@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
-
 body {
   position: relative;
   width: 100%;
@@ -649,10 +648,87 @@ body {
   padding-bottom: 15px;
 }
 
-.btn_place_order{
+.btn_place_order {
   width: 100%;
   padding: 5px;
   background-color: black;
   color: white;
   cursor: pointer;
+}
+
+/* User infos */
+
+.users_infos {
+  display: flex;
+  flex-direction: column;
+}
+
+.users_infos > span {
+  margin-bottom: 20px;
+}
+
+.go_to_order {
+  width: 100%;
+  background-color: black;
+  display: flex;
+  padding: 5px
+}
+
+.go_to_order > a {
+  width: 100%;
+  color: white;
+  text-align: center;
+
+}
+
+/* delivery method */
+
+
+.delivery_title {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.delivery_orderform {
+  margin-bottom: 15px;
+}
+
+.delivery_method_inputs{
+  margin-bottom: 15px;
+}
+
+.order_page_link {
+  color: black;
+}
+
+/* delivery method */
+
+.payment_title {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+.payment_orderform {
+  margin-bottom: 15px;
+}
+
+.payment_method_inputs{
+  margin-bottom: 15px;
+}
+
+
+/* Right element side */
+
+.order_product_name_link {
+  color: black;
+}
+
+/* payment redirect button */
+.summary-and-payment_order_ckeckout_button {
+  background:none;
+  border: none;
+}
+
+/* Activated link */
+
+.activated_link{
+  color: rgb(36, 163, 253);
 }

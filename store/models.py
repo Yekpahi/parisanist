@@ -79,10 +79,21 @@ class Variation(models.Model):
     is_available = models.BooleanField(default=True)
     created_date = models.DateField(auto_now=True)
 
+
     def __str__(self):
         return self.product.product_name
 
+class VariationImages(models.Model):
+    title = models.CharField(max_length=500, blank=True, null = True)
+    variation = models.ForeignKey(Variation, on_delete=models.CASCADE)
+    variation_image = models.ImageField(upload_to='stactic/variation_images/', verbose_name=("variation_image"))
+    variation_image_slug = models.SlugField(null=True, blank=True)
+    is_feature=models.BooleanField(default=False)
+    def __str__(self):
+        return str(self.title)  # on met str(...) pour convertir en string
 
+    
+    
 class Wishlist(models.Model):
     user = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
     product =models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
