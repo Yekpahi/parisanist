@@ -159,28 +159,30 @@ def wishlist(request):
     return render(request, "user/dashboard/wishlist.html", context)
 
 
-def add_to_wishlist(request):
-    if request.accepts('text/html') and request.POST and 'attr_id' in request.POST:
-        if request.user.is_authenticated:
-            data = Wishlist.objects.filter(user_id=request.user.pk, product_id=int(request.POST['attr_id']))
-            print(data)
-            if data.exists():
-                data.delete()
-                liked = False
-            else:
-                Wishlist.objects.create(user_id=request.user.pk, product_id=int(request.POST['attr_id']))
-                liked = True
-            return JsonResponse({'liked': liked})
-        else:
-            return JsonResponse({'error': 'User is not authenticated'}, status=401)
+def toggle_wishlist(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Authentication required'}, status=401)
 
-    return redirect("home")
+    product_id = request.POST.get('product_id')
+    product = get_object_or_404(Product, id=product_id)
+    
+    wishlist_item, created = Wishlist.objects.get_or_create(user=request.user, product=product)
+    if not created:
+        # The product is already in the wishlist, so we remove it
+        wishlist_item.delete()
+        action = 'removed'
+    else:
+        action = 'added'
+    
+    # Count current items in the wishlist after action
+    wishlist_count = Wishlist.objects.filter(user=request.user).count()
+
+    return JsonResponse({'status': action, 'wishlist_count': wishlist_count})
 
 
 
 
-
-def remove_wishlist(request):
+def remove_from_wishlist(request):
     pid = request.GET['id']
     wishlist = Wishlist.objects.filter(user=request.user).count()
     wishlist_id = Wishlist.objects.get(id=pid)

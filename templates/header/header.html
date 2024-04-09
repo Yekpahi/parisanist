@@ -54,14 +54,17 @@
       <li class="right favorite hideOnMobile">
         <a href="{% url 'wishlist' %}">
           <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
-          <div id="wishlist-count" class="favorite-counter"><span>{{wishlist_count}}</span></div>
+          <div id="wishlist-counter" class="favorite-counter"><span>{{ wishlist_count }}</span></div>
         </a>
       </li>
       <!-- End favorite icon -->
       <!-- basket icon -->
       <li class="right basket hideOnMobile">
-        <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
-        <div class="basket-counter"><a href="{% url 'cart' %}" class="cart-list">{{cart_count}}</a></div>
+        <a href="{% url 'cart' %}">
+          <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
+          <div class="basket-counter">{{cart_count}}</div>
+        </a>
+       
       </li>
         <!-- End basket icon -->
       {% else %}

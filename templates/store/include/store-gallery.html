@@ -44,26 +44,13 @@
         </div>
       </a>
       <!-- ADD TO WISHLIST -->
-      {% if user.is_authenticated %} {% if product.id in wishlisted_list %}
-      <a
-      href="#"
-        class="like refresh"
-        id="id"
-        attr_id="{{product.id}}"
-        action_url="{% url 'add_to_wishlist' %}"
-      >
-        <i class="fa fa-heart"></i>
-      </a>
+      {% if user.is_authenticated %} 
+      {% if product.id in wishlisted_list %}
+      <a href="#" class="like refresh wishlist-toggle" data-product-id="{{ product.id }}">❤️</a> <!-- Default to empty heart -->
       {% else %}
-      <a href="{% url 'store' %}"
-        class="like refresh"
-        id="id"
-        attr_id="{{product.id}}"
-        action_url="{% url 'add_to_wishlist' %}"
-      >
-        <i class="far fa-heart"></i>
-      </a>
-      {% endif %} {% else %}
+      <a href="#" class="like refresh wishlist-toggle" data-product-id="{{ product.id }}">🖤</a> <!-- Default to empty heart -->
+      {% endif %} 
+      {% else %}
       <span class="like">
         <a href="{% url 'login' %}">
           <i class="far fa-heart"></i>
@@ -75,46 +62,43 @@
     </div>
     <!-- show and hide elements -->
   </div>
-  {% endfor %} {% else %}
+  {% endfor %} 
+  {% else %}
   <p>No product found, try again..</p>
   {% endif %}
   <!-- End one slider -->
 </div>
 
 <script>
-$(document).ready(function () {
-  // Function to update wishlist count in header
-  function updateWishlistCount(count) {
-    $("#wishlist-count").text(count);
-  }
-
-  $(".like").click(function (event) {
-    event.preventDefault(); // Prevent default action of anchor tag
-    var attr_id = $(this).attr("attr_id");
-    var action_url = $(this).attr("action_url");
-    var that = $(this);
-    $.ajax({
-      url: action_url,
-      type: "POST",
-      data: { attr_id: attr_id },
-      headers: { "X-CSRFToken": $.cookie("csrftoken") },
-      success: function (response) {
-        if (response.liked) {
-          that.find('i').removeClass('fa-heart').addClass('far fa-heart'); // Change to empty heart icon
-          updateWishlistCount(response.wishlist_count);
-        } else {
-          that.find('i').removeClass('far fa-heart').addClass('fa-heart'); // Change to full heart icon
-          updateWishlistCount(response.wishlist_count);
-        }
-      },
-      error: function () {
-        console.log("Please login");
-      },
-    });
+  $(document).ready(function() {
+      $('.wishlist-toggle').click(function(e) {
+          e.preventDefault();
+          var productId = $(this).data('product-id');
+          $.ajax({
+              type: 'POST',
+              url: '{% url 'toggle-wishlist' %}',
+              data: {
+                  'product_id': productId,
+                  'csrfmiddlewaretoken': '{{ csrf_token }}'
+              },
+              success: function(response) {
+                  if (response.status === 'added') {
+                      // Change icon to filled heart
+                      $('a[data-product-id="' + productId + '"]').html('❤️'); // Use your filled heart icon here
+                  } else {
+                      // Change icon to empty heart
+                      $('a[data-product-id="' + productId + '"]').html('🖤'); // Use your empty heart icon here
+                  }
+                  // Update wishlist counter
+                  $('#wishlist-counter').text(response.wishlist_count);
+              },
+              error: function(xhr, errmsg, err) {
+                  console.log(xhr.status + ": " + xhr.responseText);
+              }
+          });
+      });
   });
-})
-
-</script>
+  </script>
 
 <!-- <script type="text/javascript">
   $(document).ready(function () {
