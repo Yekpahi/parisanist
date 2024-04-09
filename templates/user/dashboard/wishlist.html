@@ -1,18 +1,20 @@
-{% extends '../../main.html' %} {% load static %} {% block title %} {{
-    user.username}} | Dashboard {% endblock %} {% block content %}
+{% extends '../../main.html' %} {% load static %} 
+
+{% block title %} {{user.username}} | Dashboard | Wishlist {% endblock %} 
+{% block content %}
     <link rel="stylesheet" href=" {% static 'assets/css/user/dashboard.css' %}" />
     
     <main class="dashboad-main">
       <aside class="dashboard-left-side">
         <ul>
           <li>
-            <a class="tab-link" data-tab="{% url 'dashboard' %}">My Account</a>
+            <a class="tab-link" href="{% url 'dashboard' %}">My Account</a>
           </li>
           <li>
-            <a class="tab-link" data-tab="{% url 'place_order' %}">My orders</a>
+            <a href="{% url 'place_order' %}" class="tab-link" >My orders</a>
           </li>
           <li>
-            <a class="tab-link" href="#' %}" data-tab="{% url 'wishlist' %}">Wishlist</a
+            <a class="tab-link" href="{% url 'wishlist' %}">Wishlist</a
             >
           </li>
           <!-- <li><a class="tabs-link tabs{% if request.path == '/wishlist' %} active {% endif %}" href="{% url 'wishlist' %}">Wishlist</a></li> -->
