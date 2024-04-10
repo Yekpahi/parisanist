@@ -6,22 +6,9 @@
     
     <main class="dashboad-main">
       <aside class="dashboard-left-side">
-        <ul>
-          <li>
-            <a class="tab-link" href="{% url 'dashboard' %}">My Account</a>
-          </li>
-          <li>
-            <a href="{% url 'place_order' %}" class="tab-link" >My orders</a>
-          </li>
-          <li>
-            <a class="tab-link" href="{% url 'wishlist' %}">Wishlist</a
-            >
-          </li>
-          <!-- <li><a class="tabs-link tabs{% if request.path == '/wishlist' %} active {% endif %}" href="{% url 'wishlist' %}">Wishlist</a></li> -->
-          <li>
-            <a class="tab-link" href="#">Address</a>
-          </li>
-        </ul>
+      <!-- Dashboard nav -->
+      {% include './include/dashboard_nav.html' %}
+      <!-- End Dashboard nav -->
       </aside>
       <aside class="dashboard-right-side">
         <div class="dashboard-right-contents" id="dashboard-right-contents">

@@ -19,22 +19,29 @@
       </tr>
 
       <!-- One Product -->
+      {% for order in orders %}
       <tr class="db-orders-contents">
-        <td>#A12365B452A</td>
+        <td>#{{ order.order_number }}</td>
+
+        {% for order_product in order.orderproduct_set.all %}
         <td class="db-product-name-and-image">
           <ul>
             <li class="db-product-image">
-              <img src="{% static 'assets/imgs/MQ14.jpg' %}" alt="" />
+              {% for image in order_product.product.photos.all %} 
+              {% if image.is_feature %}
+              <img src="{{ image.product_image.url }}" alt="" />
+              {% endif %} {% endfor %}
             </li>
-            <li class="db-product-name">Rosa del Pack</li>
+            <li class="db-product-name">{{ order_product.product.product_name }}</li>
           </ul>
         </td>
-        <td>1 rue Ingres, Le Blanc-Mesnil - 93150</td>
-        <td>1 january 2024</td>
-        <td>1500 Eur</td>
+        {% endfor %}
+        <td>{{ order.address_line_1 }} {{ order.address_line_2 }}, {{ order.city }} - {{ order.postcode }}, {{ order.country }}</td>
+        <td>{{ order.created_at }}</td>
+        <td>{{ order.order_total }} Eur</td>
         <td>
           <span class="db-status-td" style="color: rgb(7, 100, 7)"
-            >Complete</span
+            >{{ order.status }}</span
           >
         </td>
         <td class="db-see-product">
@@ -43,34 +50,9 @@
           >
         </td>
       </tr>
+      {% endfor %}
       <!-- End One Product -->
 
-      <!-- One Product -->
-      <tr class="db-orders-contents">
-        <td>#B12165T45G</td>
-        <td class="db-product-name-and-image">
-          <ul>
-            <li class="db-product-image">
-              <img src="{% static 'assets/imgs/MQ4.jpg' %}" alt="" />
-            </li>
-            <li class="db-product-name">Binto Golo</li>
-          </ul>
-        </td>
-        <td>1 rue Ingres, Le Blanc-Mesnil - 93150</td>
-        <td>4 July 2024</td>
-        <td>8500 Eur</td>
-        <td>
-          <span class="db-status-td" style="color: rgb(23, 76, 248)"
-            >Pending</span
-          >
-        </td>
-        <td class="db-see-product">
-          <a href=""
-            ><span class="material-symbols-outlined"> visibility </span></a
-          >
-        </td>
-      </tr>
-      <!-- End One Product -->
     </table>
   </li>
 </ul>
