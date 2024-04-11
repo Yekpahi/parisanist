@@ -357,6 +357,7 @@ def paypal_payment(request):
 
 
 def place_order(request, total=0, quantity=0):
+    
     pub_key = settings.STRIPE_PUBLIC_KEY
     current_user = request.user
     cart_items = CartItem.objects.filter(user=current_user)
@@ -377,9 +378,34 @@ def place_order(request, total=0, quantity=0):
     taxdhl = 50
     grand_total = round((total + tax), 2)
     grand_total_dhl += grand_total + taxdhl
+    
+    #Only for local 
+    if settings.DEBUG:
+                # Utilisation de l'API ipify pour obtenir une adresse IP publique
+            response = requests.get('https://api.ipify.org?format=json')
+            if response.status_code == 200:
+                ip_data = response.json()
+                user_ip = ip_data.get('ip')
+            else:
+                    # Fallback à une adresse IP locale si l'appel à l'API échoue
+                user_ip = '127.0.0.1'
+    else:
+        user_ip = request.META.get('REMOTE_ADDR')
+    #And only for local
+    
+    #active for production
+    # user_ip = request.META.get('REMOTE_ADDR', '')
+    #End active for production
+    
+    g = GeoIP2()
+    user_country = None
+    try:
+        user_country = g.country_code(user_ip)
+    except Exception as e:
+        print("Error determining user location:", e)
 
     if request.method == 'POST':
-        orderform = OrderForm(request.POST)
+        orderform = OrderForm(request.POST, user_country=user_country)
         if orderform.is_valid():
             # data = Order()
             data = orderform.save(commit=False)
@@ -401,28 +427,6 @@ def place_order(request, total=0, quantity=0):
             data.tax = tax
             data.ip = request.META.get('REMOTE_ADDR')
             # Utilisez une adresse IP spécifique pour simuler la localisation
-            if settings.DEBUG:
-                # Utilisation de l'API ipify pour obtenir une adresse IP publique
-                response = requests.get('https://api.ipify.org?format=json')
-                if response.status_code == 200:
-                    ip_data = response.json()
-                    user_ip = ip_data.get('ip')
-                else:
-                    # Fallback à une adresse IP locale si l'appel à l'API échoue
-                    user_ip = '127.0.0.1'
-            else:
-                user_ip = request.META.get('REMOTE_ADDR')
-
-            g = GeoIP2()
-            try:
-                user_country = g.country_code(user_ip)
-                print(user_country)
-                if user_country == 'FR':
-                    orderform.fields['delivery_method'].initial = 'Colissimo'
-                else:
-                    orderform.fields['delivery_method'].initial = 'DHL'
-            except Exception as e:
-                print("Error determining user location:", e)
 
             # Déterminer le service de livraison en fonction de la localisation de l'utilisateur
             # user_ip = request.META.get('REMOTE_ADDR')
@@ -475,7 +479,7 @@ def place_order(request, total=0, quantity=0):
                 return render(request, 'orders/payments.html', context)
 
     else:
-        orderform = OrderForm()
+        orderform = OrderForm(user_country=user_country)
 
     context = {
         'orderform': orderform,
