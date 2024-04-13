@@ -54,9 +54,14 @@
 
           <div class="image-container">
             <!-- Selection the one image which is feature -->
-            {% for image in item.product.photos.all %} {% if image.is_feature %}
-            <img src="{{ image.product_image.url }}" alt="" />
-            {% endif %} {% endfor %}
+       
+            {% for variation in item.variations.all %}
+            {% with variation.variationimages_set.first as first_image %}
+                {% if first_image %}
+                    <img src="{{ first_image.variation_image.url }}" alt="{{ first_image.title }}">
+                {% endif %}
+            {% endwith %}
+        {% endfor %}
             <!-- Selection the one image which is feature -->
           </div>
           <!-- End cart image -->

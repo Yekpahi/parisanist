@@ -206,6 +206,22 @@ text-decoration: none;
   width: 30px;
 }
 
+/* Product available */
+
+.available_message {
+  margin-top: 5px;
+display: flex;
+justify-content: center;
+}
+
+.available_message > span {
+  background-color: red;
+  padding: 5px;
+  color: aliceblue;
+}
+
+
+
 /* Responsive */
 
 @media screen and (max-width:1500px){

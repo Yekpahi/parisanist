@@ -14,9 +14,6 @@
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <section class="main-details-container">
   <!-- Start Left details elements -->
-
-
-
   <div class="left-details-container">
     <div class="swiper mySwiper">
       <div class="swiper-wrapper">
@@ -39,15 +36,6 @@
         {% csrf_token %}
         <ul>
           <li class="product-name">{{single_product.product_name}}</li>
-          <li>
-            {% if messages %}
-          <div class="alert alert-warning" role="alert" id="error-message">
-              {% for message in messages %}
-                  {{ message }}
-              {% endfor %}
-          </div>
-          {% endif %}
-        </li>
           <li class="variant-colors">
             <div class="color-choice">
               {% for color in colors %}
@@ -82,7 +70,6 @@
               {% endfor %}
             </div>
           </li>
-
 
           <!-- Select colors and sizes -->
 

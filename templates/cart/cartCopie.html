@@ -10,18 +10,6 @@
 <section class="main">
   <!-- cart label -->
   <p class="shopping-cart-title">Shopping cart</p>
-
-    {% if messages %}
-  <div class="available_message" role="alert" id="error-message">
-      {% for message in messages %}
-      <span>
-        {{ message }}
-      </span>
-         
-      {% endfor %}
-  </div>
-  {% endif %}
-
   <!-- End cart label -->
   {% if not cart_items %}
 
@@ -54,7 +42,7 @@
         <!-- cart image -->
 
         <div class="image-container">
-          <!-- Selection the one image which is feature -->
+          <!-- Select the first image from cart_item.product.photos.all -->
           {% for variation in cart_item.variations.all %}
           {% with variation.variationimages_set.first as first_image %}
               {% if first_image %}
@@ -62,8 +50,7 @@
               {% endif %}
           {% endwith %}
       {% endfor %}
-          <!-- Selection the one image which is feature -->
-        </div>
+      </div>
         <!-- End cart image -->
 
         <!-- Right informations -->
@@ -99,7 +86,7 @@
             <li class="add-cart">
               <form
                 class="form"
-                action="{% url 'increment_quantity' cart_item.product.id %}"
+                action="{% url 'add_to_cart' cart_item.product.id %}"
                 method="POST"
               >
                 {% csrf_token %} 
@@ -122,7 +109,6 @@
                 </button>
               </form>
             </li>
-          
             <li class="delete">
               <a
                 href="{% url 'remove_cart_item' cart_item.product.id cart_item.id %}"
