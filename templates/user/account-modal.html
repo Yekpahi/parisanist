@@ -18,7 +18,7 @@
         toute confiance
       </li>
 
-      <li class="users-elements"><a href="">MY ORDERS</a></li>
+      <li class="users-elements"><a href="{% url 'my_orders' %}">MY ORDERS</a></li>
       <li class="users-elements"><a href = "{% url 'dashboard' %}">USER ACCOUNT</a></li>
       {% if user.is_superuser  %}
       <li class="users-elements"><a href="{% url 'admin:index' %}">ADMINISTRATOR ACCOUNT</a></li>

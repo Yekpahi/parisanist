@@ -96,7 +96,15 @@ class Order(models.Model):
             send_mail(subject, '', settings.DEFAULT_FROM_EMAIL,
                       [self.email], html_message=message)
             print(message)
+        if old_status != 'Completed' and self.status == 'Completed' and self.tracking_number:
+            subject = 'Votre commande a été livré'
+            message = render_to_string(
+                'orders/emails/delivery_confirmed_email.html', {'order': self})
+            send_mail(subject, '', settings.DEFAULT_FROM_EMAIL,
+                      [self.email], html_message=message)
+            print(message)
         # Ajuster la méthode de livraison pour les commandes en France
+        
        
         if self.country == 'France' and not self.pk:
             self.delivery_method = 'Colissimo'

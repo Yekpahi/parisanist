@@ -27,10 +27,14 @@
         <td class="db-product-name-and-image">
           <ul>
             <li class="db-product-image">
-              {% for image in order_product.product.photos.all %} 
-              {% if image.is_feature %}
-              <img src="{{ image.product_image.url }}" alt="" />
-              {% endif %} {% endfor %}
+              {% for variation in order_product.variations.all %}
+              {% with variation.variationimages_set.first as first_image %}
+                  {% if first_image %}
+                      <img src="{{ first_image.variation_image.url }}" alt="{{ first_image.title }}">
+                  {% endif %}
+              {% endwith %}
+          {% endfor %}
+
             </li>
             <li class="db-product-name">{{ order_product.product.product_name }}</li>
           </ul>

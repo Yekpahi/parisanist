@@ -12,9 +12,8 @@ body {
 /* End swiper part */
 
 .main-details-container {
-  width: 100%;
   display: flex;
-  justify-content: space-between;
+
 }
 
 /* Lef detail container */
@@ -68,37 +67,39 @@ body {
   margin-right: 30px;
 }
 
+
+
+
 /* Right detail elements */
 
 .right-details-container {
+  margin-right: 50px;
+  margin-left: 50px;
   width: 50%;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
-
-.form-container > form > ul {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .product-name {
   font-size: 18px;
   margin-bottom: 50px;
+}
+.form-container > form > ul {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Start input radio design (Size) */
 
 .size-container {
+  background-color: red;
   display: flex;
   margin-bottom: 50px;
+  justify-content: center;
 }
 
 .size-container .sizebox {
   position: relative;
-  margin-right: 20px;
+  margin-right: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -106,9 +107,17 @@ body {
 
 .size-container .sizebox > .choose-size {
   border: none;
-  background-color: aliceblue;
   position: absolute;
+  background-color: rgb(249, 234, 234);
   text-transform: uppercase;
+  padding: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+ font-size: 0.9em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .size-container .sizebox > input[type="radio"] {
   position: absolute;
@@ -154,8 +163,8 @@ body {
 
 .variant-colors .color-container .colorbox .choose-color {
   cursor: pointer;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   position: absolute;
   transition: all 0.5s ease-in-out;
@@ -163,8 +172,8 @@ body {
 
 .colorbox > input[type="radio"] {
   z-index: 1;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   position: absolute;
   opacity: 0;
@@ -226,7 +235,6 @@ body {
 /* Details cleaning*/
 
 .details-cleaning {
-  width: 50%;
   margin-top: 50px;
   display: flex;
   flex-direction: column;
@@ -234,9 +242,7 @@ body {
 }
 
 .details-cleaning .tabs {
-  width: 100%;
   display: flex;
-  justify-content: center;
   /* overflow: hidden; */
 }
 
@@ -258,6 +264,7 @@ body {
   position: absolute;
 }
 
+
 #detailsId {
   opacity: 1;
  
@@ -278,13 +285,10 @@ margin-bottom: 15px;
 /* Add to cart */
 
 .focused {
-  outline: 0 !important;
-  box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%) !important;
+  border: 50px solid #000000; /* bleu par défaut */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
 }
 
-.activate {
-  font-weight: bolder;
-}
 
 /* En add to cart */
 
@@ -297,12 +301,12 @@ margin-bottom: 15px;
 
   .main-details-container .left-details-container {
     width: 100%;
-    height: 100%;
     background-color: aqua;
   }
 
   .right-details-container {
-    width: 100%;
-    padding: 50px 20px 10px 50px;
+    width: 85%;
+    margin-bottom: 50px;
+   
   }
 }

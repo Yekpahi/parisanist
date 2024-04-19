@@ -355,7 +355,6 @@ def paypal_payment(request):
 
 # Orders
 
-
 def place_order(request, total=0, quantity=0):
     
     pub_key = settings.STRIPE_PUBLIC_KEY

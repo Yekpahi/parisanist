@@ -22,10 +22,10 @@
       
     <div class="db-one-item">
       {% for image in wl.product.photos.all %}
-      {% if image.is_feature %}
-      <img src="{{image.product_image.url}}" alt="" />
+      {% if forloop.first %}
+        <img src="{{ image.product_image.url }}" alt="" />
       {% endif %}
-      {% endfor %}
+    {% endfor %}
       <div
         class="db-others-infos"
         onmouseover="chargeOpacity(this)"

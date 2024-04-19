@@ -16,7 +16,7 @@ Site officiel {% endblock %} {% block content %}
   crossorigin="anonymous"
   referrerpolicy="no-referrer"
 ></script>
-
+<div class="carousel-images-container ">
   <div class="swiper mySwiper">
     <div class="swiper-wrapper {% if forloop.counter0 == 0 %} active {% endif %}">
       {% for cat in catlinks %}
@@ -33,7 +33,9 @@ Site officiel {% endblock %} {% block content %}
     <div class="swiper-button-next swiper-arrow"></div>
     <div class="swiper-button-prev swiper-arrow"></div>
   </div>
+
 </div>
+
 <!--END OF SLIDER-->
 <!-- Start FOOTER -->
 <!-- End FOOTER -->

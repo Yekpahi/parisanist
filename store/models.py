@@ -86,9 +86,8 @@ class Variation(models.Model):
 class VariationImages(models.Model):
     title = models.CharField(max_length=500, blank=True, null = True)
     variation = models.ForeignKey(Variation, on_delete=models.CASCADE)
-    variation_image = models.ImageField(upload_to='stactic/variation_images/', verbose_name=("variation_image"))
+    variation_image = models.ImageField(upload_to='static/variation_images/', verbose_name=("variation_image"))
     variation_image_slug = models.SlugField(null=True, blank=True)
-    is_feature=models.BooleanField(default=False)
     def __str__(self):
         return str(self.title)  # on met str(...) pour convertir en string
 
@@ -109,9 +108,8 @@ class Photo(models.Model):
     product = models.ForeignKey(
         Product, on_delete=models.CASCADE, related_name='photos')
     # photo_name = models.ImageField(upload_to='stactic/photos/', verbose_name=("image"))
-    product_image = models.ImageField(upload_to='stactic/photos/', verbose_name=("image"))
+    product_image = models.ImageField(upload_to='static/photos/', verbose_name=("image"))
     photo_slug = models.SlugField(null=True, blank=True)
-    is_feature=models.BooleanField(default=False)
     def __str__(self):
         return str(self.product_image)  # on met str(...) pour convertir en string
 

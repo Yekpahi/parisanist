@@ -16,5 +16,10 @@
       <li>
         <a class="tab-link {% if '/edit_profile/' in request.path %}activate{% endif %}" href="{% url 'edit_profile' %}">Edit Profile</a>
       </li>
+<li>
+  <a class="tab-link {% if '/change_password/' in request.path %}activate{% endif %}" href="{% url 'change_password' %}"> Change Password </a>
+
+</li>
+
     </ul>
    

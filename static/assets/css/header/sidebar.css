@@ -90,9 +90,7 @@
 .sidebar-cat-men-women .sidebar-cat-men-women-title {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
-  border-bottom: 1px solid black;
-  padding-bottom: 5px;
+
 }
 
 .sidebar-cat-men-women .sidebar-cat-men-women-title > li > a {
@@ -120,9 +118,10 @@
 
 /* sidebar about */
 .sidebar-about {
+  margin-top: 10px;
   margin-bottom: 30px;
   border-bottom: 1px solid black;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
 }
 
 .sidebar-about > a {
@@ -178,9 +177,27 @@
 }
 /* Search bar in sidebar */
 
-/* sidebar favorite and  counter */
+/* sidebar favorite and  counter  and account*/
+
+.sidebar-search {
+  cursor: pointer;
+}
+.sidebar-search > img{
+  width: 20px;
+}
+
+.account {
+  cursor: pointer;
+}
+.account > a > img {
+  width: 20px;
+}
 .sidebar-favorite {
   cursor: pointer;
+}
+
+.sidebar-favorite > a > img{
+  width: 20px;
 }
 .sidebar-favorite-counter {
   height: 18px;
@@ -190,7 +207,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translate(15px, -38px);
+  transform: translate(20px, -40px);
   padding: 5px;
 }
 
@@ -204,6 +221,10 @@
 .sidebar-basket {
   cursor: pointer;
 }
+
+.sidebar-basket > a > img{
+  width: 20px;
+}
 .sidebar-basket-counter {
   height: 18px;
   width: 18px;
@@ -212,7 +233,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transform: translate(15px, -38px);
+  transform: translate(20px, -40px);
   padding: 5px;
 }
 
@@ -223,6 +244,35 @@
 /* End sidebar basket and  counter */
 
 /* Sidebar search */
+
+
+.sidebar_user_info {
+  margin-top: 50px;
+}
+
+
+.sidebar_user_info > ul {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.sidebar_user_info > ul > li{
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  margin-bottom: 15px;
+}
+
+.sidebar_user_info > ul > li > a{
+  text-decoration: none;
+  color: black;
+}
+.sidebar_user_info > ul > li > img{
+  width:20px;
+  margin-right: 15px;
+}
+
 
 /* Responsive  */
 

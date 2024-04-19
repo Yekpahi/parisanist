@@ -38,7 +38,7 @@
     </div>
     <ul class="right-elements">
       <!-- Start search icon -->
-      <li class="right search-btn hideOnMobile" id="search-modal-btn-id">
+      <li class="right search-btn" id="search-modal-btn-id">
         <img src="{% static 'assets/imgs/search.png' %}" alt="" />
       </li>
       <!-- End search icon -->
@@ -48,10 +48,8 @@
         <img src="{% static 'assets/imgs/userauth.png' %}" alt="" />
       </li>
       <!-- End account modal icon -->
-
-
       <!-- favorite icon -->
-      <li class="right favorite hideOnMobile">
+      <li class="right favorite">
         <a href="{% url 'wishlist' %}">
           <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
           <div id="wishlist-counter" class="favorite-counter"><span>{{ wishlist_count }}</span></div>
@@ -59,7 +57,7 @@
       </li>
       <!-- End favorite icon -->
       <!-- basket icon -->
-      <li class="right basket hideOnMobile">
+      <li class="right basket">
         <a href="{% url 'cart' %}">
           <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
           <div class="basket-counter"><span>{{cart_count}}</span></div>
@@ -74,10 +72,10 @@
       </li>
       <!-- Start account modal icon -->
       
-      <li class="right favorite hideOnMobile">
+      <li class="right">
         <img src="{% static 'assets/imgs/favorite.png' %}" alt="" />
       </li>
-      <li class="right basket hideOnMobile">
+      <li class="right basket">
         <img src="{% static 'assets/imgs/basket.png' %}" alt="" />
       </li>
       {% endif %}

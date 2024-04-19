@@ -1,4 +1,13 @@
+
+body {
+width: 100vw;
+height: 100vh;
+}
+
+
 .carousel-images-container {
+  width:100%;
+  background-color: bisque;
   height: 1000px;
 }
 /* Swiper carousel part */
